@@ -1,2 +1,2 @@
-# ng-md-gae-boilerplate
+# ng-md-gae-boilerplate - yay!
 Angular Material GAE Boilerplate
