@@ -3,13 +3,14 @@
 
 <head>
     <title>Project</title>
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css">
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
 </head>
 
-<body>
-    <div ng-app="project">
+<body ng-app="project">
+    <div layout="column" layout-padding>
         <h2>JavaScript Projects</h2>
+    </div>
+    <div layout="column" layout-fill ng-app="project">
         <div ng-view></div>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.min.js"></script>
@@ -19,7 +20,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.5.0/angular-material-icons.min.js"></script>
-
         <script src="project/project.js"></script>
         <script src="project/datastore.js"></script>
     </div>

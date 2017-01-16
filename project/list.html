@@ -1,35 +1,29 @@
-<input type="text" ng-model="search" class="search-query" placeholder="Search">
-<table>
-    <thead>
-        <tr>
-            <th>Project</th>
-            <th>Description</th>
-            <th><a href="#/new"><i class="icon-plus-sign"></i></a></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="project in projects | filter:search | orderBy:'name'">
-            <td><a href="{{project.site}}" target="_blank">{{project.name}}</a></td>
-            <td>{{project.description}}</td>
-            <td>
-                <a href="#/edit/{{project.id}}"><i class="icon-pencil"></i></a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<md-content>
-    <md-list flex>
-        <md-subheader class="md-no-sticky">Search results</md-subheader>
-        <md-list-item class="md-3-line" ng-repeat="project in projects | filter:search | orderBy:'name'" ng-click="null">
-            <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
-            <div class="md-list-item-text" layout="column">
-                <h3><a href="{{project.site}}" target="_blank">{{project.name}}</a></h3>
-                <h4>{{project.description}}</h4>
-            </div>
-            <md-button href="#/edit/{{project.id}}" class="md-secondary md-icon-button" ng-click="doSecondaryAction($event)" aria-label="call">
-                <ng-md-icon icon="edit" style="fill:black;"></ng-md-icon>
-            </md-button>        <md-divider></md-divider>
-
-        </md-list-item>
-    </md-list>
-</md-content>
+<div layout="column" layout-fill>
+    <md-content layout="row" layout-padding>
+        <div>
+            <md-input-container>
+                <label>Search</label>
+                <input ng-model="search">
+            </md-input-container>
+        </div>
+    </md-content>
+    <md-content>
+        <md-list flex>
+            <md-subheader class="md-no-sticky">Search results</md-subheader>
+            <md-list-item class="md-3-line" ng-repeat="project in projects | filter:search | orderBy:'name'" ng-click="null">
+                <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+                <div class="md-list-item-text" layout="column">
+                    <h3><a href="{{project.site}}" target="_blank">{{project.name}}</a></h3>
+                    <h4>{{project.description}}</h4>
+                </div>
+                <md-button href="#/edit/{{project.id}}" class="md-secondary md-icon-button" aria-label="call">
+                    <ng-md-icon icon="edit" style="fill:black;"></ng-md-icon>
+                </md-button>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+    </md-content>
+    <md-button class="md-primary md-fab md-fab-bottom-right" href="#/new">
+        <ng-md-icon icon="add" style="fill:white;"></ng-md-icon>
+    </md-button>
+</div>
