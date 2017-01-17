@@ -1,6 +1,8 @@
 import webapp2
 import json
 from google.appengine.ext import ndb
+import logging
+from google.appengine.ext import blobstore
 
 
 class Project(ndb.Model):
@@ -34,6 +36,7 @@ class Rest(webapp2.RequestHandler):
             item.put()
 
     def get(self):
+
         #pop off the script name ('/api')
         self.request.path_info_pop()
         #forget about the leading '/' and seperate the Data type and the ID
@@ -41,10 +44,16 @@ class Rest(webapp2.RequestHandler):
         #If no ID, then we will return all objects of this type
         if len(split) == 1:
             everyItem = []
-            for item in globals()[split[0]].query():
-                item_dict = item.to_dict()
-                item_dict['id'] = item.key.id()
+            if split[0] == 'Upload':
+                url = blobstore.create_upload_url('/upload_photo')
+                item_dict = {}
+                item_dict['upload_url'] = url
                 everyItem.append(item_dict)
+            else:
+                for item in globals()[split[0]].query():
+                    item_dict = item.to_dict()
+                    item_dict['id'] = item.key.id()
+                    everyItem.append(item_dict)
             #Write JSON back to the client
             self.response.write(json.dumps(everyItem))
         else:
