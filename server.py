@@ -71,20 +71,18 @@ class Rest(webapp2.RequestHandler):
         split = self.request.path_info[1:].split('/')
         ndb.Key(split[0], int(split[1])).delete()
 
+class UserPhoto(ndb.Model):
+    blob_key = ndb.BlobKeyProperty()
+
 class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         try:
-            logging.info('(1)')
             upload = self.get_uploads()[0]
             user_photo = UserPhoto(
-                user=users.get_current_user().user_id(),
                 blob_key=upload.key())
             user_photo.put()
-
-            self.redirect('/view_photo/%s' % upload.key())
-
+            self.response.write(json.dumps({'url':'/view_photo/%s' % upload.key()}))
         except:
-            logging.info('(2)')
             self.error(500)
 
 class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):

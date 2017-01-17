@@ -27,6 +27,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngRoute', 'ngMdIcons'])
     })
     .controller('EditCtrl', function($scope, $location, $routeParams, Project, UploadResource, $http) {
         $scope.upload_url = UploadResource.query();
+        $scope.link_url = '';
 
         var self = this;
         Project.get({ id: $routeParams.projectId }, function(project) {
@@ -56,35 +57,18 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngRoute', 'ngMdIcons'])
             fd.append('file', file);
             $http.post($scope.upload_url[0].upload_url, fd, {
                     transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
+                    headers: {
+                        'Content-Type': undefined
+                        //'Content-Type': 'multipart/form-data'
+                    }
                 })
-                .success(function() {
+                .success(function(data) {
                     console.log('success');
+                    $scope.link_url = data.url;
                 })
                 .error(function(data, status) {
                     console.log('error');
                 });
-
-/*
-            $http({
-                    method: 'POST',
-                    url: $scope.upload_url[0].upload_url,
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    },
-                    data: {
-                        email: 'email',
-                        token: 'token',
-                        upload: file
-                    }
-
-                })
-                .success(function(data) {
-                    console.log('success');
-                })
-                .error(function(data, status) {
-                    console.log('error');
-                });*/
         }
     })
     .directive('customOnChange', function() {

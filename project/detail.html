@@ -42,8 +42,13 @@
             Delete
         </md-button>
     </div>
+    <div layout="row">
+        <div layout-margin layout-padding>
+            <input class="ng-hide" id="input-file-id" type="file" custom-on-change="uploadFile" />
+            <label for="input-file-id" class="md-button">Choose File</label>
+        </div>
+        <md-button ng-if="link_url" class="md-primary" ng-href="{{link_url}}" download="proposed_file_name">
+            Download
+        </md-button>
+    </div>
 </md-content>
-<div layout-margin layout-padding>
-    <input class="ng-hide" id="input-file-id" type="file" custom-on-change="uploadFile"/>
-    <label for="input-file-id" class="md-button">Choose File</label>
-</div>
