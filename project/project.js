@@ -25,7 +25,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngRoute', 'ngMdIcons'])
             });
         }
     })
-    .controller('EditCtrl', function($scope, $location, $routeParams, Project, UploadResource) {
+    .controller('EditCtrl', function($scope, $location, $routeParams, Project, UploadResource, $http) {
         $scope.upload_url = UploadResource.query();
 
         var self = this;
@@ -45,5 +45,59 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngRoute', 'ngMdIcons'])
             $scope.project.update(function() {
                 $location.path('/');
             });
+        };
+        $scope.uploadFile = function(event) {
+            console.log('uploadFile');
+            var files = event.target.files;
+            var file = files[0];
+
+            var fd = new FormData();
+
+            fd.append('file', file);
+            $http.post($scope.upload_url[0].upload_url, fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                .success(function() {
+                    console.log('success');
+                })
+                .error(function(data, status) {
+                    console.log('error');
+                });
+
+/*
+            $http({
+                    method: 'POST',
+                    url: $scope.upload_url[0].upload_url,
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    data: {
+                        email: 'email',
+                        token: 'token',
+                        upload: file
+                    }
+
+                })
+                .success(function(data) {
+                    console.log('success');
+                })
+                .error(function(data, status) {
+                    console.log('error');
+                });*/
+        }
+    })
+    .directive('customOnChange', function() {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                var onChangeHandler = scope.$eval(attrs.customOnChange);
+                element.bind('change', onChangeHandler);
+            }
+        };
+    })
+    .controller('myCtrl', function($scope) {
+        $scope.uploadFile = function(event) {
+            var files = event.target.files;
         };
     });

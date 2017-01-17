@@ -43,4 +43,7 @@
         </md-button>
     </div>
 </md-content>
-{{upload_url}}
+<div layout-margin layout-padding>
+    <input class="ng-hide" id="input-file-id" type="file" custom-on-change="uploadFile"/>
+    <label for="input-file-id" class="md-button">Choose File</label>
+</div>

@@ -3,7 +3,7 @@ import json
 from google.appengine.ext import ndb
 import logging
 from google.appengine.ext import blobstore
-
+from google.appengine.ext.webapp import blobstore_handlers
 
 class Project(ndb.Model):
     name = ndb.StringProperty(required=True);
@@ -71,6 +71,33 @@ class Rest(webapp2.RequestHandler):
         split = self.request.path_info[1:].split('/')
         ndb.Key(split[0], int(split[1])).delete()
 
+class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
+    def post(self):
+        try:
+            logging.info('(1)')
+            upload = self.get_uploads()[0]
+            user_photo = UserPhoto(
+                user=users.get_current_user().user_id(),
+                blob_key=upload.key())
+            user_photo.put()
 
-app = webapp2.WSGIApplication([('/api.*', Rest)], debug=True)
+            self.redirect('/view_photo/%s' % upload.key())
+
+        except:
+            logging.info('(2)')
+            self.error(500)
+
+class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
+    def get(self, photo_key):
+        logging.info('(3)')
+        if not blobstore.get(photo_key):
+            self.error(404)
+        else:
+            self.send_blob(photo_key)
+
+app = webapp2.WSGIApplication([
+    ('/api.*', Rest),
+    ('/upload_photo', PhotoUploadHandler),
+    ('/view_photo/([^/]+)?', ViewPhotoHandler),
+], debug=True)
 
