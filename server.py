@@ -86,12 +86,36 @@ class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
             self.error(500)
 
 class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
-    def get(self, photo_key):
-        logging.info('(3)')
-        if not blobstore.get(photo_key):
+    def get(self, blob_key):
+
+        logging.info('(Start)')
+        """"
+        <version>0.3.9</version>
+        <unit>cm</unit>
+        <author>Timo Virtaneva</author>
+        <description>This trouser pattern is suitable for women and men for short and long trousers.
+            There are 2 pleats possible.
+            No back pockets.
+        All needed parameters are in variable table.
+        Check and adjust *** CHECK *** increments
+        </description>
+
+        <notes>The waist band is 2 parts to support adjustable back seam.
+        Delete the unneeded layouts.
+        Pockets are adjustable.</notes>
+
+        <measurements>trousers.vit</measurements>
+        """
+        blob_reader = blobstore.BlobReader(blob_key)
+        for line in blob_reader:
+            if "<description>" in line:
+                logging.info('>>> {}'.format(line))
+
+        logging.info('(End)')
+        if not blobstore.get(blob_key):
             self.error(404)
         else:
-            self.send_blob(photo_key)
+            self.send_blob(blob_key)
 
 app = webapp2.WSGIApplication([
     ('/api.*', Rest),
