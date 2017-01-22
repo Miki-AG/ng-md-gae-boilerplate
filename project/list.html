@@ -1,8 +1,23 @@
+<md-toolbar class="yellow-bar">
+    <div class="md-toolbar-tools">
+        <h2>Patterns</h2>
+        <span flex=""></span>
+        <md-button class="md-secondary md-hue-2 md-raised" href="#/new">
+            Upload new pattern
+        </md-button>
+        <md-button ng-href="https://www.facebook.com/UgeApp/" class="md-icon-button" aria-label="More">
+            <ng-md-icon icon="facebook" class="ng-md-icon-centered" style="fill:white"></ng-md-icon>
+        </md-button>
+        <md-button ng-href="https://twitter.com/UgeApp" class="md-icon-button" aria-label="More">
+            <ng-md-icon icon="twitter" class="ng-md-icon-centered" style="fill:white"></ng-md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
 <div layout="column" layout-fill>
     <md-content layout="row" layout-padding>
         <div>
             <md-input-container>
-                <label>Search</label>
+                <label>Search for patterns</label>
                 <input ng-model="search">
             </md-input-container>
         </div>
@@ -11,7 +26,6 @@
         <md-list flex>
             <md-subheader class="md-no-sticky">Search results</md-subheader>
             <md-list-item class="md-3-line" ng-repeat="project in projects | filter:search | orderBy:'name'" ng-click="null">
-                <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
                 <div class="md-list-item-text" layout="column">
                     <h3><a href="{{project.site}}" target="_blank">{{project.name}}</a></h3>
                     <h4>{{project.description}}</h4>
@@ -23,8 +37,4 @@
             </md-list-item>
         </md-list>
     </md-content>
-    <md-button class="md-primary md-fab md-fab-bottom-right" href="#/new">
-        <ng-md-icon icon="add" style="fill:white;"></ng-md-icon>
-    </md-button>
-
 </div>

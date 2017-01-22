@@ -1,0 +1,6 @@
+<div layout="row" class="tags-container">
+    <p>
+        <span ng-if="tagsCtrl.tagTypeTitle" class="tag-title">{{tagsCtrl.tagTypeTitle}}</span>
+        <tag ng-repeat="tag in tagsCtrl.tags" tag="tag"></tag>
+    </p>
+</div>

@@ -1,0 +1,42 @@
+tags p {
+    margin: 0;
+}
+
+tags .tags-container {
+    margin: 0px 8px 0px 8px;
+}
+
+.tag-title {
+    bottom: 0px;
+    color: rgb(66, 66, 66);
+    display: block;
+    float: left;
+    margin: 8px 8px 0px 0px;
+    /*padding: 0px 12px;*/
+
+    font: normal normal normal normal 16px / 24px Roboto, "Helvetica Neue", sans-serif;
+    height: 24px;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+tag {
+    background: rgb(224, 224, 224);
+    border-radius: 16px 16px 16px 16px;
+    bottom: 0px;
+    color: rgb(66, 66, 66);
+    display: block;
+    float: left;
+    height: 24px;
+    margin: 8px 8px 0px 0px;
+    padding: 0px 12px;
+}
+
+tag span {
+    font: normal normal normal normal 16px / 24px Roboto, "Helvetica Neue", sans-serif;
+    height: 24px;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
