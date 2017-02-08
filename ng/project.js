@@ -3,15 +3,15 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngRoute', 'ngMdIcons'])
         $routeProvider
             .when('/', {
                 controller: 'ListCtrl',
-                templateUrl: 'project/list.html'
+                templateUrl: 'ng/list.html'
             })
             .when('/edit/:projectId', {
                 controller: 'EditCtrl',
-                templateUrl: 'project/detail.html'
+                templateUrl: 'ng/detail.html'
             })
             .when('/new', {
                 controller: 'CreateCtrl',
-                templateUrl: 'project/detail.html'
+                templateUrl: 'ng/detail.html'
             })
             .otherwise({ redirectTo: '/' });
     })
