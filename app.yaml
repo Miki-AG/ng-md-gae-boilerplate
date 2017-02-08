@@ -3,12 +3,22 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /(robots\.txt|favicon\.ico|sitemap\.txt|index\.html|*\.css)
+- url: /(robots\.txt|favicon\.ico|sitemap\.txt|index\.html)
   static_files: static/\1
   upload: static/(.*)
 
-- url: /app
-  static_dir: app
+- url: /(.*\.(gif|png|jpg))$
+  static_files: static/img/\1
+  upload: static/img/.*\.(gif|png|jpg)$
+
+- url: /(.*\.(css))$
+  static_files: static/css/\1
+  upload: static/css/.*\.(css)$
+
+- url: /project
+  static_dir: project
 
 - url: /.*
   script: server.app
+
+
