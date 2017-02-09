@@ -2,7 +2,7 @@
     <div layout="column" class="with-bg-size">
         <md-toolbar class="yellow-bar">
             <div class="md-toolbar-tools">
-                <h2>Patterns</h2>
+                <h1>Patterns</h1>
                 <span flex=""></span>
                 <md-button ng-href="https://www.facebook.com/UgeApp/" class="md-icon-button" aria-label="More">
                     <ng-md-icon icon="facebook" class="ng-md-icon-centered" style="fill:white"></ng-md-icon>
@@ -10,10 +10,19 @@
                 <md-button ng-href="https://twitter.com/UgeApp" class="md-icon-button" aria-label="More">
                     <ng-md-icon icon="twitter" class="ng-md-icon-centered" style="fill:white"></ng-md-icon>
                 </md-button>
+                <md-button class="md-raised">Sign In</md-button>
+                <md-button class="md-raised md-warn">Create Account</md-button>
             </div>
         </md-toolbar>
     </div>
-    <div layout="column" layout-fill>
+    <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab ng-repeat="garmentFamily in garmentFamilies" label="{{garmentFamily.familyName}}">
+            <md-content class="md-padding">
+                    <tags tags="garmentFamily.garments"></tags>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+    <div layout="column" layout-fill class="middle-frame">
         <div layout="row" flex layout-padding>
             <md-input-container flex class="md-icon-float md-block md-title">
                 <label>Search for patterns</label>
