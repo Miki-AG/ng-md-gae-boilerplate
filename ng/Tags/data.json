@@ -24,9 +24,240 @@
 }, {
     "familyName": "Trousers",
     "garments": [
-        { "fields": { "name": "one" } },
-        { "fields": { "name": "test" } },
-        { "fields": { "name": "test" } },
-        { "fields": { "name": "test" } }
+        { "fields": { "name": "Bell-bottoms" } },
+        { "fields": { "name": "Bermuda shorts" } },
+        { "fields": { "name": "Bondage pants" } },
+        { "fields": { "name": "Capri pants" } },
+        { "fields": { "name": "Cargo pants" } },
+        { "fields": { "name": "Chaps" } },
+        { "fields": { "name": "Cycling shorts" } },
+        { "fields": { "name": "Dress pants" } },
+        { "fields": { "name": "High water pants" } },
+        { "fields": { "name": "Lowrise pants" } },
+        { "fields": { "name": "Jeans" } },
+        { "fields": { "name": "Jodhpurs" } },
+        { "fields": { "name": "Leggings" } },
+        { "fields": { "name": "Overall" } },
+        { "fields": { "name": "Palazzo pants" } },
+        { "fields": { "name": "Parachute pants" } },
+        { "fields": { "name": "Pedal pushers" } },
+        { "fields": { "name": "Phat pants" } },
+        { "fields": { "name": "Shorts" } },
+        { "fields": { "name": "Slim-fit pants" } },
+        { "fields": { "name": "Sweatpants" } },
+        { "fields": { "name": "Windpants" } },
+        { "fields": { "name": "Yoga pants" } }
+    ]
+}, {
+    "familyName": "Skirts",
+    "garments": [
+        { "fields": { "name": "A-line skirt" } },
+        { "fields": { "name": "Ballerina skirt" } },
+        { "fields": { "name": "Denim skirt" } },
+        { "fields": { "name": "Men's skirts" } },
+        { "fields": { "name": "Miniskirt" } },
+        { "fields": { "name": "Pencil skirt" } },
+        { "fields": { "name": "Prairie skirt" } },
+        { "fields": { "name": "Rah-rah skirt" } },
+        { "fields": { "name": "Sarong Skort" } },
+        { "fields": { "name": "Tutu Wrap" } }
+    ]
+}, {
+    "familyName": "Dresses",
+    "garments": [
+        { "fields": { "name": "Ball gown" } },
+        { "fields": { "name": "Bouffant gown" } },
+        { "fields": { "name": "Coatdress" } },
+        { "fields": { "name": "Cocktail dress" } },
+        { "fields": { "name": "Débutante dress" } },
+        { "fields": { "name": "Formal wear" } },
+        { "fields": { "name": "Frock" } },
+        { "fields": { "name": "Evening gown" } },
+        { "fields": { "name": "Gown House dress" } },
+        { "fields": { "name": "Jumper" } },
+        { "fields": { "name": "Little black dress" } },
+        { "fields": { "name": "Princess line" } },
+        { "fields": { "name": "Sheath dress" } },
+        { "fields": { "name": "Shirtdress" } },
+        { "fields": { "name": "Slip dress" } },
+        { "fields": { "name": "Strapless dress" } },
+        { "fields": { "name": "Sundress" } },
+        { "fields": { "name": "Wedding dress" } },
+        { "fields": { "name": "Wrap dress" } }
+    ]
+}, {
+    "familyName": "Suits & uniforms",
+    "garments": [
+        { "fields": { "name": "Academic dress" } },
+        { "fields": { "name": "Ball dress" } },
+        { "fields": { "name": "Black tie" } },
+        { "fields": { "name": "Boilersuit" } },
+        { "fields": { "name": "Cleanroom suit" } },
+        { "fields": { "name": "Clerical clothing" } },
+        { "fields": { "name": "Court dress" } },
+        { "fields": { "name": "Gymslip" } },
+        { "fields": { "name": "Jumpsuit" } },
+        { "fields": { "name": "Kasaya" } },
+        { "fields": { "name": "Lab coat" } },
+        { "fields": { "name": "Military uniform" } },
+        { "fields": { "name": "Morning dress" } },
+        { "fields": { "name": "Onesie" } },
+        { "fields": { "name": "Pantsuit" } },
+        { "fields": { "name": "Red Sea rig" } },
+        { "fields": { "name": "Romper suit" } },
+        { "fields": { "name": "School uniform" } },
+        { "fields": { "name": "Scrubs" } },
+        { "fields": { "name": "Stroller" } },
+        { "fields": { "name": "Tuxedo" } },
+        { "fields": { "name": "Vestment" } },
+        { "fields": { "name": "White tie" } }
+    ]
+}, {
+    "familyName": "Outerwear",
+    "garments": [
+        { "fields": { "name": "Apron" } },
+        { "fields": { "name": "Blazer" } },
+        { "fields": { "name": "British" } },
+        { "fields": { "name": "Warm" } },
+        { "fields": { "name": "Cagoule" } },
+        { "fields": { "name": "Cape" } },
+        { "fields": { "name": "Chesterfield" } },
+        { "fields": { "name": "Coat" } },
+        { "fields": { "name": "Covert coat" } },
+        { "fields": { "name": "Cut-off" } },
+        { "fields": { "name": "Duffel coat" } },
+        { "fields": { "name": "Flight jacket" } },
+        { "fields": { "name": "Gilet" } },
+        { "fields": { "name": "Goggle jacket" } },
+        { "fields": { "name": "Guards coat" } },
+        { "fields": { "name": "Harrington jacket" } },
+        { "fields": { "name": "Hoodie" } },
+        { "fields": { "name": "Jacket" } },
+        { "fields": { "name": "Jerkin" } },
+        { "fields": { "name": "Leather jacket" } },
+        { "fields": { "name": "Mess jacket" } },
+        { "fields": { "name": "Opera coat" } },
+        { "fields": { "name": "Overcoat" } },
+        { "fields": { "name": "Parka" } },
+        { "fields": { "name": "Paletot" } },
+        { "fields": { "name": "Pea coat" } },
+        { "fields": { "name": "Poncho" } },
+        { "fields": { "name": "Raincoat" } },
+        { "fields": { "name": "Robe" } },
+        { "fields": { "name": "Safari jacket" } },
+        { "fields": { "name": "Shawl" } },
+        { "fields": { "name": "Shrug" } },
+        { "fields": { "name": "Ski suit" } },
+        { "fields": { "name": "Sleeved blanket" } },
+        { "fields": { "name": "Smoking jacket" } },
+        { "fields": { "name": "Sport coat" } },
+        { "fields": { "name": "Trench coat" } },
+        { "fields": { "name": "Ulster coat" } },
+        { "fields": { "name": "Waistcoat" } },
+        { "fields": { "name": "Windbreaker" } }
+    ]
+}, {
+    "familyName": "Underwear & lingerie",
+    "garments": [
+        { "fields": { "name": "Bra" } },
+        { "fields": { "name": "Camisole" } },
+        { "fields": { "name": "Undershirt" } },
+        { "fields": { "name": "Diaper" } },
+        { "fields": { "name": "Panties" } },
+        { "fields": { "name": "Plastic pants" } },
+        { "fields": { "name": "Slip" } },
+        { "fields": { "name": "Thong" } },
+        { "fields": { "name": "Underpants" } },
+        { "fields": { "name": "Boxer briefs" } },
+        { "fields": { "name": "Boxer shorts" } },
+        { "fields": { "name": "Midway briefs" } },
+        { "fields": { "name": "Briefs" } },
+        { "fields": { "name": "Adult bodysuit" } },
+        { "fields": { "name": "Infant bodysuit" } },
+        { "fields": { "name": "Long underwear" } },
+        { "fields": { "name": "Playsuit" } },
+        { "fields": { "name": "Teddy" } }
+    ]
+}, {
+    "familyName": "Footwear",
+    "garments": [
+        { "fields": { "name": "Athletic shoe" } },
+        { "fields": { "name": "Boot" } },
+        { "fields": { "name": "Court shoe" } },
+        { "fields": { "name": "Dress shoe" } },
+        { "fields": { "name": "Flip-flops" } },
+        { "fields": { "name": "Hosiery" } },
+        { "fields": { "name": "Sandal" } },
+        { "fields": { "name": "Shoe" } },
+        { "fields": { "name": "Spats" } },
+        { "fields": { "name": "Slipper" } },
+        { "fields": { "name": "Sock" } },
+        { "fields": { "name": "Stocking" } }
+    ]
+}, {
+    "familyName": "Headwear",
+    "garments": [
+        { "fields": { "name": "Baseball cap" } },
+        { "fields": { "name": "Beret" } },
+        { "fields": { "name": "Cap" } },
+        { "fields": { "name": "Fedora" } },
+        { "fields": { "name": "Hat" } },
+        { "fields": { "name": "Helmet" } },
+        { "fields": { "name": "Hood" } },
+        { "fields": { "name": "Knit cap" } },
+        { "fields": { "name": "Toque" } },
+        { "fields": { "name": "Turban" } },
+        { "fields": { "name": "Veil" } }
+    ]
+}, {
+    "familyName": "Nightwear",
+    "garments": [
+        { "fields": { "name": "Babydoll" } },
+        { "fields": { "name": "Blanket sleeper" } },
+        { "fields": { "name": "Negligee" } },
+        { "fields": { "name": "Nightgown" } },
+        { "fields": { "name": "Nightshirt Pajamas" } }    ]
+}, {
+    "familyName": "Swimwear",
+    "garments": [
+        { "fields": { "name": "Bikini" } },
+        { "fields": { "name": "Burkini" } },
+        { "fields": { "name": "Boardshorts" } },
+        { "fields": { "name": "Dry suit" } },
+        { "fields": { "name": "Monokini" } },
+        { "fields": { "name": "One-piece" } },
+        { "fields": { "name": "Rash guard" } },
+        { "fields": { "name": "Square leg suit" } },
+        { "fields": { "name": "Swim briefs" } },
+        { "fields": { "name": "Swim diaper" } },
+        { "fields": { "name": "Trunks Wetsuit" } }
+    ]
+}, {
+    "familyName": "Other (garment)",
+    "garments": [
+        { "fields": { "name": "Belt" } },
+        { "fields": { "name": "Bow tie" } },
+        { "fields": { "name": "Coin purse" } },
+        { "fields": { "name": "Cummerbund" } },
+        { "fields": { "name": "Gaiters" } },
+        { "fields": { "name": "Gloves" } },
+        { "fields": { "name": "Headband" } },
+        { "fields": { "name": "Handbag" } },
+        { "fields": { "name": "Kerchief" } },
+        { "fields": { "name": "Muff" } },
+        { "fields": { "name": "Necktie" } },
+        { "fields": { "name": "Pocket protector" } },
+        { "fields": { "name": "Sash" } },
+        { "fields": { "name": "Scarf" } },
+        { "fields": { "name": "Suspenders" } },
+        { "fields": { "name": "Wallet" } }
+    ]
+}, {
+    "familyName": "Other (not garment)",
+    "garments": [
+        { "fields": { "name": "Sofa cover" } },
+        { "fields": { "name": "Bedding" } },
+        { "fields": { "name": "Cushion" } },
+        { "fields": { "name": "Quilt" } }
     ]
 }]

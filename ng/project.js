@@ -19,39 +19,6 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngRoute', 'ngMdIcons'])
         $http.get( 'ng/Tags/data.json').success(function(data) {
             $scope.garmentFamilies = data;
         });
-
-        $scope.garmentFamiliess = [{
-            familyName: 'Tops',
-            garments: [
-                { 'fields': { 'name': 'Blouse' } },
-                { 'fields': { 'name': 'Cardigan' } },
-                { 'fields': { 'name': 'Crop top' } },
-                { 'fields': { 'name': 'Dress shirt' } },
-                { 'fields': { 'name': 'Guayabera' } },
-                { 'fields': { 'name': 'Guernsey' } },
-                { 'fields': { 'name': 'Halterneck' } },
-                { 'fields': { 'name': 'Henley shirt' } },
-                { 'fields': { 'name': 'Hoodie' } },
-                { 'fields': { 'name': 'Jersey' } },
-                { 'fields': { 'name': 'Polo shirt' } },
-                { 'fields': { 'name': 'Shirt' } },
-                { 'fields': { 'name': 'Sleeveless shirt' } },
-                { 'fields': { 'name': 'Sweater' } },
-                { 'fields': { 'name': 'Sweater vest' } },
-                { 'fields': { 'name': 'T-shirt' } },
-                { 'fields': { 'name': 'Tube top' } },
-                { 'fields': { 'name': 'Turtleneck' } },
-                { 'fields': { 'name': 'Twinset' } }
-            ]
-        }, {
-            familyName: 'Trousers',
-            garments: [
-                { 'fields': { 'name': 'one' } },
-                { 'fields': { 'name': 'test' } },
-                { 'fields': { 'name': 'test' } },
-                { 'fields': { 'name': 'test' } }
-            ]
-        }];
         $scope.projects = Project.query();
     })
     .controller('CreateCtrl', function($scope, $location, Project) {

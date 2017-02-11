@@ -24,3 +24,23 @@ md-toolbar {
 .middle-frame {
     background-color: white;
 }
+
+.hero {
+    color: white;
+    margin: 32px 0 0 0;
+    padding: 0;
+}
+
+.after-hero {
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.shadow {
+    text-shadow: 0 0 3px black, 0 0 5px black;
+}
+
+.tile-style {
+    background-image: url('/static/img/bg2.jpg');
+}
