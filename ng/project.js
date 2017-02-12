@@ -7,6 +7,11 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router'])
                 templateUrl: 'ng/list.html',
                 controller: 'ListCtrl'
             })
+            .state('creators', {
+                url: '/creators',
+                templateUrl: 'ng/creators.html',
+                controller: 'CreatorsCtrl'
+            })
             .state('detail', {
                 url: '/edit/{projectId:int}',
                 templateUrl: 'ng/detail.html',
@@ -17,6 +22,9 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router'])
                 templateUrl: 'ng/detail.html',
                 controller: 'CreateCtrl'
             });
+    })
+    .controller('CreatorsCtrl', function($scope, $state) {
+        $scope.state = $state;
     })
     .controller('HeaderCtrl', function($scope, $state) {
         $scope.state = $state;

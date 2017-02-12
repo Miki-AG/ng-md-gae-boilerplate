@@ -47,3 +47,9 @@ md-toolbar {
 .tile-style {
     background-image: url('/static/img/bg2.jpg');
 }
+
+.big-icons {
+    margin: 20% 40% 20% 20%;
+    fill: gray;
+}
+
