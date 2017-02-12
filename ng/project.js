@@ -17,7 +17,9 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router'])
                 templateUrl: 'ng/detail.html',
                 controller: 'CreateCtrl'
             });
-
+    })
+    .controller('HeaderCtrl', function($scope, $state) {
+        $scope.state = $state;
     })
     .controller('ListCtrl', function($scope, Project, $http) {
         $http.get('ng/Tags/data.json').success(function(data) {

@@ -1,0 +1,20 @@
+<div ng-controller="HeaderCtrl" layout="column" class="with-bg-size" class="hero: state.current.name == 'home';">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h1 class="shadow">Pattern Sharing Community</h1>
+            <span flex=""></span>
+            <md-button ng-href="https://www.facebook.com/UgeApp/" class="md-icon-button" aria-label="More">
+                <ng-md-icon icon="facebook" class="ng-md-icon-centered" style="fill:white"></ng-md-icon>
+            </md-button>
+            <md-button ng-href="https://twitter.com/UgeApp" class="md-icon-button" aria-label="More">
+                <ng-md-icon icon="twitter" class="ng-md-icon-centered" style="fill:white"></ng-md-icon>
+            </md-button>
+            <md-button class="md-raised">Sign In</md-button>
+            <md-button class="md-raised md-warn">Create Account</md-button>
+        </div>
+    </md-toolbar>
+    <div layout="column" ng-show="state.current.name == 'home'" layout-padding>
+        <h1 class="md-display-4 hero shadow">Sew Crafty</h1>
+        <h2 class="md-display-2 after-hero shadow">I sew what you did there</h2>
+    </div>
+</div>

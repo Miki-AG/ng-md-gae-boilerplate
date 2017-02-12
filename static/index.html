@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="/ng/Tags/Styles.css">
 </head>
 
-<body ng-app="project">
-    <div layout="column" layout-fill class="main-frame">
+<body class="main-frame">
+    <div ng-app="project" layout="column" flex="80" flex-offset="10">
+        <div ng-include="'ng/Header/header.tpl.html'"></div>
         <ui-view></ui-view>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>

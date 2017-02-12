@@ -1,59 +1,37 @@
-<div layout="column" flex="80" flex-offset="10">
-    <div layout="column" class="with-bg-size">
-        <md-toolbar class="yellow-bar">
-            <div class="md-toolbar-tools">
-                <h1 class="shadow">Pattern Sharing Community</h1>
-                <span flex=""></span>
-                <md-button ng-href="https://www.facebook.com/UgeApp/" class="md-icon-button" aria-label="More">
-                    <ng-md-icon icon="facebook" class="ng-md-icon-centered" style="fill:white"></ng-md-icon>
-                </md-button>
-                <md-button ng-href="https://twitter.com/UgeApp" class="md-icon-button" aria-label="More">
-                    <ng-md-icon icon="twitter" class="ng-md-icon-centered" style="fill:white"></ng-md-icon>
-                </md-button>
-                <md-button class="md-raised">Sign In</md-button>
-                <md-button class="md-raised md-warn">Create Account</md-button>
-            </div>
-        </md-toolbar>
-        <div layout="column" layout-padding>
-            <h1 class="md-display-4 hero shadow">Sew Crafty</h1>
-            <h2 class="md-display-2 after-hero shadow">I sew what you did there</h2>
+<md-tabs md-dynamic-height md-border-bottom>
+    <md-tab ng-repeat="garmentFamily in garmentFamilies" label="{{garmentFamily.familyName}}">
+        <md-content class="md-padding">
+            <tags tags="garmentFamily.garments"></tags>
+        </md-content>
+    </md-tab>
+</md-tabs>
+<div layout="column" layout-fill class="middle-frame">
+    <div layout="row" flex layout-padding>
+        <md-input-container flex class="md-icon-float md-block md-title">
+            <label>Search for patterns</label>
+            <input ng-model="search">
+        </md-input-container>
+        <div>
+            <md-button class="md-secondary md-hue-2 md-raised" href="#/new">
+                Upload your own
+            </md-button>
         </div>
     </div>
-    <md-tabs md-dynamic-height md-border-bottom>
-        <md-tab ng-repeat="garmentFamily in garmentFamilies" label="{{garmentFamily.familyName}}">
-            <md-content class="md-padding">
-                <tags tags="garmentFamily.garments"></tags>
-            </md-content>
-        </md-tab>
-    </md-tabs>
-    <div layout="column" layout-fill class="middle-frame">
-        <div layout="row" flex layout-padding>
-            <md-input-container flex class="md-icon-float md-block md-title">
-                <label>Search for patterns</label>
-                <input ng-model="search">
-            </md-input-container>
-            <div>
-                <md-button class="md-secondary md-hue-2 md-raised" href="#/new">
-                    Upload your own
-                </md-button>
-            </div>
-        </div>
-        <div flex ng-cloak>
-            <md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px">
-                <md-grid-tile ng-repeat="project in projects | filter:search | orderBy:'name'" md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" ng-class="tile.background" class="tile-style">
-                    <md-grid-tile-footer>
-                        <md-toolbar>
-                            <div class="md-toolbar-tools">
-                                <a href="{{project.site}}" target="_blank">{{project.name}}</a>
-                                <span flex=""></span>
-                                <md-button ui-sref="detail({projectId:project.id})" class="md-secondary md-icon-button" aria-label="call">
-                                    <ng-md-icon icon="edit" style="fill:black;"></ng-md-icon>
-                                </md-button>
-                            </div>
-                        </md-toolbar>
-                    </md-grid-tile-footer>
-                </md-grid-tile>
-            </md-grid-list>
-        </div>
+    <div flex ng-cloak>
+        <md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px">
+            <md-grid-tile ng-repeat="project in projects | filter:search | orderBy:'name'" md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" ng-class="tile.background" class="tile-style">
+                <md-grid-tile-footer>
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">
+                            <a href="{{project.site}}" target="_blank">{{project.name}}</a>
+                            <span flex=""></span>
+                            <md-button ui-sref="detail({projectId:project.id})" class="md-secondary md-icon-button" aria-label="call">
+                                <ng-md-icon icon="edit" style="fill:black;"></ng-md-icon>
+                            </md-button>
+                        </div>
+                    </md-toolbar>
+                </md-grid-tile-footer>
+            </md-grid-tile>
+        </md-grid-list>
     </div>
 </div>
