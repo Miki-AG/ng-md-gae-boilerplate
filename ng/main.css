@@ -1,15 +1,11 @@
 .with-bg-size {
-    /*
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    opacity: 0.3;
-    */
     background-image: url('/static/img/bg2.jpg');
     width: 100%;
     background-position: center;
     /* Make the background image cover the area of the <div>, and clip the excess */
     background-size: cover;
+    background-color: rgba(255, 255, 255, 0.4);
+    background-blend-mode: color;
 }
 
 .with-bg-size.hero {
@@ -18,10 +14,12 @@
 
 .main-toolbar {
     background-color: rgba(63, 81, 181, 0)!important;
+    color: black!important;
 }
 
 .dialog-toolbar {
     background-color: beige!important;
+    color: black!important;
 }
 
 .main-frame {
@@ -33,19 +31,19 @@
 }
 
 .hero {
-    color: white;
+    color: black;
     margin: 32px 0 0 0;
     padding: 0;
 }
 
 .after-hero {
-    color: white;
+    color: black;
     margin: 0;
     padding: 0;
 }
 
 .shadow {
-    text-shadow: 0 0 3px black, 0 0 5px black;
+    text-shadow: 0 0 3px white, 0 0 5px white;
 }
 
 .tile-style {

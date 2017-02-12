@@ -9,10 +9,9 @@
             <md-button ng-href="https://twitter.com/UgeApp" class="md-icon-button" aria-label="More">
                 <ng-md-icon icon="twitter" class="ng-md-icon-centered" style="fill:white"></ng-md-icon>
             </md-button>
-            <md-button class="md-raised" ng-click="loginEmail()">Email</md-button>
-            <md-button class="md-raised" ng-click="login()">Sign In</md-button>
-            <md-button class="md-raised" ng-click="logout()">Sign Out</md-button>
-            <md-button class="md-raised md-warn">Create Account</md-button>
+
+            <sign-up type="CONFIG.LOGIN"></sign-up>
+            <sign-up type="CONFIG.REGISTER"></sign-up>
         </div>
     </md-toolbar>
     <div layout="column" ng-show="state.current.name == 'home'" layout-padding>
