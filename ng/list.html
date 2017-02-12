@@ -46,7 +46,7 @@
                             <div class="md-toolbar-tools">
                                 <a href="{{project.site}}" target="_blank">{{project.name}}</a>
                                 <span flex=""></span>
-                                <md-button href="#/edit/{{project.id}}" class="md-secondary md-icon-button" aria-label="call">
+                                <md-button ui-sref="detail({projectId:project.id})" class="md-secondary md-icon-button" aria-label="call">
                                     <ng-md-icon icon="edit" style="fill:black;"></ng-md-icon>
                                 </md-button>
                             </div>

@@ -1,22 +1,26 @@
-angular.module('project', ['datastore', 'ngMaterial', 'ngRoute', 'ngMdIcons'])
-    .config(function($routeProvider) {
-        $routeProvider
-            .when('/', {
-                controller: 'ListCtrl',
-                templateUrl: 'ng/list.html'
+angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router'])
+    .config(function($stateProvider) {
+
+        $stateProvider
+            .state('home', {
+                url: '/',
+                templateUrl: 'ng/list.html',
+                controller: 'ListCtrl'
             })
-            .when('/edit/:projectId', {
-                controller: 'EditCtrl',
-                templateUrl: 'ng/detail.html'
+            .state('detail', {
+                url: '/edit/{projectId:int}',
+                templateUrl: 'ng/detail.html',
+                controller: 'EditCtrl'
             })
-            .when('/new', {
-                controller: 'CreateCtrl',
-                templateUrl: 'ng/detail.html'
-            })
-            .otherwise({ redirectTo: '/' });
+            .state('new', {
+                url: '/new',
+                templateUrl: 'ng/detail.html',
+                controller: 'CreateCtrl'
+            });
+
     })
     .controller('ListCtrl', function($scope, Project, $http) {
-        $http.get( 'ng/Tags/data.json').success(function(data) {
+        $http.get('ng/Tags/data.json').success(function(data) {
             $scope.garmentFamilies = data;
         });
         $scope.projects = Project.query();
@@ -28,12 +32,13 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngRoute', 'ngMdIcons'])
             });
         }
     })
-    .controller('EditCtrl', function($scope, $location, $routeParams, Project, UploadResource, $http) {
+    .controller('EditCtrl', function($scope, $location, $stateParams, Project, UploadResource, $http) {
         $scope.upload_url = UploadResource.query();
         $scope.link_url = '';
 
         var self = this;
-        Project.get({ id: $routeParams.projectId }, function(project) {
+        console.log($stateParams.projectId)
+        Project.get({ id: $stateParams.projectId }, function(project) {
             self.original = project;
             $scope.project = new Project(self.original);
         });
