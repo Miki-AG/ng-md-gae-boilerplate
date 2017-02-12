@@ -1,4 +1,4 @@
-angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router'])
+angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 'firebase'])
     .config(function($stateProvider) {
 
         $stateProvider
@@ -24,9 +24,6 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router'])
             });
     })
     .controller('CreatorsCtrl', function($scope, $state) {
-        $scope.state = $state;
-    })
-    .controller('HeaderCtrl', function($scope, $state) {
         $scope.state = $state;
     })
     .controller('ListCtrl', function($scope, Project, $http) {

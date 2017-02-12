@@ -1,5 +1,5 @@
 <div ng-controller="HeaderCtrl" layout="column" class="with-bg-size" class="hero: state.current.name == 'home';">
-    <md-toolbar>
+    <md-toolbar class="main-toolbar">
         <div class="md-toolbar-tools">
             <h1 class="shadow"><a href="#/">Pattern Sharing Community</a></h1>
             <span flex=""></span>
@@ -9,7 +9,9 @@
             <md-button ng-href="https://twitter.com/UgeApp" class="md-icon-button" aria-label="More">
                 <ng-md-icon icon="twitter" class="ng-md-icon-centered" style="fill:white"></ng-md-icon>
             </md-button>
-            <md-button class="md-raised">Sign In</md-button>
+            <md-button class="md-raised" ng-click="loginEmail()">Email</md-button>
+            <md-button class="md-raised" ng-click="login()">Sign In</md-button>
+            <md-button class="md-raised" ng-click="logout()">Sign Out</md-button>
             <md-button class="md-raised md-warn">Create Account</md-button>
         </div>
     </md-toolbar>

@@ -1,0 +1,76 @@
+<md-dialog aria-label="Mango (Fruit)">
+    <form ng-cloak>
+        <md-toolbar class="dialog-toolbar">
+            <div class="md-toolbar-tools">
+                <h2></h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="column">
+                    <md-button class="md-raised">
+                        <div layout="row">
+                            <div layout="column" flex="5">
+                                <ng-md-icon icon="facebook" style="margin:5px; height: 24px;"></ng-md-icon>
+                            </div>
+                            <div layout="column" flex>
+                            	Continue with Facebook
+                            </div>
+                        </div>
+                    </md-button>
+                    <md-button class="md-raised">
+                        <div layout="row">
+                            <div layout="column" flex="5">
+                                <ng-md-icon icon="google-plus" style="margin:5px; height: 24px;"></ng-md-icon>
+                            </div>
+                            <div layout="column" flex>
+                            	Continue with Google
+                            </div>
+                        </div>
+                    </md-button>
+                    <div layout="row" style="margin: 32px 0 12px 0;">
+                        <h2 class="login-divider">OR</h2>
+                    </div>
+                    <div layout="row">
+                        <md-input-container class="md-block" layout-fill>
+                            <label>Your email address</label>
+                            <input ng-model="user.title">
+                        </md-input-container>
+                    </div>
+                    <div layout="row">
+                        <md-input-container class="md-block" layout-fill>
+                            <label>Username</label>
+                            <input ng-model="user.title">
+                        </md-input-container>
+                    </div>
+                    <div layout="row">
+                        <md-input-container class="md-block" layout-fill>
+                            <label>Password</label>
+                            <input ng-model="user.title">
+                        </md-input-container>
+                    </div>
+                    <div layout="row">
+                        <md-input-container class="md-block" layout-fill>
+                            <label>Repeat Password</label>
+                            <input ng-model="user.title">
+                        </md-input-container>
+                    </div>
+                    <md-button class="md-raised">
+                        <div layout="row">
+                            <div layout="column" flex="5">
+                                <ng-md-icon icon="email" style="margin:5px; height: 24px;"></ng-md-icon>
+                            </div>
+                            <div layout="column" flex>
+                            	Continue with Email
+                            </div>
+                        </div>
+                    </md-button>
+                </div>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

@@ -21,9 +21,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.5.0/angular-material-icons.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
     <script src="ng/project.js"></script>
     <script src="ng/datastore.js"></script>
     <script src="ng/Tags/Component.js"></script>
+    <script src="ng/Header/Components.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyA1OSdDWyCFwyV1SN2UVAfF8WTi9NOF3dk",
+        authDomain: "sew-crafty-prod.firebaseapp.com",
+        databaseURL: "https://sew-crafty-prod.firebaseio.com",
+        storageBucket: "sew-crafty-prod.appspot.com",
+        messagingSenderId: "497059508124"
+    };
+    firebase.initializeApp(config);
+    </script>
 </body>
 
 </html>
