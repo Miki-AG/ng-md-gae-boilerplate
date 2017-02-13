@@ -44,7 +44,7 @@
                     <div ng-show="type == CONFIG.REGISTER" layout="row">
                         <md-input-container class="md-block" layout-fill>
                             <label>Pick a username</label>
-                            <input ng-model="user.title">
+                            <input ng-model="formData.username">
                         </md-input-container>
                     </div>
                     <div layout="row">
@@ -56,10 +56,10 @@
                     <div ng-show="type == CONFIG.REGISTER" layout="row">
                         <md-input-container class="md-block" layout-fill>
                             <label>Repeat Password</label>
-                            <input ng-model="user.title">
+                            <input ng-model="formData.passwordRepeat">
                         </md-input-container>
                     </div>
-                    <md-button class="md-raised" ng-click="loginEmail()">
+                    <md-button class="md-raised" ng-click="loginOrRegisterEmail(type)">
                         <div layout="row">
                             <div layout="column" flex="5">
                                 <ng-md-icon icon="email" style="margin:5px; height: 24px;"></ng-md-icon>

@@ -1,4 +1,9 @@
 angular.module('project')
+    .factory("AuthFactory", ["$firebaseAuth",
+        function($firebaseAuth) {
+            return $firebaseAuth();
+        }
+    ])
     .directive('signUp', function() {
         return {
             restrict: 'E',
@@ -9,10 +14,17 @@ angular.module('project')
             }
         }
     })
-    .controller('LoginButtonCtrl', function($scope, $state, $mdDialog, CONFIG) {
+    .controller('LoginButtonCtrl', function($scope, $state, $mdDialog, CONFIG, AuthFactory) {
         $scope.CONFIG = CONFIG;
         $scope.state = $state;
+        $scope.auth = AuthFactory;
 
+
+        // any time auth state changes, add the user data to scope
+        $scope.auth.$onAuthStateChanged(function(firebaseUser) {
+            $scope.user = firebaseUser;
+            console.log("user!");
+        });
         $scope.pickLoginProviderDialog = function(type) {
             console.log(type);
             $mdDialog.show({
@@ -22,6 +34,18 @@ angular.module('project')
                 parent: angular.element(document.body),
                 clickOutsideToClose: true
             });
+        }
+        $scope.logout = function() {
+            console.log('in logout');
+            $scope.auth.$signOut();
+
+            var firebaseUser = $scope.auth.$getAuth();
+
+            if (firebaseUser) {
+                console.log("Signed in as:", firebaseUser.uid);
+            } else {
+                console.log("Signed out");
+            }
         }
     })
     .controller('LoginDialogCtrl', function($scope, $state, $firebaseAuth, $mdDialog, CONFIG, $mdToast, typeOfDialog) {
@@ -46,7 +70,7 @@ angular.module('project')
             $scope.auth.$signInWithPopup(provider).then(function(firebaseUser) {
                 $mdToast.show(
                     $mdToast.simple()
-                    .textContent('Signed in using ' + provider)
+                    .textContent('Welcome ' + firebaseUser.user.displayName + '!')
                     .position('bottom left')
                     .hideDelay(3000)
                 );
@@ -59,6 +83,13 @@ angular.module('project')
                     .hideDelay(3000)
                 );
             });
+        }
+        $scope.loginOrRegisterEmail = function(type) {
+            if (type == CONFIG.LOGIN) {
+                $scope.loginEmail();
+            } else {
+                $scope.registerEmail();
+            }
         }
         $scope.loginEmail = function() {
             $scope.auth.$signInWithEmailAndPassword(
@@ -80,19 +111,32 @@ angular.module('project')
                     );
                 });
         }
-
-        $scope.logout = function() {
-            console.log('in login');
-            auth.$signOut();
-
-            var firebaseUser = auth.$getAuth();
-
-            if (firebaseUser) {
-                console.log("Signed in as:", firebaseUser.uid);
-            } else {
-                console.log("Signed out");
-            }
+        $scope.registerEmail = function() {
+            $scope.auth.$createUserWithEmailAndPassword(
+                    $scope.formData.email,
+                    $scope.formData.password)
+                .then(function(firebaseUser) {
+                    $scope.auth.$updateProfile({ displayName: $scope.formData.username }).then(function() {
+                        console.log("Updated profile change successfully!");
+                        $mdToast.show(
+                            $mdToast.simple()
+                            .textContent('Signed in')
+                            .position('bottom left')
+                        );
+                        $mdDialog.hide();
+                    }).catch(function(error) {
+                        console.error("Error: ", error);
+                    });
+                }).catch(function(error) {
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .textContent('Authentication failed: ' + error)
+                        .position('bottom left')
+                        .hideDelay(3000)
+                    );
+                });
         }
+
         $scope.closeDialog = function() {
             $mdDialog.hide();
         }
