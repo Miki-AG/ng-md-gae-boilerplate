@@ -4,7 +4,7 @@
             <div class="md-toolbar-tools">
                 <h2>{{type == CONFIG.LOGIN ? 'Sign Up' : 'Create Account'}}</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
+                <md-button class="md-icon-button" ng-click="closeDialog()">
                     <ng-md-icon icon="close"></ng-md-icon>
                 </md-button>
             </div>
@@ -12,23 +12,23 @@
         <md-dialog-content>
             <div class="md-dialog-content">
                 <div layout="column">
-                    <md-button class="md-raised">
+                    <md-button class="md-raised" ng-click="loginProvider('facebook')">
                         <div layout="row">
                             <div layout="column" flex="5">
                                 <ng-md-icon icon="facebook" style="margin:5px; height: 24px;"></ng-md-icon>
                             </div>
                             <div layout="column" flex>
-                            	Continue with Facebook
+                                Continue with Facebook
                             </div>
                         </div>
                     </md-button>
-                    <md-button class="md-raised">
+                    <md-button class="md-raised" ng-click="loginProvider('google')">
                         <div layout="row">
                             <div layout="column" flex="5">
                                 <ng-md-icon icon="google-plus" style="margin:5px; height: 24px;"></ng-md-icon>
                             </div>
                             <div layout="column" flex>
-                            	Continue with Google
+                                Continue with Google
                             </div>
                         </div>
                     </md-button>
@@ -38,34 +38,34 @@
                     <div layout="row">
                         <md-input-container class="md-block" layout-fill>
                             <label>Your email address</label>
-                            <input ng-model="user.title">
+                            <input ng-model="formData.email">
                         </md-input-container>
                     </div>
-                    <div layout="row">
+                    <div ng-show="type == CONFIG.REGISTER" layout="row">
                         <md-input-container class="md-block" layout-fill>
-                            <label>Username</label>
+                            <label>Pick a username</label>
                             <input ng-model="user.title">
                         </md-input-container>
                     </div>
                     <div layout="row">
                         <md-input-container class="md-block" layout-fill>
                             <label>Password</label>
-                            <input ng-model="user.title">
+                            <input ng-model="formData.password">
                         </md-input-container>
                     </div>
-                    <div layout="row">
+                    <div ng-show="type == CONFIG.REGISTER" layout="row">
                         <md-input-container class="md-block" layout-fill>
                             <label>Repeat Password</label>
                             <input ng-model="user.title">
                         </md-input-container>
                     </div>
-                    <md-button class="md-raised">
+                    <md-button class="md-raised" ng-click="loginEmail()">
                         <div layout="row">
                             <div layout="column" flex="5">
                                 <ng-md-icon icon="email" style="margin:5px; height: 24px;"></ng-md-icon>
                             </div>
                             <div layout="column" flex>
-                            	Continue with Email
+                                Continue with Email
                             </div>
                         </div>
                     </md-button>
