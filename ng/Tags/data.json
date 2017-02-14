@@ -22,7 +22,7 @@
         { "fields": { "name": "Twinset" } }
     ]
 }, {
-    "familyName": "Trousers",
+    "familyName": "Pants",
     "garments": [
         { "fields": { "name": "Bell-bottoms" } },
         { "fields": { "name": "Bermuda shorts" } },

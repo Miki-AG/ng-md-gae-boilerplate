@@ -20,17 +20,24 @@
     <div flex ng-cloak>
         <md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px">
             <md-grid-tile ng-repeat="project in projects | filter:search | orderBy:'name'" md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1" ng-class="tile.background" class="tile-style">
-                <md-grid-tile-footer>
-                    <md-toolbar>
-                        <div class="md-toolbar-tools">
-                            <a href="{{project.site}}" target="_blank">{{project.name}}</a>
+                <!--div layout="row">
+                            <h3>#2: (1r x 1c)</h3>
                             <span flex=""></span>
                             <md-button ui-sref="detail({projectId:project.id})" class="md-secondary md-icon-button" aria-label="call">
                                 <ng-md-icon icon="edit" style="fill:black;"></ng-md-icon>
                             </md-button>
-                        </div>
-                    </md-toolbar>
-                </md-grid-tile-footer>
+                        </div-->
+                <div layout="row" class="tile-footer" style=";" layout-align="center center">
+                    <h3 flex href="{{project.site}}" target="_blank">{{project.name}}</h3>
+                    <md-button ui-sref="detail({projectId:project.id})" class="md-secondary md-icon-button" aria-label="call">
+                        <ng-md-icon icon="edit" style="fill:white;"></ng-md-icon>
+                    </md-button>
+                </div>
+                <!--md-toolbar layout-fill flex style="border: red 2px solid; width: 100%;" class="md-toolbar-tools">
+                        <a href="{{project.site}}" target="_blank">{{project.name}}</a>
+                        <span flex=""></span>
+
+                    </md-toolbar-->
             </md-grid-tile>
         </md-grid-list>
     </div>
