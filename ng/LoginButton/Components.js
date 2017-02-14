@@ -14,7 +14,7 @@ angular.module('project')
             }
         }
     })
-    .controller('LoginButtonCtrl', function($scope, $state, $mdDialog, CONFIG, AuthFactory) {
+    .controller('LoginButtonCtrl', function($scope, $state, $mdDialog, CONFIG, $mdToast, AuthFactory) {
         $scope.CONFIG = CONFIG;
         $scope.state = $state;
         $scope.auth = AuthFactory;
@@ -36,24 +36,30 @@ angular.module('project')
             });
         }
         $scope.logout = function() {
-            console.log('in logout');
             $scope.auth.$signOut();
 
-            var firebaseUser = $scope.auth.$getAuth();
-
-            if (firebaseUser) {
-                console.log("Signed in as:", firebaseUser.uid);
-            } else {
-                console.log("Signed out");
-            }
+            $mdToast.show(
+                $mdToast.simple()
+                .textContent('You\'ve been signed off')
+                .position('bottom left')
+                .hideDelay(3000)
+            );
         }
     })
-    .controller('LoginDialogCtrl', function($scope, $state, $firebaseAuth, $mdDialog, CONFIG, $mdToast, typeOfDialog) {
+    .controller('LoginDialogCtrl', function($scope, $state, $firebaseAuth, $firebaseArray, $mdDialog, CONFIG, $mdToast, typeOfDialog) {
         $scope.CONFIG = CONFIG;
         $scope.state = $state;
         $scope.auth = $firebaseAuth();
+
+        //var ref = firebase.database().ref();
+        //var list = $firebaseArray(ref);
+
         $scope.type = typeOfDialog;
         $scope.formData = {};
+
+        var ref = firebase.database().ref().child("users");
+        // create a synchronized array
+        $scope.users = $firebaseArray(ref);
 
         $scope.pickLoginProviderDialog = function(type) {
             console.log(type);
@@ -116,17 +122,12 @@ angular.module('project')
                     $scope.formData.email,
                     $scope.formData.password)
                 .then(function(firebaseUser) {
-                    $scope.auth.$updateProfile({ displayName: $scope.formData.username }).then(function() {
-                        console.log("Updated profile change successfully!");
-                        $mdToast.show(
-                            $mdToast.simple()
-                            .textContent('Signed in')
-                            .position('bottom left')
-                        );
-                        $mdDialog.hide();
-                    }).catch(function(error) {
-                        console.error("Error: ", error);
+
+                    $scope.users.$add({
+                        email: $scope.formData.email,
+                        displayName: $scope.formData.username
                     });
+
                 }).catch(function(error) {
                     $mdToast.show(
                         $mdToast.simple()
