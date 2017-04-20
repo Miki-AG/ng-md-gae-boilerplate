@@ -40,15 +40,38 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         }
     })
     .controller('EditCtrl', function($scope, $location, $stateParams, Project, UploadResource, $http) {
-        $scope.upload_url = UploadResource.query();
-        $scope.link_url = '';
-
+        $http.get('ng/Tags/data.json').success(function(data) {
+            $scope.garmentFamilies = data;
+            $scope.families = [];
+            $scope.garmentFamilySelected;
+            $scope.garmentSelected;
+            data.forEach(function(item) {
+                $scope.families.push(item.familyName);
+            })
+        });
         var self = this;
-        console.log($stateParams.projectId)
         Project.get({ id: $stateParams.projectId }, function(project) {
             self.original = project;
             $scope.project = new Project(self.original);
         });
+
+        $scope.upload_url = UploadResource.query();
+        $scope.link_url = '';
+        $scope.garmentsReady = false;
+        $scope.garmentTypes = [];
+        $scope.fileName = '';
+        $scope.firstSelectionMade = function() {
+            $scope.garmentTypes = [];
+            console.log('firstSelectionMade');
+            $scope.garmentFamilies.forEach(function(family) {
+                if ($scope.garmentFamilySelected == family.familyName) {
+                    family.garments.forEach(function(garment) {
+                        $scope.garmentTypes.push(garment.fields.name)
+                    });
+                }
+            });
+            $scope.garmentsReady = true;
+        }
         $scope.isClean = function() {
             return angular.equals(self.original, $scope.project);
         }
@@ -66,7 +89,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
             console.log('uploadFile');
             var files = event.target.files;
             var file = files[0];
-
+            $scope.fileName = file.name;
             var fd = new FormData();
 
             fd.append('file', file);

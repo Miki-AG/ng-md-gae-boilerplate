@@ -4,7 +4,7 @@
     background-position: center;
     /* Make the background image cover the area of the <div>, and clip the excess */
     background-size: cover;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(0, 0, 0, 0.2);
     background-blend-mode: color;
 }
 
@@ -14,7 +14,7 @@
 
 .main-toolbar {
     background-color: rgba(63, 81, 181, 0)!important;
-    color: black!important;
+    color: beige!important;
 }
 
 .dialog-toolbar {
@@ -24,6 +24,7 @@
 
 .main-frame {
     background-color: beige;
+    height: 100%;
 }
 
 .middle-frame {
@@ -31,19 +32,19 @@
 }
 
 .hero {
-    color: black;
+    color: beige;
     margin: 32px 0 0 0;
     padding: 0;
 }
 
 .after-hero {
-    color: black;
+    color: beige;
     margin: 0;
     padding: 0;
 }
 
 .shadow {
-    text-shadow: 0 0 3px white, 0 0 5px white;
+    text-shadow: 0 0 5px black, 0 0 5px black;
 }
 
 .tile-style {

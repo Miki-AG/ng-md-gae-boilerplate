@@ -1,54 +1,73 @@
 <md-content layout-padding>
-    <div>
-        <form name="myForm">
-            <div layout="row">
-                <md-input-container class="md-block" flex>
-                    <label>Name</label>
-                    <input type="text" name="name" ng-model="project.name" required>
-                    <ng-messages for="myForm.myName.$error" role="alert">
-                        <ng-message when="required">Required</ng-message>
-                    </ng-messages>
-                </md-input-container>
-            </div>
-            <div layout="row">
-                <md-input-container class="md-block" flex>
-                    <label>Website</label>
-                    <input type="url" name="site" ng-model="project.site" required>
-                    <ng-messages for="myForm.site.$error" role="alert">
-                        <ng-message when="required">Required</ng-message>
-                        <ng-message when="url">Not a URL</ng-message>
-                    </ng-messages>
-                </md-input-container>
-            </div>
-            <div layout="row">
-                <md-input-container class="md-block" flex>
-                    <label>Description</label>
-                    <textarea type="text" name="description" ng-model="project.description" required></textarea>
-                    <ng-messages for="myForm.myName.$error" role="alert">
-                        <ng-message when="required">Required</ng-message>
-                    </ng-messages>
-                </md-input-container>
-            </div>
-        </form>
-    </div>
-    <div layout="row">
-        <md-button class="md-primary" href="#/">
-            Cancel
-        </md-button>
-        <md-button class="md-primary" ng-click="save()" ng-disabled="!myForm.$dirty || myForm.$invalid">
-            Save
-        </md-button>
-        <md-button class="md-primary" ng-click="destroy()" ng-show="project.id">
-            Delete
-        </md-button>
-    </div>
-    <div layout="row">
-        <div layout-margin>
-            <input class="ng-hide" id="input-file-id" type="file" custom-on-change="uploadFile" />
-            <label for="input-file-id" class="md-button">Choose File</label>
+    <form name="myForm">
+        <h3>Required fields</h3>
+        <div layout="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Select Garment Family</label>
+                <md-select ng-model="garmentFamilySelected" md-on-close="firstSelectionMade()">
+                    <md-option ng-repeat="family in families" value="{{family}}">
+                        {{family}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Select {{garmentFamilySelected}}</label>
+                <md-select ng-model="garmentSelected" ng-disabled="!garmentsReady">
+                    <md-option ng-repeat="garment in garmentTypes" value="{{garment}}">
+                        {{garment}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
         </div>
-        <md-button ng-if="link_url" class="md-primary" ng-href="{{link_url}}" download="proposed_file_name">
-            Download
-        </md-button>
-    </div>
+        <md-input-container class="md-block" flex>
+            <label>Pattern Name</label>
+            <input type="text" name="name" ng-model="project.name" required>
+            <ng-messages for="myForm.myName.$error" role="alert">
+                <ng-message when="required">Required</ng-message>
+            </ng-messages>
+        </md-input-container>
+        <md-input-container class="md-block" flex>
+            <label>Description</label>
+            <textarea type="text" name="description" ng-model="project.description" required></textarea>
+            <ng-messages for="myForm.myName.$error" role="alert">
+                <ng-message when="required">Required</ng-message>
+            </ng-messages>
+        </md-input-container>
+        <h5>Files</h5>
+        <div layout="column" class="border-file-upload">
+            <div layout="row" layout-margin>You can upload pattern definition files like Valentina's files. You can also upload photos of the garment (png or jpeg/jpg).</div>
+            <div layout="row" layout-margin ng-if="fileName">
+                <div layout="row" flex layout-align="end center">{{fileName}}</div>
+                <md-button ng-if="link_url" class="md-primary" ng-href="{{link_url}}" download="proposed_file_name">
+                    <ng-md-icon icon="cloud_download"></ng-md-icon>
+                    Download
+                </md-button>
+            </div>
+            <div layout="row">
+                <input class="ng-hide" id="input-file-id" type="file" custom-on-change="uploadFile" />
+                <label for="input-file-id" class="md-button md-primary md-raised">
+                    <span>Add File</span>
+                </label>
+            </div>
+        </div>
+        <h3>Optional</h3>
+        <md-input-container class="md-block" flex>
+            <label>Youtube Video Tutorial</label>
+            <input type="url" name="site" ng-model="project.site">
+            <ng-messages for="myForm.site.$error" role="alert">
+                <ng-message when="url">Not a URL</ng-message>
+            </ng-messages>
+        </md-input-container>
+        <div layout="row">
+            <md-button class="md-primary" href="#/">
+                Cancel
+            </md-button>
+            <md-button class="md-primary" ng-click="save()" ng-disabled="!myForm.$dirty || myForm.$invalid">
+                Save
+            </md-button>
+            <md-button class="md-primary" ng-click="destroy()" ng-show="project.id">
+                Delete
+            </md-button>
+        </div>
+    </form>
 </md-content>

@@ -13,7 +13,6 @@ tags .tags-container {
     float: left;
     margin: 8px 8px 0px 0px;
     /*padding: 0px 12px;*/
-
     font: normal normal normal normal 16px / 24px Roboto, "Helvetica Neue", sans-serif;
     height: 24px;
     padding: 0;
@@ -39,4 +38,31 @@ tag span {
     padding: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.border-file-upload {
+    border-radius: 4px;
+    background-color: #ececec;
+}
+
+.border-search {
+    border-radius: 4px;
+    border: 2px #ececec solid;
+    background-color: #ececec;
+}
+
+.no-margins {
+    margin: 0 0 0 0;
+}
+
+.hero-button {
+    padding: 8px;
+    font-size: 24px;
+}
+
+ng-md-icon {
+    fill: currentColor;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1;
 }

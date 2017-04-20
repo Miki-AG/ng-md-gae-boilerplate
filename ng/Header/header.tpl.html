@@ -9,13 +9,17 @@
             <md-button ng-href="https://twitter.com/UgeApp" class="md-icon-button" aria-label="More">
                 <ng-md-icon icon="twitter" class="ng-md-icon-centered" style="fill:white"></ng-md-icon>
             </md-button>
-
             <sign-up type="CONFIG.LOGIN"></sign-up>
             <sign-up type="CONFIG.REGISTER"></sign-up>
         </div>
     </md-toolbar>
     <div layout="column" ng-show="state.current.name == 'home'" layout-padding>
         <h1 class="md-display-4 hero shadow">Sew Crafty</h1>
-        <h2 class="md-display-2 after-hero shadow">I sew what you did there {{ user.displayName }}</h2>
+        <div flex layout="row" layout-align="center center">
+            <h2 layout="row" flex class="md-display-2 after-hero shadow">I sew what you did there {{ user.displayName }}</h2>
+            <md-button class="md-secondary md-raised hero-button md-warn" href="#/creators">
+                Upload your own
+            </md-button>
+        </div>
     </div>
 </div>
