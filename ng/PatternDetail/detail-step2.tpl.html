@@ -1,0 +1,18 @@
+<h3>Step 2: Upload files</h3>
+<h5>Files</h5>
+<div layout="column" class="border-file-upload">
+    <div layout="row" layout-margin>You can upload pattern definition files like Valentina's files. You can also upload photos of the garment (png or jpeg/jpg).</div>
+    <div layout="row" layout-margin ng-if="fileName">
+        <div layout="row" flex layout-align="end center">{{fileName}}</div>
+        <md-button ng-if="link_url" class="md-primary" ng-href="{{link_url}}" download="proposed_file_name">
+            <ng-md-icon icon="cloud_download"></ng-md-icon>
+            Download
+        </md-button>
+    </div>
+    <div layout="row">
+        <input class="ng-hide" id="input-file-id" type="file" custom-on-change="uploadFile" />
+        <label for="input-file-id" class="md-button md-primary md-raised">
+            <span>Add File</span>
+        </label>
+    </div>
+</div>

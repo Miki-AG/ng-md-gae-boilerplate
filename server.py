@@ -41,10 +41,9 @@ class Rest(webapp2.RequestHandler):
             item.put()
 
     def get(self):
-
         #pop off the script name ('/api')
         self.request.path_info_pop()
-        #forget about the leading '/' and seperate the Data type and the ID
+        #forget about the leading '/' and searate the Data type and the ID
         split = self.request.path_info[1:].split('/')
         #If no ID, then we will return all objects of this type
         if len(split) == 1:

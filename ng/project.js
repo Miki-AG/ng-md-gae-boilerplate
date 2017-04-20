@@ -14,12 +14,12 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
             })
             .state('detail', {
                 url: '/edit/{projectId:int}',
-                templateUrl: 'ng/detail.html',
+                templateUrl: 'ng/PatternDetail/detail.tpl.html',
                 controller: 'EditCtrl'
             })
             .state('new', {
                 url: '/new',
-                templateUrl: 'ng/detail.html',
+                templateUrl: 'ng/PatternDetail/detail.tpl.html',
                 controller: 'CreateCtrl'
             });
     })
@@ -60,6 +60,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         $scope.garmentsReady = false;
         $scope.garmentTypes = [];
         $scope.fileName = '';
+        $scope.step = 1;
         $scope.firstSelectionMade = function() {
             $scope.garmentTypes = [];
             console.log('firstSelectionMade');
@@ -82,7 +83,8 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         };
         $scope.save = function() {
             $scope.project.update(function() {
-                $location.path('/');
+                //$location.path('/');
+                $scope.step = 2;
             });
         };
         $scope.uploadFile = function(event) {

@@ -1,0 +1,18 @@
+<md-content layout-padding>
+    <form name="myForm">
+        <div ng-if="step == 1" ng-include="'ng/PatternDetail/detail-step1.tpl.html'"></div>
+        <div ng-if="step == 2" ng-include="'ng/PatternDetail/detail-step2.tpl.html'"></div>
+        <div layout="row">
+            <md-button class="md-primary" href="#/">
+                Cancel
+            </md-button>
+            <md-button class="md-primary" ng-click="destroy()" ng-show="project.id">
+                Delete
+            </md-button>
+            <span flex></span>
+            <md-button class="md-primary md-raised" ng-click="save()" ng-disabled="!myForm.$dirty || myForm.$invalid">
+                Next: Upload files
+            </md-button>
+        </div>
+    </form>
+</md-content>
