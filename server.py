@@ -6,13 +6,16 @@ from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 
 class Project(ndb.Model):
-    name = ndb.StringProperty(required=True);
-    site = ndb.StringProperty(required=True);
-    description = ndb.StringProperty(required=True);
+    name = ndb.StringProperty(required=True)
+    site = ndb.StringProperty(required=False)
+    description = ndb.StringProperty(required=True)
 
-    def update(self,newdata):
-        for key,value in newdata.items():
-            setattr(self,key,value)
+    def update(self, newdata):
+        for key, value in newdata.items():
+            setattr(self, key, value)
+
+class UserPhoto(ndb.Model):
+    blob_key = ndb.BlobKeyProperty()
 
 
 class Rest(webapp2.RequestHandler):
@@ -20,19 +23,21 @@ class Rest(webapp2.RequestHandler):
     def post(self):
         #pop off the script name ('/api')
         self.request.path_info_pop()
-        #Load the JSON values that were sent to the server
-        dictionary = json.loads(self.request.body)
-        try:
-            #initialize the Data object using coming dictionary
-            newObject = globals()[self.request.path_info[1:]](**dictionary)
-            #Returns the ID that was created
-            result = { 'id' : newObject.put().id() }
-            self.response.write( json.dumps(result) )
-        except:
-            split = self.request.path_info[1:].split('/')
-            #Convert the ID to an int, create a key and retrieve the object
-            item = globals()[split[0]].get_by_id(int(split[1]))
-            item.update( dictionary )
+        data_dict = json.loads(self.request.body)
+        tokens = self.request.path_info[1:].split('/')
+        # Create
+        if len(tokens) == 1:
+            item = Project(
+                name=data_dict['name'],
+                description=data_dict['description']
+            )
+            key = item.put()
+            self.response.write(json.dumps({'id': key.id()}))
+        # Update
+        elif len(tokens) == 2:
+            item = Project.get_by_id(int(tokens[1]))
+            item.name = data_dict['name']
+            item.description = data_dict['description']
             item.put()
 
     def get(self):
@@ -43,19 +48,19 @@ class Rest(webapp2.RequestHandler):
         split = self.request.path_info[1:].split('/')
         #If no ID, then we will return all objects of this type
         if len(split) == 1:
-            everyItem = []
+            every_item = []
             if split[0] == 'Upload':
                 url = blobstore.create_upload_url('/upload_photo')
                 item_dict = {}
                 item_dict['upload_url'] = url
-                everyItem.append(item_dict)
+                every_item.append(item_dict)
             else:
                 for item in globals()[split[0]].query():
                     item_dict = item.to_dict()
                     item_dict['id'] = item.key.id()
-                    everyItem.append(item_dict)
+                    every_item.append(item_dict)
             #Write JSON back to the client
-            self.response.write(json.dumps(everyItem))
+            self.response.write(json.dumps(every_item))
         else:
             #Convert the ID to an int, create a key and retrieve the object
             item = globals()[split[0]].get_by_id(int(split[1]))
@@ -71,15 +76,11 @@ class Rest(webapp2.RequestHandler):
         split = self.request.path_info[1:].split('/')
         ndb.Key(split[0], int(split[1])).delete()
 
-class UserPhoto(ndb.Model):
-    blob_key = ndb.BlobKeyProperty()
-
 class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         try:
             upload = self.get_uploads()[0]
-            user_photo = UserPhoto(
-                blob_key=upload.key())
+            user_photo = UserPhoto(blob_key=upload.key())
             user_photo.put()
             self.response.write(json.dumps({'url':'/view_photo/%s' % upload.key()}))
         except:
