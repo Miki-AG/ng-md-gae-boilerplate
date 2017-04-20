@@ -19,7 +19,8 @@
         { "fields": { "name": "T-shirt" } },
         { "fields": { "name": "Tube top" } },
         { "fields": { "name": "Turtleneck" } },
-        { "fields": { "name": "Twinset" } }
+        { "fields": { "name": "Twinset" } },
+        { "fields": { "name": "Tops / Other" } }
     ]
 }, {
     "familyName": "Pants",
@@ -46,7 +47,8 @@
         { "fields": { "name": "Slim-fit pants" } },
         { "fields": { "name": "Sweatpants" } },
         { "fields": { "name": "Windpants" } },
-        { "fields": { "name": "Yoga pants" } }
+        { "fields": { "name": "Yoga pants" } },
+        { "fields": { "name": "Pants / Other" } }
     ]
 }, {
     "familyName": "Skirts",
@@ -60,7 +62,9 @@
         { "fields": { "name": "Prairie skirt" } },
         { "fields": { "name": "Rah-rah skirt" } },
         { "fields": { "name": "Sarong Skort" } },
-        { "fields": { "name": "Tutu Wrap" } }
+        { "fields": { "name": "Tutu Wrap" } },
+        { "fields": { "name": "Skirts / Other" } }
+
     ]
 }, {
     "familyName": "Dresses",
@@ -83,7 +87,9 @@
         { "fields": { "name": "Strapless dress" } },
         { "fields": { "name": "Sundress" } },
         { "fields": { "name": "Wedding dress" } },
-        { "fields": { "name": "Wrap dress" } }
+        { "fields": { "name": "Wrap dress" } },
+        { "fields": { "name": "Dresses / Other" } }
+
     ]
 }, {
     "familyName": "Suits & uniforms",
@@ -110,7 +116,9 @@
         { "fields": { "name": "Stroller" } },
         { "fields": { "name": "Tuxedo" } },
         { "fields": { "name": "Vestment" } },
-        { "fields": { "name": "White tie" } }
+        { "fields": { "name": "White tie" } },
+        { "fields": { "name": "Suits & uniforms / Other" } }
+
     ]
 }, {
     "familyName": "Outerwear",
@@ -154,7 +162,9 @@
         { "fields": { "name": "Trench coat" } },
         { "fields": { "name": "Ulster coat" } },
         { "fields": { "name": "Waistcoat" } },
-        { "fields": { "name": "Windbreaker" } }
+        { "fields": { "name": "Windbreaker" } },
+        { "fields": { "name": "Outerwear / Other" } }
+
     ]
 }, {
     "familyName": "Underwear & lingerie",
@@ -176,7 +186,9 @@
         { "fields": { "name": "Infant bodysuit" } },
         { "fields": { "name": "Long underwear" } },
         { "fields": { "name": "Playsuit" } },
-        { "fields": { "name": "Teddy" } }
+        { "fields": { "name": "Teddy" } },
+        { "fields": { "name": "Underwear & lingerie / Other" } }
+
     ]
 }, {
     "familyName": "Footwear",
@@ -192,7 +204,9 @@
         { "fields": { "name": "Spats" } },
         { "fields": { "name": "Slipper" } },
         { "fields": { "name": "Sock" } },
-        { "fields": { "name": "Stocking" } }
+        { "fields": { "name": "Stocking" } },
+        { "fields": { "name": "Footwear / Other" } }
+
     ]
 }, {
     "familyName": "Headwear",
@@ -206,7 +220,9 @@
         { "fields": { "name": "Knit cap" } },
         { "fields": { "name": "Toque" } },
         { "fields": { "name": "Turban" } },
-        { "fields": { "name": "Veil" } }
+        { "fields": { "name": "Veil" } },
+        { "fields": { "name": "Headwear / Other" } }
+
     ]
 }, {
     "familyName": "Nightwear",
@@ -215,7 +231,10 @@
         { "fields": { "name": "Blanket sleeper" } },
         { "fields": { "name": "Negligee" } },
         { "fields": { "name": "Nightgown" } },
-        { "fields": { "name": "Nightshirt Pajamas" } }    ]
+        { "fields": { "name": "Nightshirt Pajamas" } },
+        { "fields": { "name": "Nightwear / Other" } }
+
+    ]
 }, {
     "familyName": "Swimwear",
     "garments": [
@@ -228,7 +247,9 @@
         { "fields": { "name": "Square leg suit" } },
         { "fields": { "name": "Swim briefs" } },
         { "fields": { "name": "Swim diaper" } },
-        { "fields": { "name": "Trunks Wetsuit" } }
+        { "fields": { "name": "Trunks Wetsuit" } },
+        { "fields": { "name": "Swimwear / Other" } }
+
     ]
 }, {
     "familyName": "Other (garment)",
