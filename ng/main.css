@@ -100,3 +100,8 @@
     background-color: rgba(0, 0, 0, 0.2);
     color: white;
 }
+
+.done-button {
+    background-color: #00b900!important;
+    color: white!important;
+}

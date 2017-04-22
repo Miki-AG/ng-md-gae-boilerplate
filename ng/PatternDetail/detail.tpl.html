@@ -1,18 +1,14 @@
 <md-content layout-padding>
+    <div layout="row" layout-align="center center">
+        <h1>{{steps[step]}} ({{step+1}}/3)</h1>
+        <span flex></span>
+        <md-button href="#/" class="md-icon-button">
+            <ng-md-icon icon="close" style="fill:black"></ng-md-icon>
+        </md-button>
+    </div>
     <form name="myForm">
-        <div ng-if="step == 1" ng-include="'ng/PatternDetail/detail-step1.tpl.html'"></div>
-        <div ng-if="step == 2" ng-include="'ng/PatternDetail/detail-step2.tpl.html'"></div>
-        <div layout="row">
-            <md-button class="md-primary" href="#/">
-                Cancel
-            </md-button>
-            <md-button class="md-primary" ng-click="destroy()" ng-show="project.id">
-                Delete
-            </md-button>
-            <span flex></span>
-            <md-button class="md-primary md-raised" ng-click="save()" ng-disabled="!myForm.$dirty || myForm.$invalid">
-                Next: Upload files
-            </md-button>
-        </div>
+        <div ng-if="step == 0" ng-include="'ng/PatternDetail/detail-step1.tpl.html'"></div>
+        <div ng-if="step == 1" ng-include="'ng/PatternDetail/detail-step2.tpl.html'"></div>
+        <div flex ng-include="'ng/PatternDetail/detail-actions.tpl.html'"></div>
     </form>
 </md-content>

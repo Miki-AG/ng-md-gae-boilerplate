@@ -1,0 +1,17 @@
+<div layout="row">
+    <span flex></span>
+    <md-button class="md-primary" ng-click="destroy()" ng-show="project.id">
+        Delete
+    </md-button>
+    <md-button ng-if="step>0" class="md-raised md-primary" ng-click="goToStep(step-1)">
+        <ng-md-icon icon="chevron_left" style="fill:white"></ng-md-icon>
+        {{steps[step-1]}}
+    </md-button>
+    <md-button ng-if="step<2" class="md-raised md-primary" ng-click="goToStep(step+1)">
+        {{steps[step+1]}}
+        <ng-md-icon icon="chevron_right" style="fill:white"></ng-md-icon>
+    </md-button>
+    <md-button ng-if="step==2" class="md-raised md-secondary done-button" ng-click="hide('not applicable')">
+        Done!
+    </md-button>
+</div>

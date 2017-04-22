@@ -60,7 +60,9 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         $scope.garmentsReady = false;
         $scope.garmentTypes = [];
         $scope.fileName = '';
-        $scope.step = 1;
+        $scope.step = 0;
+        $scope.steps = ['Describe your pattern', 'Upload files', 'Share']
+
         $scope.firstSelectionMade = function() {
             $scope.garmentTypes = [];
             console.log('firstSelectionMade');
@@ -81,11 +83,11 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
                 $location.path('/list');
             });
         };
-        $scope.save = function() {
-            $scope.project.update(function() {
-                //$location.path('/');
-                $scope.step = 2;
-            });
+        $scope.goToStep = function(nextStep) {
+            if ($scope.step == 0) {
+                $scope.project.update(function() {});
+            }
+            $scope.step = nextStep;
         };
         $scope.uploadFile = function(event) {
             console.log('uploadFile');
