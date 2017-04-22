@@ -1,8 +1,15 @@
 <h5>Files</h5>
+<div layout="row" layout-margin>You can upload pattern definition files like Valentina's files. You can also upload photos of the garment (png or jpeg/jpg).</div>
 <div layout="column" class="border-file-upload">
-    <div layout="row" layout-margin>You can upload pattern definition files like Valentina's files. You can also upload photos of the garment (png or jpeg/jpg).</div>
     <div layout="row" layout-margin ng-if="fileName">
         <div layout="row" flex layout-align="end center">{{fileName}}</div>
+        <md-button ng-if="link_url" class="md-primary" ng-href="{{link_url}}" download="proposed_file_name">
+            <ng-md-icon icon="cloud_download"></ng-md-icon>
+            Download
+        </md-button>
+    </div>
+    <div layout="row" layout-margin ng-repeat="item in download_files_urls">
+        <div layout="row" flex layout-align="end center">{{item.filename}}</div>
         <md-button ng-if="link_url" class="md-primary" ng-href="{{link_url}}" download="proposed_file_name">
             <ng-md-icon icon="cloud_download"></ng-md-icon>
             Download

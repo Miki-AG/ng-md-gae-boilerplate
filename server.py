@@ -52,15 +52,24 @@ class Rest(webapp2.RequestHandler):
             # Get Upload URL
             if split[0] == 'Upload':
                 url = blobstore.create_upload_url('/upload_photo')
-                item_dict = {}
-                item_dict['upload_url'] = url
-                response.append(item_dict)
+                item = {}
+                item['upload_url'] = url
+                response.append(item)
             # Get Download URL
             elif split[0] == 'Download':
                 response = []
                 for file in UserPhoto.query().fetch(20):
+                    logging.info('-----------> {}'.format(file.key))
+                    logging.info('-----------> {}'.format(file.blob_key))
+                    logging.info('-----------> {}'.format(file.key.id()))
+
+                    blob_info = blobstore.BlobInfo.get(file.blob_key)
+                    logging.info('-----------> {}'.format(blob_info.filename))
+
                     response.append({
-                        'file': file.key.id()
+                        'id': file.key.id(),
+                        'blob_key': str(file.blob_key),
+                        'filename': blob_info.filename
                     })
             else:
                 for item in globals()[split[0]].query():
