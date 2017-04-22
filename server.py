@@ -45,28 +45,35 @@ class Rest(webapp2.RequestHandler):
         self.request.path_info_pop()
         #forget about the leading '/' and searate the Data type and the ID
         split = self.request.path_info[1:].split('/')
-        #If no ID, then we will return all objects of this type
+
+        response = None
         if len(split) == 1:
-            every_item = []
+            response = []
+            # Get Upload URL
             if split[0] == 'Upload':
                 url = blobstore.create_upload_url('/upload_photo')
                 item_dict = {}
                 item_dict['upload_url'] = url
-                every_item.append(item_dict)
+                response.append(item_dict)
+            # Get Download URL
+            elif split[0] == 'Download':
+                response = []
+                for file in UserPhoto.query().fetch(20):
+                    response.append({
+                        'file': file.key.id()
+                    })
             else:
                 for item in globals()[split[0]].query():
                     item_dict = item.to_dict()
                     item_dict['id'] = item.key.id()
-                    every_item.append(item_dict)
-            #Write JSON back to the client
-            self.response.write(json.dumps(every_item))
+                    response.append(item_dict)
         else:
             #Convert the ID to an int, create a key and retrieve the object
             item = globals()[split[0]].get_by_id(int(split[1]))
-            item_dict = item.to_dict()
-            item_dict['id'] = item.key.id()
-            #Return the values in the entity dictionary
-            self.response.write(json.dumps(item_dict))
+            response = item.to_dict()
+            response['id'] = item.key.id()
+
+        self.response.write(json.dumps(response))
 
     def delete(self):
         #pop off the script name ('/api')

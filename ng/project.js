@@ -39,7 +39,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
             });
         }
     })
-    .controller('EditCtrl', function($scope, $location, $stateParams, Project, UploadResource, $http) {
+    .controller('EditCtrl', function($scope, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
         $http.get('ng/Tags/data.json').success(function(data) {
             $scope.garmentFamilies = data;
             $scope.families = [];
@@ -56,6 +56,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         });
 
         $scope.upload_url = UploadResource.query();
+        $scope.download_files_urls = DownloadResource.query();
         $scope.link_url = '';
         $scope.garmentsReady = false;
         $scope.garmentTypes = [];

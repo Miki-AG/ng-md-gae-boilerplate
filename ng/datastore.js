@@ -34,4 +34,19 @@ angular.module('datastore', ['ngResource'])
             return Upload.get({}, cb);
         };
         return Upload;
+    })
+    .factory('DownloadResource', function($resource) {
+
+        var Download = $resource(
+            '/api/Download/:id', {}, {
+                get: {
+                    method: 'GET'
+                }
+            }
+        );
+
+        Download.prototype.get = function(cb) {
+            return Download.get({}, cb);
+        };
+        return Download;
     });
