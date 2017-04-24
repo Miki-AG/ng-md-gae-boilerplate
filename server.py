@@ -9,6 +9,8 @@ class Project(ndb.Model):
     name = ndb.StringProperty(required=True)
     site = ndb.StringProperty(required=False)
     description = ndb.StringProperty(required=True)
+    garment_family = ndb.StringProperty(required=False)
+    garment_type = ndb.StringProperty(required=False)
 
     def update(self, newdata):
         for key, value in newdata.items():
@@ -29,7 +31,9 @@ class Rest(webapp2.RequestHandler):
         if len(tokens) == 1:
             item = Project(
                 name=data_dict['name'],
-                description=data_dict['description']
+                description=data_dict['description'],
+                garment_family=data_dict['garment_family'],
+                garment_type=data_dict['garment_type']
             )
             key = item.put()
             self.response.write(json.dumps({'id': key.id()}))
@@ -38,6 +42,8 @@ class Rest(webapp2.RequestHandler):
             item = Project.get_by_id(int(tokens[1]))
             item.name = data_dict['name']
             item.description = data_dict['description']
+            item.garment_family = data_dict['garment_family']
+            item.garment_type = data_dict['garment_type']
             item.put()
 
     def get(self):

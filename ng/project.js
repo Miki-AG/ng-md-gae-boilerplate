@@ -60,8 +60,6 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
                 });
             }
         }
-        $scope.init();
-
         $scope.firstSelectionMade = function() {
             $scope.garmentTypes = [];
             console.log('firstSelectionMade');
@@ -108,6 +106,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
                     console.log('error');
                 });
         }
+        $scope.init();
     })
     .directive('customOnChange', function() {
         return {
