@@ -20,7 +20,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
             .state('new', {
                 url: '/new',
                 templateUrl: 'ng/PatternDetail/detail.tpl.html',
-                controller: 'CreateCtrl'
+                controller: 'EditCtrl'
             });
     })
     .controller('CreatorsCtrl', function($scope, $state) {
@@ -32,29 +32,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         });
         $scope.projects = Project.query();
     })
-    .controller('CreateCtrl', function($scope, $location, Project) {
-        $scope.save = function() {
-            Project.save($scope.project, function(project) {
-                $location.path('/');
-            });
-        }
-    })
     .controller('EditCtrl', function($scope, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
-        $http.get('ng/Tags/data.json').success(function(data) {
-            $scope.garmentFamilies = data;
-            $scope.families = [];
-            $scope.garmentFamilySelected;
-            $scope.garmentSelected;
-            data.forEach(function(item) {
-                $scope.families.push(item.familyName);
-            })
-        });
-        var self = this;
-        Project.get({ id: $stateParams.projectId }, function(project) {
-            self.original = project;
-            $scope.project = new Project(self.original);
-        });
-
         $scope.upload_url = UploadResource.query();
         $scope.download_files_urls = DownloadResource.query();
         $scope.link_url = '';
@@ -63,6 +41,26 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         $scope.fileName = '';
         $scope.step = 0;
         $scope.steps = ['Describe your pattern', 'Upload files', 'Share']
+
+        $scope.init = function() {
+            $http.get('ng/Tags/data.json').success(function(data) {
+                $scope.garmentFamilies = data;
+                $scope.families = [];
+                $scope.garmentFamilySelected;
+                $scope.garmentSelected;
+                data.forEach(function(item) {
+                    $scope.families.push(item.familyName);
+                })
+            });
+            if (!$stateParams.projectId) {
+                $scope.project = new Project();
+            } else {
+                Project.get({ id: $stateParams.projectId }, function(project) {
+                    $scope.project = project;
+                });
+            }
+        }
+        $scope.init();
 
         $scope.firstSelectionMade = function() {
             $scope.garmentTypes = [];
@@ -76,12 +74,9 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
             });
             $scope.garmentsReady = true;
         }
-        $scope.isClean = function() {
-            return angular.equals(self.original, $scope.project);
-        }
         $scope.destroy = function() {
-            self.original.destroy(function() {
-                $location.path('/list');
+            $scope.project.destroy(function() {
+                $location.path('/');
             });
         };
         $scope.goToStep = function(nextStep) {
