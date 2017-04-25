@@ -2,17 +2,17 @@
 <div layout="row">
     <md-input-container class="md-block" flex-gt-sm>
         <label>Select Garment Family</label>
-        <md-select ng-model="garmentFamilySelected" md-on-close="firstSelectionMade()">
-            <md-option ng-repeat="family in families" value="{{family}}">
-                {{family}}
+        <md-select ng-model="project.garment_family" md-on-close="firstSelectionMade()">
+            <md-option ng-repeat="garmentFamily in families" value="{{garmentFamily}}">
+                {{garmentFamily}}
             </md-option>
         </md-select>
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm>
-        <label>Select {{garmentFamilySelected}}</label>
-        <md-select ng-model="garmentSelected" ng-disabled="!garmentsReady">
-            <md-option ng-repeat="garment in garmentTypes" value="{{garment}}">
-                {{garment}}
+        <label>Select {{project.garment_family}}</label>
+        <md-select ng-model="project.garment_type" ng-disabled="!garmentsReady">
+            <md-option ng-repeat="garmenType in garmentTypes" value="{{garmenType}}">
+                {{garmenType}}
             </md-option>
         </md-select>
     </md-input-container>

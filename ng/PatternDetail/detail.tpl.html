@@ -7,8 +7,8 @@
         </md-button>
     </div>
     <form name="myForm">
-        <div ng-if="step == 0" ng-include="'ng/PatternDetail/detail-step1.tpl.html'"></div>
-        <div ng-if="step == 1" ng-include="'ng/PatternDetail/detail-step2.tpl.html'"></div>
+        <div ng-show="step == 0" ng-include="'ng/PatternDetail/detail-step1.tpl.html'"></div>
+        <div ng-show="step == 1" ng-include="'ng/PatternDetail/detail-step2.tpl.html'"></div>
         <div flex ng-include="'ng/PatternDetail/detail-actions.tpl.html'"></div>
     </form>
 </md-content>

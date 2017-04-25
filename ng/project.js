@@ -1,6 +1,5 @@
 angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 'firebase'])
     .config(function($stateProvider) {
-
         $stateProvider
             .state('home', {
                 url: '/',
@@ -42,12 +41,16 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         $scope.step = 0;
         $scope.steps = ['Describe your pattern', 'Upload files', 'Share']
 
+
+        $scope.families = [];
+        $scope.garmentFamilies = [];
+        $scope.garmentSelected;
+
+
         $scope.init = function() {
             $http.get('ng/Tags/data.json').success(function(data) {
                 $scope.garmentFamilies = data;
-                $scope.families = [];
-                $scope.garmentFamilySelected;
-                $scope.garmentSelected;
+
                 data.forEach(function(item) {
                     $scope.families.push(item.familyName);
                 })
@@ -57,14 +60,16 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
             } else {
                 Project.get({ id: $stateParams.projectId }, function(project) {
                     $scope.project = project;
+                    if ($scope.project.garment_family) {
+                        $scope.firstSelectionMade();
+                    }
                 });
             }
         }
         $scope.firstSelectionMade = function() {
             $scope.garmentTypes = [];
-            console.log('firstSelectionMade');
             $scope.garmentFamilies.forEach(function(family) {
-                if ($scope.garmentFamilySelected == family.familyName) {
+                if ($scope.project.garment_family == family.familyName) {
                     family.garments.forEach(function(garment) {
                         $scope.garmentTypes.push(garment.fields.name)
                     });
