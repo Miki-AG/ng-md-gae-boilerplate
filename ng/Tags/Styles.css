@@ -40,6 +40,11 @@ tag span {
     white-space: nowrap;
 }
 
+tag span a {
+    color: black;
+    text-decoration: none;
+}
+
 .border-file-upload {
     border-radius: 4px;
     background-color: #ececec;
