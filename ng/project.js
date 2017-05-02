@@ -40,7 +40,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         $scope.garmentTypes = [];
         $scope.fileName = '';
         $scope.step = 0;
-        $scope.steps = ['Describe your pattern', 'Upload files', 'Share']
+        $scope.steps = ['Describe your pattern', 'Upload files']
 
 
         $scope.families = [];
