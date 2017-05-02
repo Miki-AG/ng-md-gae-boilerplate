@@ -49,4 +49,19 @@ angular.module('datastore', ['ngResource'])
             return Download.get({}, cb);
         };
         return Download;
+    })
+    .factory('UsedTagsResource', function($resource) {
+
+        var UsedTags = $resource(
+            '/api/UsedTags', {}, {
+                get: {
+                    method: 'GET'
+                }
+            }
+        );
+
+        UsedTags.prototype.get = function(cb) {
+            return UsedTags.get({}, cb);
+        };
+        return UsedTags;
     });

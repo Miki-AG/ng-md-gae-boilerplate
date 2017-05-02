@@ -5,6 +5,15 @@
         </md-content>
     </md-tab>
 </md-tabs>
+
+<md-tabs md-dynamic-height md-border-bottom>
+    <md-tab ng-repeat="garmentFamily in usedTags" label="{{garmentFamily.familyName}}">
+        <md-content class="md-padding">
+            <tags tags="garmentFamily.garments"></tags>
+        </md-content>
+    </md-tab>
+</md-tabs>
+
 <div layout="column" layout-fill class="middle-frame">
     <div layout="row" flex layout-padding>
         <md-input-container flex class="md-icon-float md-block md-title no-margins">

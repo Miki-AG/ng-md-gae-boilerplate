@@ -25,11 +25,12 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
     .controller('CreatorsCtrl', function($scope, $state) {
         $scope.state = $state;
     })
-    .controller('ListCtrl', function($scope, Project, $http) {
+    .controller('ListCtrl', function($scope, Project, $http, UsedTagsResource) {
         $http.get('ng/Tags/data.json').success(function(data) {
             $scope.garmentFamilies = data;
         });
         $scope.projects = Project.query();
+        $scope.usedTags = UsedTagsResource.query();
     })
     .controller('EditCtrl', function($scope, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
         $scope.upload_url = UploadResource.query();
@@ -96,6 +97,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
             var fd = new FormData();
 
             fd.append('file', file);
+            fd.append('id', $stateParams.projectId);
             $http.post($scope.upload_url[0].upload_url, fd, {
                     transformRequest: angular.identity,
                     headers: {

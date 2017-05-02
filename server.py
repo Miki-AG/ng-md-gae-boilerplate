@@ -77,6 +77,23 @@ class Rest(webapp2.RequestHandler):
                         'blob_key': str(file.blob_key),
                         'filename': blob_info.filename
                     })
+            elif split[0] == 'UsedTags':
+                for pattern in Project.query():
+                    # Retrive a family with this family name
+                    familyToAppend = next((familyInResponse for familyInResponse in response if familyInResponse['familyName'] == pattern.garment_family), None)
+                    # If family does not exists
+                    if familyToAppend is None:
+                        # Create new family
+                        familyToAppend = {
+                            "familyName": pattern.garment_family,
+                            "garments": [{ "fields": {"name": pattern.garment_type }}]
+                        }
+                        #familyToAppend['garments'].append()
+                        response.append(familyToAppend)
+                    else:
+                        familyToAppend['garments'].append({ "fields": {"name": pattern.garment_type }})
+
+
             else:
                 for item in globals()[split[0]].query():
                     item_dict = item.to_dict()
@@ -101,6 +118,18 @@ class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         try:
             upload = self.get_uploads()[0]
+            #logging.info('UPLOAD --> {}'.format(upload))
+            #logging.info('UPLOAD request --> {}'.format(self.request))
+            logging.info('#######################################    UPLOAD self.request.body -->     ####################################')
+            logging.info('{}'.format(self.request.body))
+            logging.info('{}'.format(self.request.POST))
+            logging.info('{}'.format(self.request.params))
+            logging.info('################################################################################################################')
+
+            data_dict = json.loads(self.request.body)
+
+            #logging.info('UPLOAD request.form[id] --> {}'.format(self.request.form['id']))
+            #logging.info('UPLOAD request.form_data[id] --> {}'.format(self.request.form_data['id']))
             user_photo = UserPhoto(blob_key=upload.key())
             user_photo.put()
             self.response.write(json.dumps({'url':'/view_photo/%s' % upload.key()}))
