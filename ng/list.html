@@ -1,12 +1,4 @@
 <md-tabs md-dynamic-height md-border-bottom>
-    <md-tab ng-repeat="garmentFamily in garmentFamilies" label="{{garmentFamily.familyName}}">
-        <md-content class="md-padding">
-            <tags tags="garmentFamily.garments"></tags>
-        </md-content>
-    </md-tab>
-</md-tabs>
-
-<md-tabs md-dynamic-height md-border-bottom>
     <md-tab ng-repeat="garmentFamily in usedTags" label="{{garmentFamily.familyName}}">
         <md-content class="md-padding">
             <tags tags="garmentFamily.garments"></tags>

@@ -78,22 +78,19 @@ class Rest(webapp2.RequestHandler):
                         'filename': blob_info.filename
                     })
             elif split[0] == 'UsedTags':
-                for pattern in Project.query():
-                    # Retrive a family with this family name
-                    familyToAppend = next((familyInResponse for familyInResponse in response if familyInResponse['familyName'] == pattern.garment_family), None)
+                for pattern in Project.query().order(Project.garment_family).order(Project.garment_type):
+                    # Retrieve a family with this family name
+                    familyToCreateOrAppend = next((f for f in response if f['familyName'] == pattern.garment_family), None)
                     # If family does not exists
-                    if familyToAppend is None:
+                    if familyToCreateOrAppend is None:
                         # Create new family
-                        familyToAppend = {
+                        familyToCreateOrAppend = {
                             "familyName": pattern.garment_family,
                             "garments": [{ "fields": {"name": pattern.garment_type }}]
                         }
-                        #familyToAppend['garments'].append()
-                        response.append(familyToAppend)
+                        response.append(familyToCreateOrAppend)
                     else:
-                        familyToAppend['garments'].append({ "fields": {"name": pattern.garment_type }})
-
-
+                        familyToCreateOrAppend['garments'].append({ "fields": {"name": pattern.garment_type }})
             else:
                 for item in globals()[split[0]].query():
                     item_dict = item.to_dict()
