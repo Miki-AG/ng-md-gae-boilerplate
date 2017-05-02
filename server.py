@@ -90,7 +90,8 @@ class Rest(webapp2.RequestHandler):
                         }
                         response.append(familyToCreateOrAppend)
                     else:
-                        familyToCreateOrAppend['garments'].append({ "fields": {"name": pattern.garment_type }})
+                        if not any(t['fields']['name'] == pattern.garment_type for t in familyToCreateOrAppend['garments']):
+                            familyToCreateOrAppend['garments'].append({ "fields": {"name": pattern.garment_type }})
             else:
                 for item in globals()[split[0]].query():
                     item_dict = item.to_dict()
