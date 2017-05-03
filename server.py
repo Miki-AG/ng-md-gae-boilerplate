@@ -52,9 +52,8 @@ class Rest(webapp2.RequestHandler):
         #forget about the leading '/' and searate the Data type and the ID
         split = self.request.path_info[1:].split('/')
 
-        response = None
+        response = []
         if len(split) == 1:
-            response = []
             # Get Upload URL
             if split[0] == 'Upload':
                 url = blobstore.create_upload_url('/upload_photo')
@@ -92,17 +91,40 @@ class Rest(webapp2.RequestHandler):
                     else:
                         if not any(t['fields']['name'] == pattern.garment_type for t in familyToCreateOrAppend['garments']):
                             familyToCreateOrAppend['garments'].append({ "fields": {"name": pattern.garment_type }})
+
             else:
+                logging.info('-----------> {}'.format(split[0]))
+                for pattern in Project.query().fetch(20):
+                    response.append({
+                        "description": pattern.description,
+                        "site": pattern.site,
+                        "id": pattern.key.id(),
+                        "name": pattern.name,
+                        "garment_family": pattern.garment_family,
+                        "garment_type": pattern.garment_type
+                    })
+                """
                 for item in globals()[split[0]].query():
                     item_dict = item.to_dict()
                     item_dict['id'] = item.key.id()
                     response.append(item_dict)
+                """
+        elif split[0] == 'ProjectByTag':
+            logging.info('-----------> {} {}'.format('ProjectByTag', split[1]))
+            for pattern in Project.query().fetch(20):
+                response.append({
+                    "description": pattern.description,
+                    "site": pattern.site,
+                    "id": pattern.key.id(),
+                    "name": pattern.name,
+                    "garment_family": pattern.garment_family,
+                    "garment_type": pattern.garment_type
+                })
         else:
             #Convert the ID to an int, create a key and retrieve the object
             item = globals()[split[0]].get_by_id(int(split[1]))
             response = item.to_dict()
             response['id'] = item.key.id()
-
         self.response.write(json.dumps(response))
 
     def delete(self):

@@ -22,8 +22,26 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
                 controller: 'EditCtrl'
             });
     })
-    .controller('CreatorsCtrl', function($scope, $state) {
+    .controller('CreatorsCtrl', function($scope, $state, AuthFactory, $mdToast) {
         $scope.state = $state;
+        $scope.auth = AuthFactory;
+
+        // any time auth state changes, add the user data to scope
+        $scope.auth.$onAuthStateChanged(function(firebaseUser) {
+            $scope.user = firebaseUser;
+        });
+        $scope.goToNew = function() {
+            if ($scope.user) {
+                $state.go('new');
+            } else {
+                $mdToast.show(
+                    $mdToast.simple()
+                    .textContent('Please, login or register to upload patterns!')
+                    .position('bottom left')
+                    .hideDelay(3000)
+                );
+            }
+        }
     })
     .controller('ListCtrl', function($scope, Project, $http, UsedTagsResource) {
         $http.get('ng/Tags/data.json').success(function(data) {
