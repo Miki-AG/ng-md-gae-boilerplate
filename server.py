@@ -151,7 +151,9 @@ class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
             logging.info('{}'.format(self.request.params))
             logging.info('################################################################################################################')
 
-            data_dict = json.loads(self.request.body)
+            #data_dict = json.loads(self.request.body)
+
+            logging.info('################################################################################################################')
 
             #logging.info('UPLOAD request.form[id] --> {}'.format(self.request.form['id']))
             #logging.info('UPLOAD request.form_data[id] --> {}'.format(self.request.form_data['id']))
