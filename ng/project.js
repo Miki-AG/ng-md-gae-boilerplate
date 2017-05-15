@@ -11,6 +11,11 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
                 templateUrl: 'ng/creators.html',
                 controller: 'CreatorsCtrl'
             })
+            .state('view', {
+                url: '/view/{projectId:int}',
+                templateUrl: 'ng/PatternDetail/view.tpl.html',
+                controller: 'ViewCtrl'
+            })
             .state('detail', {
                 url: '/edit/{projectId:int}',
                 templateUrl: 'ng/PatternDetail/detail.tpl.html',
@@ -43,12 +48,43 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
             }
         }
     })
-    .controller('ListCtrl', function($scope, Project, $http, UsedTagsResource) {
+    .controller('ListCtrl', function($scope, Project, $http, UsedTagsResource, AuthFactory) {
+        $scope.auth = AuthFactory;
+
+        // any time auth state changes, add the user data to scope
+        $scope.auth.$onAuthStateChanged(function(firebaseUser) {
+            $scope.user = firebaseUser;
+        });
         $http.get('ng/Tags/data.json').success(function(data) {
             $scope.garmentFamilies = data;
         });
         $scope.projects = Project.query();
         $scope.usedTags = UsedTagsResource.query();
+    })
+    .controller('ViewCtrl', function($scope, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
+        $scope.upload_url = UploadResource.query();
+        $scope.download_files_urls = DownloadResource.query();
+        $scope.link_url = '';
+        $scope.garmentsReady = false;
+        $scope.garmentTypes = [];
+        $scope.fileName = '';
+
+        $scope.init = function() {
+            if (!$stateParams.projectId) {
+                $scope.project = new Project();
+            } else {
+                Project.get({ id: $stateParams.projectId }, function(project) {
+                    $scope.project = project;
+
+                });
+            }
+        }
+        $scope.destroy = function() {
+            $scope.project.destroy(function() {
+                $location.path('/');
+            });
+        };
+        $scope.init();
     })
     .controller('EditCtrl', function($scope, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
         $scope.upload_url = UploadResource.query();

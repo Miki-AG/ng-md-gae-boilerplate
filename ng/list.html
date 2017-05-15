@@ -24,8 +24,8 @@
                             </md-button>
                         </div-->
                 <div layout="row" class="tile-footer" style=";" layout-align="center center">
-                    <h3 flex ui-sref="detail({projectId:project.id})">{{project.name}}</h3>
-                    <md-button ui-sref="detail({projectId:project.id})" class="md-secondary md-icon-button" aria-label="call">
+                    <h3 flex ui-sref="view({projectId:project.id})">{{project.name}}</h3>
+                    <md-button ng-if="project.owner == user.email" ui-sref="detail({projectId:project.id})" class="md-secondary md-icon-button" aria-label="call">
                         <ng-md-icon icon="edit" style="fill:white;"></ng-md-icon>
                     </md-button>
                 </div>
