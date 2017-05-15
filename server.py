@@ -11,6 +11,7 @@ class Project(ndb.Model):
     description = ndb.StringProperty(required=True)
     garment_family = ndb.StringProperty(required=False)
     garment_type = ndb.StringProperty(required=False)
+    owner = ndb.StringProperty(required=False)
 
     def update(self, newdata):
         for key, value in newdata.items():
@@ -33,7 +34,8 @@ class Rest(webapp2.RequestHandler):
                 name=data_dict['name'],
                 description=data_dict['description'],
                 garment_family=data_dict['garment_family'],
-                garment_type=data_dict['garment_type']
+                garment_type=data_dict['garment_type'],
+                owner=data_dict['owner']
             )
             key = item.put()
             self.response.write(json.dumps({'id': key.id()}))
@@ -44,6 +46,7 @@ class Rest(webapp2.RequestHandler):
             item.description = data_dict['description']
             item.garment_family = data_dict['garment_family']
             item.garment_type = data_dict['garment_type']
+            item.owner = data_dict['owner']
             item.put()
 
     def get(self):
@@ -101,7 +104,8 @@ class Rest(webapp2.RequestHandler):
                         "id": pattern.key.id(),
                         "name": pattern.name,
                         "garment_family": pattern.garment_family,
-                        "garment_type": pattern.garment_type
+                        "garment_type": pattern.garment_type,
+                        "owner": pattern.owner
                     })
                 """
                 for item in globals()[split[0]].query():
@@ -118,7 +122,8 @@ class Rest(webapp2.RequestHandler):
                     "id": pattern.key.id(),
                     "name": pattern.name,
                     "garment_family": pattern.garment_family,
-                    "garment_type": pattern.garment_type
+                    "garment_type": pattern.garment_type,
+                    "owner": pattern.owner
                 })
         else:
             #Convert the ID to an int, create a key and retrieve the object

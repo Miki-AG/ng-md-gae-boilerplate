@@ -24,7 +24,7 @@
                             </md-button>
                         </div-->
                 <div layout="row" class="tile-footer" style=";" layout-align="center center">
-                    <h3 flex href="{{project.site}}" target="_blank">{{project.name}}</h3>
+                    <h3 flex ui-sref="detail({projectId:project.id})">{{project.name}}</h3>
                     <md-button ui-sref="detail({projectId:project.id})" class="md-secondary md-icon-button" aria-label="call">
                         <ng-md-icon icon="edit" style="fill:white;"></ng-md-icon>
                     </md-button>
