@@ -71,3 +71,8 @@ ng-md-icon {
     display: inline-block;
     line-height: 1;
 }
+
+.thumb {
+    width: 200px;
+    height: 100%;
+}

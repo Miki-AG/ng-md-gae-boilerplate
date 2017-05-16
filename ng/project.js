@@ -1,4 +1,14 @@
 angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 'firebase'])
+    .filter("isImage", function() {
+        return function(filename) {
+            var ext = filename.split('.').pop();
+            if (ext.match(/(jpg|jpeg|png|gif)$/i)) {
+                return true
+            } else {
+                return false
+            };
+        };
+    })
     .config(function($stateProvider) {
         $stateProvider
             .state('home', {
@@ -86,7 +96,9 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         };
         $scope.init();
     })
-    .controller('EditCtrl', function($scope, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
+    .controller('EditCtrl', function($scope, $timeout, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
+        $scope._DownloadResource = DownloadResource;
+
         $scope.upload_url = UploadResource.query();
         $scope.download_files_urls = DownloadResource.query();
         $scope.link_url = '';
@@ -162,6 +174,10 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
                 .success(function(data) {
                     console.log('success');
                     $scope.link_url = data.url;
+                    $timeout(function() {
+                        $scope.download_files_urls = $scope._DownloadResource.query();
+                    }, 1000);
+
                 })
                 .error(function(data, status) {
                     console.log('error');
