@@ -85,7 +85,6 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
             } else {
                 Project.get({ id: $stateParams.projectId }, function(project) {
                     $scope.project = project;
-
                 });
             }
         }
@@ -112,7 +111,6 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         $scope.families = [];
         $scope.garmentFamilies = [];
         $scope.garmentSelected;
-
 
         $scope.init = function() {
             $http.get('ng/Tags/data.json').success(function(data) {
@@ -160,24 +158,31 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
             var files = event.target.files;
             var file = files[0];
             $scope.fileName = file.name;
-            var fd = new FormData();
 
-            fd.append('file', file);
-            fd.append('id', $stateParams.projectId);
-            $http.post($scope.upload_url[0].upload_url, fd, {
-                    transformRequest: angular.identity,
-                    headers: {
-                        'Content-Type': undefined
-                            //'Content-Type': 'multipart/form-data'
-                    }
-                })
+            var data = new FormData();
+            data.append('file', file);
+            data.append('id', $stateParams.projectId);
+
+            var config = {
+                transformRequest: angular.identity,
+                headers: {
+                    'Content-Type': undefined
+                        //'Content-Type': 'application/x-www-form-urlencoded'
+                        //'Content-Type': 'multipart/form-data'
+                        //'Content-Type': 'multipart/related'
+                }
+            }
+            $http.post(
+                    $scope.upload_url[0].upload_url,
+                    data,
+                    config)
                 .success(function(data) {
                     console.log('success');
                     $scope.link_url = data.url;
                     $timeout(function() {
                         $scope.download_files_urls = $scope._DownloadResource.query();
+                        $scope.upload_url = UploadResource.query();
                     }, 1000);
-
                 })
                 .error(function(data, status) {
                     console.log('error');

@@ -72,12 +72,13 @@ class Rest(webapp2.RequestHandler):
                     logging.info('-----------> {}'.format(file.key.id()))
 
                     blob_info = blobstore.BlobInfo.get(file.blob_key)
-                    logging.info('-----------> {}'.format(blob_info.filename))
+                    logging.info('-----------> Filename: {}'.format(blob_info.filename))
 
                     response.append({
                         'id': file.key.id(),
                         'blob_key': str(file.blob_key),
-                        'filename': blob_info.filename
+                        'filename': blob_info.filename,
+                        'extension': blob_info.filename.split(".")[-1]
                     })
             elif split[0] == 'UsedTags':
                 for pattern in Project.query().order(Project.garment_family).order(Project.garment_type):
@@ -141,27 +142,32 @@ class Rest(webapp2.RequestHandler):
 
 class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
-        try:
-            upload = self.get_uploads()[0]
-            #logging.info('UPLOAD --> {}'.format(upload))
-            #logging.info('UPLOAD request --> {}'.format(self.request))
-            logging.info('#######################################    UPLOAD self.request.body -->     ####################################')
-            logging.info('{}'.format(self.request.body))
-            logging.info('{}'.format(self.request.POST))
-            logging.info('{}'.format(self.request.params))
-            logging.info('################################################################################################################')
+        #try:
+        upload = self.get_uploads()[0]
 
-            #data_dict = json.loads(self.request.body)
+        #logging.info('UPLOAD --> {}'.format(upload))
+        #logging.info('UPLOAD request --> {}'.format(self.request))
+        logging.info('#######################################    UPLOAD self.request.body -->     ####################################')
+        logging.info('[self.request.body]: {}'.format(self.request.body))
+        logging.info('################################################################################################################')
 
-            logging.info('################################################################################################################')
+        #data_dict = json.loads(self.request.body)
+        logging.info('[self.request.POST.get("id")]: {}'.format(self.request.POST.get("id")))
+        logging.info('[self.request.GET.get("id")]: {}'.format(self.request.GET.get("id")))
+        #logging.info('[self.request.POST["id"]]: {}'.format(self.request.POST['id']))
+        #logging.info('[self.request.params["description"]]: {}'.format(self.request.params['id']))
+        logging.info('[__dict__]: {}'.format(self.request.__dict__))
 
-            #logging.info('UPLOAD request.form[id] --> {}'.format(self.request.form['id']))
-            #logging.info('UPLOAD request.form_data[id] --> {}'.format(self.request.form_data['id']))
-            user_photo = UserPhoto(blob_key=upload.key())
-            user_photo.put()
-            self.response.write(json.dumps({'url':'/view_photo/%s' % upload.key()}))
-        except:
-            self.error(500)
+
+        logging.info('################################################################################################################')
+
+        #logging.info('UPLOAD request.form[id] --> {}'.format(self.request.form['id']))
+        #logging.info('UPLOAD request.form_data[id] --> {}'.format(self.request.form_data['id']))
+        user_photo = UserPhoto(blob_key=upload.key())
+        user_photo.put()
+        self.response.write(json.dumps({'url':'/view_photo/%s' % upload.key()}))
+        #except:
+        #    self.error(500)
 
 class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, blob_key):

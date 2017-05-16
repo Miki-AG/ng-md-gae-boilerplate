@@ -73,6 +73,13 @@ ng-md-icon {
 }
 
 .thumb {
-    width: 200px;
-    height: 100%;
+    width: auto;
+    height: 200px;
+    display: block;
+}
+
+.logos {
+    width: auto;
+    height: 64px;
+    display: block;
 }

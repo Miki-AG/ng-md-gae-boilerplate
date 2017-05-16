@@ -1,22 +1,32 @@
-<h5>Files</h5>
-<div layout="row" layout-margin>You can upload pattern definition files like Valentina's files.
-    You can also upload photos of the garment (png or jpeg/jpg).</div>
+<div layout="row" layout-margin>
+    <p>You can upload pattern definition files like Valentina's
+        files. You can also upload photos of the garment (png
+        or jpeg/jpg).</p>
+</div>
 <div layout="column" class="border-file-upload">
-    <div layout="row" layout-margin ng-repeat="item in download_files_urls">
-        <img ng-if="item.filename | isImage" ng-src="view_photo/{{item.blob_key}}"
-            class="thumb" />
-        <div layout="row" flex layout-align="end center">
-            {{item.filename}}
-            <md-button class="md-primary" ng-href="view_photo/{{item.blob_key}}"
-                download="{{item.filename}}">
-                <ng-md-icon icon="delete"></ng-md-icon>
-                Delete
-            </md-button>
-            <md-button class="md-primary" ng-href="view_photo/{{item.blob_key}}"
-                download="{{item.filename}}">
-                <ng-md-icon icon="cloud_download"></ng-md-icon>
-                Download
-            </md-button>
+    <div layout="row" layout-margin ng-repeat="item in download_files_urls | orderBy:'extension'"">
+        <div ng-if="item.filename | isImage" layout="row" layout-align="end center">
+            <img ng-src="view_photo/{{item.blob_key}}" class="thumb" />
+        </div>
+        <div ng-if="item.extension == 'val'" layout="row" layout-align="end center">
+            <img ng-src="/static/img/Valentina-Logo_v1_med.png" class="logos"
+            />
+            <p layout-padding>Valentina file</p>
+        </div>
+        <div layout="column" layout-align="start end" flex>
+            <div layout="row" layout-align="end center" layout-padding>
+                {{item.filename}}
+                <md-button class="md-primary" ng-href="view_photo/{{item.blob_key}}"
+                    download="{{item.filename}}">
+                    <ng-md-icon icon="delete"></ng-md-icon>
+                    Delete
+                </md-button>
+                <md-button class="md-primary" ng-href="view_photo/{{item.blob_key}}"
+                    download="{{item.filename}}">
+                    <ng-md-icon icon="cloud_download"></ng-md-icon>
+                    Download
+                </md-button>
+            </div>
         </div>
     </div>
     <div layout="row">
