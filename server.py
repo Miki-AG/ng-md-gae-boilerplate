@@ -4,6 +4,7 @@ from google.appengine.ext import ndb
 import logging
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
+import re
 
 class Project(ndb.Model):
     name = ndb.StringProperty(required=True)
@@ -19,6 +20,7 @@ class Project(ndb.Model):
 
 class UserPhoto(ndb.Model):
     blob_key = ndb.BlobKeyProperty()
+    pattern_key = ndb.KeyProperty(Project, repeated=True)
 
 
 class Rest(webapp2.RequestHandler):
@@ -142,32 +144,28 @@ class Rest(webapp2.RequestHandler):
 
 class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
-        #try:
         upload = self.get_uploads()[0]
 
-        #logging.info('UPLOAD --> {}'.format(upload))
-        #logging.info('UPLOAD request --> {}'.format(self.request))
         logging.info('#######################################    UPLOAD self.request.body -->     ####################################')
-        logging.info('[self.request.body]: {}'.format(self.request.body))
-        logging.info('################################################################################################################')
-
-        #data_dict = json.loads(self.request.body)
-        logging.info('[self.request.POST.get("id")]: {}'.format(self.request.POST.get("id")))
-        logging.info('[self.request.GET.get("id")]: {}'.format(self.request.GET.get("id")))
-        #logging.info('[self.request.POST["id"]]: {}'.format(self.request.POST['id']))
-        #logging.info('[self.request.params["description"]]: {}'.format(self.request.params['id']))
-        logging.info('[__dict__]: {}'.format(self.request.__dict__))
-
+        pattern_id = None
+        body = self.request.body.split()
+        iterator = iter(body)
+        for word in iterator:
+            if word == 'name="id"':
+                pattern_id = next(iterator)
+                logging.info('[body.next()]: {}'.format(pattern_id))
 
         logging.info('################################################################################################################')
 
-        #logging.info('UPLOAD request.form[id] --> {}'.format(self.request.form['id']))
-        #logging.info('UPLOAD request.form_data[id] --> {}'.format(self.request.form_data['id']))
+        pattern = Project.get_by_id(int(pattern_id))
+
         user_photo = UserPhoto(blob_key=upload.key())
+        user_photo.pattern_key = [pattern.key]
         user_photo.put()
+
+        # now look into this: http://stackoverflow.com/questions/11195388/ndb-query-a-model-based-upon-keyproperty-instance
         self.response.write(json.dumps({'url':'/view_photo/%s' % upload.key()}))
-        #except:
-        #    self.error(500)
+
 
 class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, blob_key):
