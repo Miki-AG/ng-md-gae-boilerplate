@@ -8,7 +8,7 @@
     <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
         md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="12px"
         md-gutter-gt-sm="8px">
-        <md-grid-tile class="gray" md-rowspan="1" md-colspan="1" ng-repeat="item in download_files_urls | orderBy:'extension'">
+        <md-grid-tile class="gray" md-rowspan="1" md-colspan="1" ng-click="onpenPopup(item)" ng-repeat="item in download_files_urls | orderBy:'extension'">
             <img ng-if="item.filename | isImage" ng-src="view_photo/{{item.blob_key}}"
                 class="tile-img" />
         </md-grid-tile>

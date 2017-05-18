@@ -21,6 +21,9 @@ angular.module('project')
                 $location.path('/');
             });
         };
+        $scope.onpenPopup = function(item) {
+            console.log(item.blob_key);
+        };
         $scope.init();
     })
     .controller('EditCtrl', function($scope, $timeout, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {

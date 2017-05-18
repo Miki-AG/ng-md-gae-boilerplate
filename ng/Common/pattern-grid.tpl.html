@@ -1,0 +1,15 @@
+<md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
+    md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px"
+    md-gutter-gt-sm="4px">
+    <md-grid-tile ng-repeat="pattern in patterns | filter:search | orderBy:'name'"
+        md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1"
+        ng-class="tile.background" class="tile-style">
+        <div layout="row" class="tile-footer" style=";" layout-align="center center">
+            <h3 flex ui-sref="view({projectId:pattern.id})">{{pattern.name}}</h3>
+            <md-button ng-if="pattern.owner == user.email" aria-label="call"
+                ui-sref="detail({projectId:pattern.id})" class="md-secondary md-icon-button">
+                <ng-md-icon icon="edit" style="fill:white;"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-grid-tile>
+</md-grid-list>

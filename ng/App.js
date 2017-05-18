@@ -6,6 +6,11 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
                 templateUrl: 'ng/list.html',
                 controller: 'ListCtrl'
             })
+            .state('mypatterns', {
+                url: '/mypatterns',
+                templateUrl: 'ng/MyPatterns/my-patterns.tpl.html',
+                controller: 'MyPatternsCtrl'
+            })
             .state('creators', {
                 url: '/creators',
                 templateUrl: 'ng/creators.html',
@@ -58,7 +63,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         $http.get('ng/Tags/data.json').success(function(data) {
             $scope.garmentFamilies = data;
         });
-        $scope.projects = Project.query();
+        $scope.patterns = Project.query();
         $scope.usedTags = UsedTagsResource.query();
     })
     .directive('customOnChange', function() {
