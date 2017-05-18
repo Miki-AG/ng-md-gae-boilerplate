@@ -4,7 +4,7 @@
         or jpeg/jpg).</p>
 </div>
 <div layout="column" class="border-file-upload">
-    <div layout="row" layout-margin ng-repeat="item in download_files_urls | orderBy:'extension'"">
+    <div layout="row" layout-margin ng-repeat="item in download_files_urls | orderBy:'extension'">
         <div ng-if="item.filename | isImage" layout="row" layout-align="end center">
             <img ng-src="view_photo/{{item.blob_key}}" class="thumb" />
         </div>

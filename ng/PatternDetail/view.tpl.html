@@ -3,3 +3,35 @@
 <p class="md-body-1">{{project.description}}</p>
 <md-button ng-if="more" ng-href="{{project.site}}" class="md-primary"
     target="_blank">Youtube Video Tutorial: {{project.site}} »</md-button>
+
+<div layout="column" class="border-file-upload">
+    <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
+        md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="12px"
+        md-gutter-gt-sm="8px">
+        <md-grid-tile class="gray" md-rowspan="1" md-colspan="1" ng-repeat="item in download_files_urls | orderBy:'extension'">
+            <img ng-if="item.filename | isImage" ng-src="view_photo/{{item.blob_key}}"
+                class="tile-img" />
+        </md-grid-tile>
+    </md-grid-list>
+</div>
+<div layout="column" class="border-file-upload">
+    <div ng-if="item.extension == 'val'" layout="row" layout-margin
+        ng-repeat="item in download_files_urls | orderBy:'extension'">
+        <div layout="row" layout-align="end center">
+            <img ng-src="/static/img/Valentina-Logo_v1_med.png" class="logos"
+            />
+            <p layout-padding>Valentina file</p>
+        </div>
+        <div ng-if="!(item.filename | isImage)" layout="column" layout-align="start end"
+            flex>
+            <div layout="row" layout-align="end center" layout-padding>
+                {{item.filename}}
+                <md-button class="md-primary" ng-href="view_photo/{{item.blob_key}}"
+                    download="{{item.filename}}">
+                    <ng-md-icon icon="cloud_download"></ng-md-icon>
+                    Download
+                </md-button>
+            </div>
+        </div>
+    </div>
+</div>
