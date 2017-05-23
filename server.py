@@ -147,6 +147,9 @@ class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
         upload = self.get_uploads()[0]
 
         logging.info('#######################################    UPLOAD self.request.body -->     ####################################')
+        logging.info('[self.request.body]: {}'.format(self.request.body))
+        logging.info('################################################################################################################')
+
         pattern_id = None
         body = self.request.body.split()
         iterator = iter(body)

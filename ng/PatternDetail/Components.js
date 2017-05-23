@@ -43,6 +43,8 @@ angular.module('project')
         $scope.garmentFamilies = [];
         $scope.garmentSelected;
 
+        $scope.pattern = null;
+
         $scope.init = function() {
             $http.get('ng/Tags/data.json').success(function(data) {
                 $scope.garmentFamilies = data;
@@ -80,19 +82,20 @@ angular.module('project')
         };
         $scope.goToStep = function(nextStep) {
             if ($scope.step == 0) {
-                $scope.project.update(function() {});
+                $scope.pattern = $scope.project.update(function() {});
             }
             $scope.step = nextStep;
         };
         $scope.uploadFile = function(event) {
-            console.log('uploadFile');
             var files = event.target.files;
             var file = files[0];
             $scope.fileName = file.name;
 
             var data = new FormData();
             data.append('file', file);
-            data.append('id', $stateParams.projectId);
+
+
+            data.append('id', $scope.pattern.id);
 
             var config = {
                 transformRequest: angular.identity,
