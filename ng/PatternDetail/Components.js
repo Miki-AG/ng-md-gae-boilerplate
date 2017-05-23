@@ -32,11 +32,12 @@ angular.module('project')
 
         $scope.upload_url = UploadResource.query();
 
+        /*
         $scope.download_files_urls = DownloadResource.query({ id: '12345' }, function(promisedData) {
             // Promised data
             console.log(promisedData);
         });
-
+*/
         $scope.link_url = '';
         $scope.garmentsReady = false;
         $scope.garmentTypes = [];
@@ -63,6 +64,10 @@ angular.module('project')
                 $scope.project = new Project();
             } else {
                 Project.get({ id: $stateParams.projectId }, function(project) {
+                    $scope.download_files_urls = DownloadResource.query({ id: project.id }, function(promisedData) {
+                        // Promised data
+                        console.log(promisedData);
+                    });
                     $scope.project = project;
                     if ($scope.project.garment_family) {
                         $scope.firstSelectionMade();

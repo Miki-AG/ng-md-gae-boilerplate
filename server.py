@@ -20,7 +20,7 @@ class Project(ndb.Model):
 
 class UserPhoto(ndb.Model):
     blob_key = ndb.BlobKeyProperty()
-    pattern_key = ndb.KeyProperty(Project, repeated=True)
+    pattern_key = ndb.KeyProperty(kind=Project)
 
 
 class Rest(webapp2.RequestHandler):
@@ -133,10 +133,12 @@ class Rest(webapp2.RequestHandler):
             logging.info('-----------> UPLOAD {} {}'.format(split[0], split[1]))
             response = []
 
-            pattern_key = ndb.Key(Project, pattern_key_to_retrieve)
-            logging.info('-----------> pattern_key {} '.format(pattern_key))
+            pattern = Project.get_by_id(int(pattern_key_to_retrieve))
+            logging.info('-----------> pattern_key {} '.format(pattern.key))
 
-            for file in UserPhoto.query(UserPhoto.pattern_key == pattern_key):
+            #files = UserPhoto.query(UserPhoto.pattern_key == pattern_key)
+            files = UserPhoto.query(UserPhoto.pattern_key == pattern.key).fetch()
+            for file in files:
                 #for file in UserPhoto.query().fetch(20):
                 logging.info('-----------> {}'.format(file.key))
                 logging.info('-----------> {}'.format(file.blob_key))
@@ -186,7 +188,7 @@ class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
         pattern = Project.get_by_id(int(pattern_id))
 
         user_photo = UserPhoto(blob_key=upload.key())
-        user_photo.pattern_key = [pattern.key]
+        user_photo.pattern_key = pattern.key
         user_photo.put()
 
         # now look into this: http://stackoverflow.com/questions/11195388/ndb-query-a-model-based-upon-keyproperty-instance
