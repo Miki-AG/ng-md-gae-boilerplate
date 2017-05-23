@@ -1,11 +1,10 @@
 <h2 class="md-display-2">My patterns</h2>
 
-<div layout="column" layout-fill class="middle-frame">
+<div layout="column" layout-fill>
     <div flex ng-cloak ng-include="'ng/Common/pattern-grid.tpl.html'">
     </div>
 </div>
 
-<div ng-if="patterns" layout="column" layout-fill>
+<div ng-if="patterns.length == 0" layout="column" layout-fill>
     <h3 class="md-subhead">You haven't uploaded any pattern yet!</h3>
 </div>
-
