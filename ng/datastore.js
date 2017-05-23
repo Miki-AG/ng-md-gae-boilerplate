@@ -27,7 +27,6 @@ angular.module('datastore', ['ngResource'])
         return Project;
     })
     .factory('UploadResource', function($resource) {
-
         var Upload = $resource(
             '/api/Upload/:id', {}, {
                 get: {
@@ -44,16 +43,17 @@ angular.module('datastore', ['ngResource'])
     .factory('DownloadResource', function($resource) {
 
         var Download = $resource(
-            '/api/Download/:id', {}, {
+            '/api/Download/:id', { id: '@id' }, {
                 get: {
                     method: 'GET'
                 }
             }
         );
-
-        Download.prototype.get = function(cb) {
-            return Download.get({}, cb);
-        };
+        /*
+                Download.prototype.get = function(cb) {
+                    return Download.get({}, cb);
+                };
+                */
         return Download;
     })
     .factory('UsedTagsResource', function($resource) {

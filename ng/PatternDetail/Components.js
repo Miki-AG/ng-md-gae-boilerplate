@@ -1,20 +1,21 @@
 angular.module('project')
     .controller('ViewCtrl', function($scope, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
-        $scope.upload_url = UploadResource.query();
-        $scope.download_files_urls = DownloadResource.query();
+
         $scope.link_url = '';
         $scope.garmentsReady = false;
         $scope.garmentTypes = [];
         $scope.fileName = '';
 
         $scope.init = function() {
-            if (!$stateParams.projectId) {
-                $scope.project = new Project();
-            } else {
-                Project.get({ id: $stateParams.projectId }, function(project) {
-                    $scope.project = project;
+            Project.get({ id: $stateParams.projectId }, function(project) {
+                $scope.project = project;
+
+                console.log($scope.project.id);
+                $scope.download_files_urls = DownloadResource.query({ id: $scope.project.id }, function(promisedData) {
+                    // Promised data
+                    console.log(promisedData);
                 });
-            }
+            });
         }
         $scope.destroy = function() {
             $scope.project.destroy(function() {
@@ -30,7 +31,12 @@ angular.module('project')
         $scope._DownloadResource = DownloadResource;
 
         $scope.upload_url = UploadResource.query();
-        $scope.download_files_urls = DownloadResource.query();
+
+        $scope.download_files_urls = DownloadResource.query({ id: '12345' }, function(promisedData) {
+            // Promised data
+            console.log(promisedData);
+        });
+
         $scope.link_url = '';
         $scope.garmentsReady = false;
         $scope.garmentTypes = [];

@@ -128,6 +128,29 @@ class Rest(webapp2.RequestHandler):
                     "garment_type": pattern.garment_type,
                     "owner": pattern.owner
                 })
+        elif split[0] == 'Download':
+            pattern_key_to_retrieve = split[1]
+            logging.info('-----------> UPLOAD {} {}'.format(split[0], split[1]))
+            response = []
+
+            pattern_key = ndb.Key(Project, pattern_key_to_retrieve)
+            logging.info('-----------> pattern_key {} '.format(pattern_key))
+
+            for file in UserPhoto.query(UserPhoto.pattern_key == pattern_key):
+                #for file in UserPhoto.query().fetch(20):
+                logging.info('-----------> {}'.format(file.key))
+                logging.info('-----------> {}'.format(file.blob_key))
+                logging.info('-----------> {}'.format(file.key.id()))
+
+                blob_info = blobstore.BlobInfo.get(file.blob_key)
+                logging.info('-----------> Filename: {}'.format(blob_info.filename))
+
+                response.append({
+                    'id': file.key.id(),
+                    'blob_key': str(file.blob_key),
+                    'filename': blob_info.filename,
+                    'extension': blob_info.filename.split(".")[-1]
+                })
         else:
             #Convert the ID to an int, create a key and retrieve the object
             item = globals()[split[0]].get_by_id(int(split[1]))
