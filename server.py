@@ -4,25 +4,29 @@ from google.appengine.ext import ndb
 import logging
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
-import re
+from collections import namedtuple
 
-URLS = {
-    'UPLOAD': 'Upload',
-    'DOWNLOAD': 'Download',
-    'USED_TAGS': 'UsedTags',
-    'PATTERN': 'Project',
-    'PATTERN_BY_TAG': 'ProjectByTag'
-}
+
+ACTIONS = namedtuple("ACTIONS", "UPLOAD DOWNLOAD USED_TAGS PATTERN PATTERN_BY_TAG")
+
+URLS = ACTIONS(
+    UPLOAD="Upload",
+    DOWNLOAD="Download",
+    USED_TAGS="UsedTags",
+    PATTERN="Project",
+    PATTERN_BY_TAG="ProjectByTag"
+)
 
 class Project(ndb.Model):
+    "Pattern definition model"
     name = ndb.StringProperty(required=True)
     site = ndb.StringProperty(required=False)
     description = ndb.StringProperty(required=True)
     garment_family = ndb.StringProperty(required=False)
     garment_type = ndb.StringProperty(required=False)
     owner = ndb.StringProperty(required=False)
-
     def update(self, newdata):
+        "Update pattern"
         for key, value in newdata.items():
             setattr(self, key, value)
 
@@ -68,13 +72,13 @@ class Rest(webapp2.RequestHandler):
         response = []
         if len(split) == 1:
             # Get Upload URL
-            if split[0] == 'Upload':
+            if split[0] == URLS.UPLOAD:
                 url = blobstore.create_upload_url('/upload_photo')
                 item = {}
                 item['upload_url'] = url
                 response.append(item)
             # Get Download URL
-            elif split[0] == 'Download':
+            elif split[0] == URLS.DOWNLOAD:
                 for file in UserPhoto.query().fetch(20):
                     logging.info('-----------> {}'.format(file.key))
                     logging.info('-----------> {}'.format(file.blob_key))
@@ -89,7 +93,7 @@ class Rest(webapp2.RequestHandler):
                         'filename': blob_info.filename,
                         'extension': blob_info.filename.split(".")[-1]
                     })
-            elif split[0] == 'UsedTags':
+            elif split[0] == URLS.USED_TAGS:
                 for pattern in Project.query().order(Project.garment_family).order(Project.garment_type):
                     # Retrieve a family with this family name
                     familyToCreateOrAppend = next((f for f in response if f['familyName'] == pattern.garment_family), None)
@@ -105,7 +109,7 @@ class Rest(webapp2.RequestHandler):
                         if not any(t['fields']['name'] == pattern.garment_type for t in familyToCreateOrAppend['garments']):
                             familyToCreateOrAppend['garments'].append({ "fields": {"name": pattern.garment_type }})
 
-            elif split[0] == 'Project':
+            elif split[0] == URLS.PATTERN:
                 owner = self.request.get('owner')
                 query = Project.query()
                 if owner:
@@ -120,7 +124,7 @@ class Rest(webapp2.RequestHandler):
                         "garment_type": pattern.garment_type,
                         "owner": pattern.owner
                     })
-        elif split[0] == 'ProjectByTag':
+        elif split[0] == URLS.PATTERN_BY_TAG:
             logging.info('-----------> {} {}'.format('ProjectByTag', split[1]))
             for pattern in Project.query().fetch(20):
                 response.append({
@@ -132,7 +136,7 @@ class Rest(webapp2.RequestHandler):
                     "garment_type": pattern.garment_type,
                     "owner": pattern.owner
                 })
-        elif split[0] == 'Download':
+        elif split[0] == URLS.DOWNLOAD:
             pattern_key_to_retrieve = split[1]
             logging.info('-----------> UPLOAD {} {}'.format(split[0], split[1]))
             response = []
