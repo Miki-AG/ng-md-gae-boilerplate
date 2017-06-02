@@ -6,6 +6,14 @@ from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 import re
 
+URLS = {
+    'UPLOAD': 'Upload',
+    'DOWNLOAD': 'Download',
+    'USED_TAGS': 'UsedTags',
+    'PATTERN': 'Project',
+    'PATTERN_BY_TAG': 'ProjectByTag'
+}
+
 class Project(ndb.Model):
     name = ndb.StringProperty(required=True)
     site = ndb.StringProperty(required=False)
@@ -67,7 +75,6 @@ class Rest(webapp2.RequestHandler):
                 response.append(item)
             # Get Download URL
             elif split[0] == 'Download':
-                response = []
                 for file in UserPhoto.query().fetch(20):
                     logging.info('-----------> {}'.format(file.key))
                     logging.info('-----------> {}'.format(file.blob_key))
@@ -98,9 +105,12 @@ class Rest(webapp2.RequestHandler):
                         if not any(t['fields']['name'] == pattern.garment_type for t in familyToCreateOrAppend['garments']):
                             familyToCreateOrAppend['garments'].append({ "fields": {"name": pattern.garment_type }})
 
-            else:
-                logging.info('-----------> {}'.format(split[0]))
-                for pattern in Project.query().fetch(20):
+            elif split[0] == 'Project':
+                owner = self.request.get('owner')
+                query = Project.query()
+                if owner:
+                    query = Project.query(Project.owner == owner)
+                for pattern in query.fetch(20):
                     response.append({
                         "description": pattern.description,
                         "site": pattern.site,
@@ -110,12 +120,6 @@ class Rest(webapp2.RequestHandler):
                         "garment_type": pattern.garment_type,
                         "owner": pattern.owner
                     })
-                """
-                for item in globals()[split[0]].query():
-                    item_dict = item.to_dict()
-                    item_dict['id'] = item.key.id()
-                    response.append(item_dict)
-                """
         elif split[0] == 'ProjectByTag':
             logging.info('-----------> {} {}'.format('ProjectByTag', split[1]))
             for pattern in Project.query().fetch(20):
