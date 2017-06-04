@@ -25,8 +25,8 @@ angular.module('project')
             }
         }
     })
-    .controller('TagController', function($scope) {
-        $scope.goToTag = function(tag) {
-            console.log(tag);
+    .controller('TagController', function($scope, $rootScope) {
+        $scope.goToTag = function(tagName) {
+            $rootScope.$broadcast('get-patterns-by-tag', { tag: tagName });
         };
     });

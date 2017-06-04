@@ -23,6 +23,16 @@ angular.module('datastore', ['ngResource'])
         };
         return Project;
     })
+    .factory('ProjectByTag', function($resource) {
+        var ProjectByTag = $resource(
+            '/api/ProjectByTag/:id', {}, {
+                get: {
+                    method: 'GET'
+                }
+            }
+        );
+        return ProjectByTag;
+    })
     .factory('UploadResource', function($resource) {
         var Upload = $resource(
             '/api/Upload/:id', {}, {

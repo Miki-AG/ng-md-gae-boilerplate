@@ -38,11 +38,10 @@ tag span {
     padding: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
+    cursor: pointer;
+    cursor: hand;
+    outline: rgba(0, 0, 0, 0) none 0px;
 
-tag span a {
-    color: black;
-    text-decoration: none;
 }
 
 .border-file-upload {

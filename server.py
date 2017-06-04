@@ -80,12 +80,12 @@ class Rest(webapp2.RequestHandler):
             # Get Download URL
             elif split[0] == URLS.DOWNLOAD:
                 for file in UserPhoto.query().fetch(20):
-                    logging.info('-----------> {}'.format(file.key))
-                    logging.info('-----------> {}'.format(file.blob_key))
-                    logging.info('-----------> {}'.format(file.key.id()))
+                    logging.info('(1) -----------> {}'.format(file.key))
+                    logging.info('(1) -----------> {}'.format(file.blob_key))
+                    logging.info('(1) -----------> {}'.format(file.key.id()))
 
                     blob_info = blobstore.BlobInfo.get(file.blob_key)
-                    logging.info('-----------> Filename: {}'.format(blob_info.filename))
+                    logging.info('(1) -----------> Filename: {}'.format(blob_info.filename))
 
                     response.append({
                         'id': file.key.id(),
@@ -124,37 +124,42 @@ class Rest(webapp2.RequestHandler):
                         "garment_type": pattern.garment_type,
                         "owner": pattern.owner
                     })
-        elif split[0] == URLS.PATTERN_BY_TAG:
-            logging.info('-----------> {} {}'.format('ProjectByTag', split[1]))
-            query = Project.query(Project.garment_type == 'Coatdress')
-            for pattern in query.fetch(20):
-                response.append({
-                    "description": pattern.description,
-                    "site": pattern.site,
-                    "id": pattern.key.id(),
-                    "name": pattern.name,
-                    "garment_family": pattern.garment_family,
-                    "garment_type": pattern.garment_type,
-                    "owner": pattern.owner
-                })
+            elif split[0] == URLS.PATTERN_BY_TAG:
+                tag_name = self.request.get('tag')
+                logging.info('(2) -----------> {} '.format('ProjectByTag'))
+                #logging.info('(2) -----------> tag_name: {}'.format(tag_name))
+
+                query = Project.query(Project.garment_type == tag_name)
+                for pattern in query.fetch(20):
+                    response.append({
+                        "description": pattern.description,
+                        "site": pattern.site,
+                        "id": pattern.key.id(),
+                        "name": pattern.name,
+                        "garment_family": pattern.garment_family,
+                        "garment_type": pattern.garment_type,
+                        "owner": pattern.owner
+                    })
+            else:
+                logging.info('(6) -----------')
         elif split[0] == URLS.DOWNLOAD:
             pattern_key_to_retrieve = split[1]
-            logging.info('-----------> UPLOAD {} {}'.format(split[0], split[1]))
+            logging.info('(3) -----------> UPLOAD {} {}'.format(split[0], split[1]))
             response = []
 
             pattern = Project.get_by_id(int(pattern_key_to_retrieve))
-            logging.info('-----------> pattern_key {} '.format(pattern.key))
+            logging.info('(3) -----------> pattern_key {} '.format(pattern.key))
 
             #files = UserPhoto.query(UserPhoto.pattern_key == pattern_key)
             files = UserPhoto.query(UserPhoto.pattern_key == pattern.key).fetch()
             for file in files:
                 #for file in UserPhoto.query().fetch(20):
-                logging.info('-----------> {}'.format(file.key))
-                logging.info('-----------> {}'.format(file.blob_key))
-                logging.info('-----------> {}'.format(file.key.id()))
+                logging.info('(4) -----------> {}'.format(file.key))
+                logging.info('(4) -----------> {}'.format(file.blob_key))
+                logging.info('(4) -----------> {}'.format(file.key.id()))
 
                 blob_info = blobstore.BlobInfo.get(file.blob_key)
-                logging.info('-----------> Filename: {}'.format(blob_info.filename))
+                logging.info('(4) -----------> Filename: {}'.format(blob_info.filename))
 
                 response.append({
                     'id': file.key.id(),
@@ -163,6 +168,8 @@ class Rest(webapp2.RequestHandler):
                     'extension': blob_info.filename.split(".")[-1]
                 })
         else:
+            logging.info('(5) -----------')
+
             #Convert the ID to an int, create a key and retrieve the object
             item = globals()[split[0]].get_by_id(int(split[1]))
             response = item.to_dict()
