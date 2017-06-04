@@ -61,15 +61,15 @@ angular.module('project')
                 })
             });
             if (!$stateParams.projectId) {
-                $scope.project = new Project();
+                $scope.pattern = new Project();
             } else {
-                Project.get({ id: $stateParams.projectId }, function(project) {
-                    $scope.download_files_urls = DownloadResource.query({ id: project.id }, function(promisedData) {
+                Project.get({ id: $stateParams.projectId }, function(pattern) {
+                    $scope.download_files_urls = DownloadResource.query({ id: pattern.id }, function(promisedData) {
                         // Promised data
                         console.log(promisedData);
                     });
-                    $scope.project = project;
-                    if ($scope.project.garment_family) {
+                    $scope.pattern = pattern;
+                    if ($scope.pattern.garment_family) {
                         $scope.firstSelectionMade();
                     }
                 });
@@ -78,7 +78,7 @@ angular.module('project')
         $scope.firstSelectionMade = function() {
             $scope.garmentTypes = [];
             $scope.garmentFamilies.forEach(function(family) {
-                if ($scope.project.garment_family == family.familyName) {
+                if ($scope.pattern.garment_family == family.familyName) {
                     family.garments.forEach(function(garment) {
                         $scope.garmentTypes.push(garment.fields.name)
                     });
@@ -87,13 +87,13 @@ angular.module('project')
             $scope.garmentsReady = true;
         }
         $scope.destroy = function() {
-            $scope.project.destroy(function() {
+            $scope.pattern.destroy(function() {
                 $location.path('/');
             });
         };
         $scope.goToStep = function(nextStep) {
             if ($scope.step == 0) {
-                $scope.pattern = $scope.project.update(function() {});
+                $scope.pattern = $scope.pattern.update(function() {});
             }
             $scope.step = nextStep;
         };

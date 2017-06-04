@@ -2,15 +2,15 @@
 <div layout="row">
     <md-input-container class="md-block" flex-gt-sm>
         <label>Select Garment Family</label>
-        <md-select required ng-model="project.garment_family" md-on-close="firstSelectionMade()">
+        <md-select required ng-model="pattern.garment_family" md-on-close="firstSelectionMade()">
             <md-option ng-repeat="garmentFamily in families" value="{{garmentFamily}}">
                 {{garmentFamily}}
             </md-option>
         </md-select>
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm>
-        <label>Select {{project.garment_family}}</label>
-        <md-select required ng-model="project.garment_type" ng-disabled="!garmentsReady">
+        <label>Select {{pattern.garment_family}}</label>
+        <md-select required ng-model="pattern.garment_type" ng-disabled="!garmentsReady">
             <md-option ng-repeat="garmenType in garmentTypes" value="{{garmenType}}">
                 {{garmenType}}
             </md-option>
@@ -19,14 +19,14 @@
 </div>
 <md-input-container class="md-block" flex>
     <label>Pattern Name</label>
-    <input type="text" name="name" ng-model="project.name" required>
+    <input type="text" name="name" ng-model="pattern.name" required>
     <ng-messages for="myForm.myName.$error" role="alert">
         <ng-message when="required">Required</ng-message>
     </ng-messages>
 </md-input-container>
 <md-input-container class="md-block" flex>
     <label>Description</label>
-    <textarea type="text" name="description" ng-model="project.description" required></textarea>
+    <textarea type="text" name="description" ng-model="pattern.description" required></textarea>
     <ng-messages for="myForm.myName.$error" role="alert">
         <ng-message when="required">Required</ng-message>
     </ng-messages>
@@ -34,7 +34,7 @@
 <h5>Optional</h5>
 <md-input-container class="md-block" flex>
     <label>Youtube Video Tutorial</label>
-    <input type="url" name="site" ng-model="project.site">
+    <input type="url" name="site" ng-model="pattern.site">
     <ng-messages for="myForm.site.$error" role="alert">
         <ng-message when="url">Not a URL</ng-message>
     </ng-messages>
