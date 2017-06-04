@@ -31,13 +31,4 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
                 templateUrl: 'ng/PatternDetail/detail.tpl.html',
                 controller: 'EditCtrl'
             });
-    })
-    .directive('customOnChange', function() {
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-                var onChangeHandler = scope.$eval(attrs.customOnChange);
-                element.bind('change', onChangeHandler);
-            }
-        };
     });
