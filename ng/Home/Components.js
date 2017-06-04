@@ -1,6 +1,10 @@
 angular.module('project')
-    .controller('HomeCtrl', function($scope, Project, ProjectByTag, $http, UsedTagsResource, AuthFactory, $state) {
+    .controller('HomeCtrl', function($scope, Project, ProjectByTag, ProjectByCriteria, $http, UsedTagsResource, AuthFactory, $state) {
         $scope.auth = AuthFactory;
+
+        $scope.searchByCriteria = function() {
+            $scope.patterns = ProjectByCriteria.query({ criteria: $scope.search });
+        };
 
         // any time auth state changes, add the user data to scope
         $scope.auth.$onAuthStateChanged(function(firebaseUser) {
@@ -18,11 +22,5 @@ angular.module('project')
 
         $scope.$on('get-patterns-by-tag', function(event, args) {
             $scope.patterns = ProjectByTag.query({ tag: args.tag });
-        });
-
-        $scope.$on('get-patterns-by-criteria', function(event, args) {
-            console.log('Going Home!')
-            $scope.patterns = Project.query();
-            $state.go('home');
         });
     })

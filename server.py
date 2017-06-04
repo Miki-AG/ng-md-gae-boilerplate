@@ -7,14 +7,15 @@ from google.appengine.ext.webapp import blobstore_handlers
 from collections import namedtuple
 
 
-ACTIONS = namedtuple("ACTIONS", "UPLOAD DOWNLOAD USED_TAGS PATTERN PATTERN_BY_TAG")
+ACTIONS = namedtuple("ACTIONS", "UPLOAD DOWNLOAD USED_TAGS PATTERN PATTERN_BY_TAG PATTERN_BY_CRITERIA")
 
 URLS = ACTIONS(
     UPLOAD="Upload",
     DOWNLOAD="Download",
     USED_TAGS="UsedTags",
     PATTERN="Project",
-    PATTERN_BY_TAG="ProjectByTag"
+    PATTERN_BY_TAG="ProjectByTag",
+    PATTERN_BY_CRITERIA="ProjectByCriteria"
 )
 
 class Project(ndb.Model):
@@ -127,9 +128,23 @@ class Rest(webapp2.RequestHandler):
             elif split[0] == URLS.PATTERN_BY_TAG:
                 tag_name = self.request.get('tag')
                 logging.info('(2) -----------> {} '.format('ProjectByTag'))
-                #logging.info('(2) -----------> tag_name: {}'.format(tag_name))
 
                 query = Project.query(Project.garment_type == tag_name)
+                for pattern in query.fetch(20):
+                    response.append({
+                        "description": pattern.description,
+                        "site": pattern.site,
+                        "id": pattern.key.id(),
+                        "name": pattern.name,
+                        "garment_family": pattern.garment_family,
+                        "garment_type": pattern.garment_type,
+                        "owner": pattern.owner
+                    })
+            elif split[0] == URLS.PATTERN_BY_CRITERIA:
+                criteria = self.request.get('criteria')
+                logging.info('(2) -----------> {} '.format('ProjectByCriteria'))
+
+                query = Project.query(Project.name == criteria)
                 for pattern in query.fetch(20):
                     response.append({
                         "description": pattern.description,
