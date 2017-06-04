@@ -1,5 +1,5 @@
 angular.module('project')
-    .controller('HomeCtrl', function($scope, Project, ProjectByTag, $http, UsedTagsResource, AuthFactory) {
+    .controller('HomeCtrl', function($scope, Project, ProjectByTag, $http, UsedTagsResource, AuthFactory, $state) {
         $scope.auth = AuthFactory;
 
         // any time auth state changes, add the user data to scope
@@ -13,7 +13,12 @@ angular.module('project')
         $scope.usedTags = UsedTagsResource.query();
 
         $scope.$on('get-patterns-by-tag', function(event, args) {
-            console.log(args.tag);
             $scope.patterns = ProjectByTag.query({ tag: args.tag });
+        });
+
+        $scope.$on('get-patterns-by-criteria', function(event, args) {
+            console.log('Going Home!')
+            $scope.patterns = Project.query();
+            $state.go('home');
         });
     })
