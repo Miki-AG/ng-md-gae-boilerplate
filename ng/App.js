@@ -3,8 +3,8 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
         $stateProvider
             .state('home', {
                 url: '/',
-                templateUrl: 'ng/list.html',
-                controller: 'ListCtrl'
+                templateUrl: 'ng/Home/home.html',
+                controller: 'HomeCtrl'
             })
             .state('mypatterns', {
                 url: '/mypatterns',
@@ -13,7 +13,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
             })
             .state('creators', {
                 url: '/creators',
-                templateUrl: 'ng/creators.html',
+                templateUrl: 'ng/StaticPages/creators.html',
                 controller: 'CreatorsCtrl'
             })
             .state('view', {
@@ -32,40 +32,6 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
                 controller: 'EditCtrl'
             });
     })
-    .controller('CreatorsCtrl', function($scope, $state, AuthFactory, $mdToast) {
-        $scope.state = $state;
-        $scope.auth = AuthFactory;
-
-        // any time auth state changes, add the user data to scope
-        $scope.auth.$onAuthStateChanged(function(firebaseUser) {
-            $scope.user = firebaseUser;
-        });
-        $scope.goToNew = function() {
-            if ($scope.user) {
-                $state.go('new');
-            } else {
-                $mdToast.show(
-                    $mdToast.simple()
-                    .textContent('Please, login or register to upload patterns!')
-                    .position('bottom left')
-                    .hideDelay(3000)
-                );
-            }
-        }
-    })
-    .controller('ListCtrl', function($scope, Project, $http, UsedTagsResource, AuthFactory) {
-        $scope.auth = AuthFactory;
-
-        // any time auth state changes, add the user data to scope
-        $scope.auth.$onAuthStateChanged(function(firebaseUser) {
-            $scope.user = firebaseUser;
-        });
-        $http.get('ng/Tags/data.json').success(function(data) {
-            $scope.garmentFamilies = data;
-        });
-        $scope.patterns = Project.query();
-        $scope.usedTags = UsedTagsResource.query();
-    })
     .directive('customOnChange', function() {
         return {
             restrict: 'A',
@@ -73,10 +39,5 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
                 var onChangeHandler = scope.$eval(attrs.customOnChange);
                 element.bind('change', onChangeHandler);
             }
-        };
-    })
-    .controller('myCtrl', function($scope) {
-        $scope.uploadFile = function(event) {
-            var files = event.target.files;
         };
     });

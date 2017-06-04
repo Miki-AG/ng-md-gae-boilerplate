@@ -25,4 +25,8 @@ angular.module('project')
             }
         }
     })
-    .controller('TagController', function() {});
+    .controller('TagController', function($scope) {
+        $scope.goToTag = function(tag) {
+            console.log(tag);
+        };
+    });

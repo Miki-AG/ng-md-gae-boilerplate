@@ -126,7 +126,8 @@ class Rest(webapp2.RequestHandler):
                     })
         elif split[0] == URLS.PATTERN_BY_TAG:
             logging.info('-----------> {} {}'.format('ProjectByTag', split[1]))
-            for pattern in Project.query().fetch(20):
+            query = Project.query(Project.garment_type == 'Coatdress')
+            for pattern in query.fetch(20):
                 response.append({
                     "description": pattern.description,
                     "site": pattern.site,
