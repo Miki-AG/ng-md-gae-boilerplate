@@ -46,8 +46,10 @@ tag span a {
 }
 
 .border-file-upload {
+    padding: 0 8px;
+    margin-top: 8px;
     border-radius: 4px;
-    background-color: #ececec;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .border-search {

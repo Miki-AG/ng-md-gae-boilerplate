@@ -1,0 +1,19 @@
+<md-dialog aria-label="Mango (Fruit)">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{item.blob_key}}</h2>
+                <span flex></span>
+
+                <md-button class="md-icon-button" ng-click="cancel()" aria-label="Close dialog">
+                    <ng-md-icon icon="close" style="fill:white"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <img style="max-width: 100%;" ng-src="view_photo/{{item.blob_key}}"
+            />
+        </md-dialog-content>
+    </form>
+</md-dialog>

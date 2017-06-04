@@ -1,5 +1,5 @@
 angular.module('project')
-    .controller('ViewCtrl', function($scope, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
+    .controller('ViewCtrl', function($scope, $location, $stateParams, Project, UploadResource, DownloadResource, $http, $mdDialog) {
 
         $scope.link_url = '';
         $scope.garmentsReady = false;
@@ -20,8 +20,39 @@ angular.module('project')
         };
         $scope.onpenPopup = function(item) {
             console.log(item.blob_key);
+
+            $mdDialog.show({
+                    locals: {
+                        item: item
+                    },
+                    controller: 'DialogController',
+                    templateUrl: 'ng/PatternDetail/image-dialog.tpl.html',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose: true,
+                    fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+                })
+                .then(function(answer) {
+                    $scope.status = 'You said the information was "' + answer + '".';
+                }, function() {
+                    $scope.status = 'You cancelled the dialog.';
+                });
         };
         $scope.init();
+    })
+    .controller('DialogController', function($scope, $mdDialog, item) {
+        $scope.item = item;
+
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
     })
     .controller('EditCtrl', function($scope, $timeout, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
         $scope._DownloadResource = DownloadResource;

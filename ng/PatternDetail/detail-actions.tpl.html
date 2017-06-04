@@ -3,7 +3,8 @@
     <md-button class="md-primary" ng-click="destroy()" ng-show="pattern.id">
         Delete
     </md-button>
-    <md-button ng-if="step==0" ng-disabled="!myForm.$valid" class="md-raised md-primary" ng-click="goToStep(1)">
+    <md-button ng-if="step==0" ng-disabled="!myForm.$valid" class="md-raised md-primary"
+        ng-click="goToStep(1)">
         Upload Files
         <ng-md-icon icon="chevron_right" style="fill:white"></ng-md-icon>
     </md-button>
@@ -11,9 +12,8 @@
         <ng-md-icon icon="chevron_left" style="fill:white"></ng-md-icon>
         Describe your pattern
     </md-button>
-    <md-button ng-if="step==1" class="md-raised md-secondary done-button" ng-click="hide('not applicable')">
+    <md-button ng-if="step==1" class="md-raised md-secondary done-button"
+        href="#/">
         Done!
     </md-button>
 </div>
-
-
