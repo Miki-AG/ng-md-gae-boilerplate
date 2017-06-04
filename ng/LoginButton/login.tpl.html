@@ -1,10 +1,10 @@
-<md-dialog aria-label="Mango (Fruit)">
+<md-dialog aria-label="Login popup">
     <form ng-cloak>
         <md-toolbar class="dialog-toolbar">
             <div class="md-toolbar-tools">
                 <h2>{{type == CONFIG.LOGIN ? 'Sign Up' : 'Create Account'}}</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="closeDialog()">
+                <md-button class="md-icon-button" ng-click="closeDialog()" aria-label="close">
                     <ng-md-icon icon="close"></ng-md-icon>
                 </md-button>
             </div>

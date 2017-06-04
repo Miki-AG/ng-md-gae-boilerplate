@@ -3,7 +3,9 @@ angular.module('project')
         $scope.auth = AuthFactory;
 
         $scope.searchByCriteria = function() {
-            $scope.patterns = ProjectByCriteria.query({ criteria: $scope.search });
+            if ($scope.search) {
+                $scope.patterns = ProjectByCriteria.query({ criteria: $scope.search });
+            }
         };
 
         // any time auth state changes, add the user data to scope
