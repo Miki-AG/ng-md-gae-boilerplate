@@ -125,7 +125,10 @@ angular.module('project')
                     console.log('success');
                     $scope.link_url = data.url;
                     $timeout(function() {
-                        $scope.download_files_urls = $scope._DownloadResource.query();
+                        $scope.download_files_urls = DownloadResource.query({ id: $scope.pattern.id }, function(promisedData) {
+                            // Promised data
+                            console.log(promisedData);
+                        });
                         $scope.upload_url = UploadResource.query();
                     }, 1000);
                 })
