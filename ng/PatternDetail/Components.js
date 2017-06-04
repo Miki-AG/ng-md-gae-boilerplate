@@ -5,15 +5,16 @@ angular.module('project')
         $scope.garmentsReady = false;
         $scope.garmentTypes = [];
         $scope.fileName = '';
+        $scope.pattern = null;
 
         $scope.init = function() {
-            Project.get({ id: $stateParams.projectId }, function(project) {
-                $scope.project = project;
-                $scope.download_files_urls = DownloadResource.query({ id: $scope.project.id }, function(promisedData) {});
+            Project.get({ id: $stateParams.projectId }, function(pattern) {
+                $scope.pattern = pattern;
+                $scope.download_files_urls = DownloadResource.query({ id: $scope.pattern.id }, function(promisedData) {});
             });
         }
         $scope.destroy = function() {
-            $scope.project.destroy(function() {
+            $scope.pattern.destroy(function() {
                 $location.path('/');
             });
         };

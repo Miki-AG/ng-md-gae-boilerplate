@@ -13,17 +13,14 @@ angular.module('datastore', ['ngResource'])
                 }
             }
         );
-
         Project.prototype.update = function(cb) {
             this.owner = user.email;
             return Project.update({ id: this.id },
                 angular.extend({}, this, { _id: undefined }), cb);
         };
-
         Project.prototype.destroy = function(cb) {
             return Project.remove({ id: this.id }, cb);
         };
-
         return Project;
     })
     .factory('UploadResource', function($resource) {
@@ -34,14 +31,12 @@ angular.module('datastore', ['ngResource'])
                 }
             }
         );
-
         Upload.prototype.get = function(cb) {
             return Upload.get({}, cb);
         };
         return Upload;
     })
     .factory('DownloadResource', function($resource) {
-
         var Download = $resource(
             '/api/Download/:id', { id: '@id' }, {
                 get: {
@@ -49,15 +44,9 @@ angular.module('datastore', ['ngResource'])
                 }
             }
         );
-        /*
-                Download.prototype.get = function(cb) {
-                    return Download.get({}, cb);
-                };
-                */
         return Download;
     })
     .factory('UsedTagsResource', function($resource) {
-
         var UsedTags = $resource(
             '/api/UsedTags', {}, {
                 get: {
@@ -65,7 +54,6 @@ angular.module('datastore', ['ngResource'])
                 }
             }
         );
-
         UsedTags.prototype.get = function(cb) {
             return UsedTags.get({}, cb);
         };

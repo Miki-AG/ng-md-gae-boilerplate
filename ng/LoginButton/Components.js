@@ -19,7 +19,6 @@ angular.module('project')
         $scope.state = $state;
         $scope.auth = AuthFactory;
 
-
         // any time auth state changes, add the user data to scope
         $scope.auth.$onAuthStateChanged(function(firebaseUser) {
             $scope.user = firebaseUser;
