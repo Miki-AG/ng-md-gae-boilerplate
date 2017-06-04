@@ -9,12 +9,7 @@ angular.module('project')
         $scope.init = function() {
             Project.get({ id: $stateParams.projectId }, function(project) {
                 $scope.project = project;
-
-                console.log($scope.project.id);
-                $scope.download_files_urls = DownloadResource.query({ id: $scope.project.id }, function(promisedData) {
-                    // Promised data
-                    console.log(promisedData);
-                });
+                $scope.download_files_urls = DownloadResource.query({ id: $scope.project.id }, function(promisedData) {});
             });
         }
         $scope.destroy = function() {
@@ -32,19 +27,12 @@ angular.module('project')
 
         $scope.upload_url = UploadResource.query();
 
-        /*
-        $scope.download_files_urls = DownloadResource.query({ id: '12345' }, function(promisedData) {
-            // Promised data
-            console.log(promisedData);
-        });
-*/
         $scope.link_url = '';
         $scope.garmentsReady = false;
         $scope.garmentTypes = [];
         $scope.fileName = '';
         $scope.step = 0;
         $scope.steps = ['Describe your pattern', 'Upload files']
-
 
         $scope.families = [];
         $scope.garmentFamilies = [];
@@ -55,7 +43,6 @@ angular.module('project')
         $scope.init = function() {
             $http.get('ng/Tags/data.json').success(function(data) {
                 $scope.garmentFamilies = data;
-
                 data.forEach(function(item) {
                     $scope.families.push(item.familyName);
                 })
@@ -64,10 +51,7 @@ angular.module('project')
                 $scope.pattern = new Project();
             } else {
                 Project.get({ id: $stateParams.projectId }, function(pattern) {
-                    $scope.download_files_urls = DownloadResource.query({ id: pattern.id }, function(promisedData) {
-                        // Promised data
-                        console.log(promisedData);
-                    });
+                    $scope.download_files_urls = DownloadResource.query({ id: pattern.id }, function(promisedData) {});
                     $scope.pattern = pattern;
                     if ($scope.pattern.garment_family) {
                         $scope.firstSelectionMade();
@@ -104,10 +88,7 @@ angular.module('project')
 
             var data = new FormData();
             data.append('file', file);
-
-
             data.append('id', $scope.pattern.id);
-
             var config = {
                 transformRequest: angular.identity,
                 headers: {
@@ -122,19 +103,13 @@ angular.module('project')
                     data,
                     config)
                 .success(function(data) {
-                    console.log('success');
                     $scope.link_url = data.url;
                     $timeout(function() {
-                        $scope.download_files_urls = DownloadResource.query({ id: $scope.pattern.id }, function(promisedData) {
-                            // Promised data
-                            console.log(promisedData);
-                        });
+                        $scope.download_files_urls = DownloadResource.query({ id: $scope.pattern.id }, function(promisedData) {});
                         $scope.upload_url = UploadResource.query();
                     }, 1000);
                 })
-                .error(function(data, status) {
-                    console.log('error');
-                });
+                .error(function(data, status) {});
         }
         $scope.init();
     });
