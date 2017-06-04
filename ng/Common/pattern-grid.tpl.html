@@ -3,7 +3,7 @@
     md-gutter-gt-sm="4px">
     <md-grid-tile ng-repeat="pattern in patterns | orderBy:'name'"
         md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1"
-        ng-class="tile.background" class="tile-style">
+        ng-class="getClass('{{pattern.garment_family}}')">
         <div layout="row" class="tile-footer" style=";" layout-align="center center">
             <h3 flex ui-sref="view({projectId:pattern.id})">{{pattern.name}}</h3>
             <md-button ng-if="pattern.owner == user.email" aria-label="call"

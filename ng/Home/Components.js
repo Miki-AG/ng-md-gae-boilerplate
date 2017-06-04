@@ -7,7 +7,18 @@ angular.module('project')
                 $scope.patterns = ProjectByCriteria.query({ criteria: $scope.search });
             }
         };
-
+        $scope.getClass = function(family) {
+            switch (family) {
+                case "Tops":
+                    console.log('Tops');
+                    break;
+                case "Pants":
+                    console.log('Pants');
+                    break;
+                default:
+                    return 'tile-style';
+            }
+        };
         // any time auth state changes, add the user data to scope
         $scope.auth.$onAuthStateChanged(function(firebaseUser) {
             $scope.user = firebaseUser;
