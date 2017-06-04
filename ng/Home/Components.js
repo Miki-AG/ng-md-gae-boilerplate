@@ -12,6 +12,10 @@ angular.module('project')
         $scope.patterns = Project.query();
         $scope.usedTags = UsedTagsResource.query();
 
+        $scope.$on('get-patterns', function(event, args) {
+            $scope.patterns = Project.query();
+        });
+
         $scope.$on('get-patterns-by-tag', function(event, args) {
             $scope.patterns = ProjectByTag.query({ tag: args.tag });
         });

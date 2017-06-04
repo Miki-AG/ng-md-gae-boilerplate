@@ -8,4 +8,7 @@ angular.module('project')
         $scope.auth.$onAuthStateChanged(function(firebaseUser) {
             $scope.user = firebaseUser;
         });
+        $scope.refreshHome = function() {
+            $rootScope.$broadcast('get-patterns');
+        }
     });

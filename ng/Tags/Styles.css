@@ -41,7 +41,6 @@ tag span {
     cursor: pointer;
     cursor: hand;
     outline: rgba(0, 0, 0, 0) none 0px;
-
 }
 
 .border-file-upload {
@@ -71,6 +70,12 @@ ng-md-icon {
     vertical-align: middle;
     display: inline-block;
     line-height: 1;
+}
+
+h1 a,
+h2 a {
+    color: beige;
+    text-decoration: none;
 }
 
 .thumb {
