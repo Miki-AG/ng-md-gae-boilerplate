@@ -6,8 +6,8 @@
     </md-tab>
 </md-tabs>
 
-<div layout="column" layout-fill layout-padding class="middle-frame">
-    <div layout="row">
+<div layout="column" layout-fill class="middle-frame">
+    <div layout="row" layout-padding>
         <md-input-container flex class="md-icon-float md-block md-title no-margins">
             <label>Search for patterns</label>
             <input ng-model="search">
@@ -18,6 +18,5 @@
             </md-button>
         </div>
     </div>
-    <div flex ng-cloak ng-include="'ng/Common/pattern-grid.tpl.html'">
-    </div>
+    <pattern-grid patterns="patterns"></pattern-grid>
 </div>

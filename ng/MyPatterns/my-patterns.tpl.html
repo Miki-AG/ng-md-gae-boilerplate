@@ -1,8 +1,7 @@
 <h2 class="md-display-2">My patterns</h2>
 
 <div layout="column" layout-fill>
-    <div flex ng-cloak ng-include="'ng/Common/pattern-grid.tpl.html'">
-    </div>
+    <pattern-grid patterns="patterns"></pattern-grid>
 </div>
 
 <div ng-if="noPatterns" layout="column" layout-fill>
