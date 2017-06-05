@@ -1,3 +1,9 @@
+html,
+body {
+    height: 100%;
+    overflow-y: scroll;
+}
+
 .with-bg-size {
     background-image: url('/static/img/bg2.jpg');
     width: 100%;
