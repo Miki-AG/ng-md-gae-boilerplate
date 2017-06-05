@@ -8,15 +8,35 @@ angular.module('project')
             }
         };
         $scope.getClass = function(family) {
-            switch (family) {
-                case "Tops":
-                    console.log('Tops');
-                    break;
-                case "Pants":
-                    console.log('Pants');
-                    break;
+            switch (family.toLowerCase()) {
+                case "tops":
+                    return 'family-tops';
+                case "pants":
+                    return 'family-pants';
+                case "skirts":
+                    return 'family-skirts';
+                case "dresses":
+                    return 'family-dresses';
+                case "suits & uniforms":
+                    return 'family-suits';
+                case "outerwear":
+                    return 'family-outerwear';
+                case "underwear & lingerie":
+                    return 'family-underwear';
+                case "footwear":
+                    return 'family-footwear';
+                case "headwear":
+                    return 'family-headwear';
+                case "nightwear":
+                    return 'family-nightwear';
+                case "swimwear":
+                    return 'family-swimwear';
+                case "other (garment)":
+                    return 'family-other-garment';
+                case "other (not garment)":
+                    return 'family-other-not-garment';
                 default:
-                    return 'tile-style';
+                    return 'family-img-default';
             }
         };
         // any time auth state changes, add the user data to scope

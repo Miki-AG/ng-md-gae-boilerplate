@@ -47,7 +47,65 @@
     text-shadow: 0 0 5px black, 0 0 5px black;
 }
 
-.tile-style {
+.family-img {
+    background-position: center;
+    /* Make the background image cover the area of the <div>, and clip the excess */
+    background-size: cover;
+}
+
+.family-pants {
+    background-image: url('/static/img/family_pants.jpg');
+}
+
+.family-tops {
+    background-image: url('/static/img/family_tops.jpg');
+}
+
+.family-skirts {
+    background-image: url('/static/img/family_skirts.jpg');
+}
+
+.family-dresses {
+    background-image: url('/static/img/family_dresses.jpg');
+}
+
+.family-suits {
+    background-image: url('/static/img/family_suits.jpg');
+}
+
+.family-outerwear {
+    background-image: url('/static/img/family_outerwear.jpg');
+}
+
+.family-footwear {
+    background-image: url('/static/img/family_footwear.jpg');
+}
+
+.family-headwear {
+    background-image: url('/static/img/family_headwear.jpg');
+}
+
+.family-nightwear {
+    background-image: url('/static/img/family_nightwear.jpg');
+}
+
+.family-swimwear {
+    background-image: url('/static/img/family_swimwear.jpg');
+}
+
+.family-other-garment {
+    background-image: url('/static/img/family_other_garment.jpg');
+}
+
+.family-underwear {
+    background-image: url('/static/img/family_underwear.jpg');
+}
+
+.family-other-not-garment {
+    background-image: url('/static/img/family_other_not_garment.jpg');
+}
+
+.family-img-default {
     background-image: url('/static/img/bg2.jpg');
 }
 
