@@ -50,13 +50,13 @@
                     <div layout="row">
                         <md-input-container class="md-block" layout-fill>
                             <label>Password</label>
-                            <input ng-model="formData.password">
+                            <input type="password" ng-model="formData.password">
                         </md-input-container>
                     </div>
                     <div ng-show="type == CONFIG.REGISTER" layout="row">
                         <md-input-container class="md-block" layout-fill>
                             <label>Repeat Password</label>
-                            <input ng-model="formData.passwordRepeat">
+                            <input type="password" ng-model="formData.passwordRepeat">
                         </md-input-container>
                     </div>
                     <md-button class="md-raised" ng-click="loginOrRegisterEmail(type)">

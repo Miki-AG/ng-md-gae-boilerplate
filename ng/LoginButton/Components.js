@@ -92,40 +92,76 @@ angular.module('project')
             if (type == CONFIG.LOGIN) {
                 $scope.loginEmail();
             } else {
-                $scope.registerEmail();
+                var errorMsg = $scope.validateRegisterForm();
+                if (errorMsg == "") {
+                    $scope.registerEmail();
+                } else {
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .textContent(errorMsg)
+                        .position('bottom left')
+                    );
+                }
             }
         }
+        $scope.validateRegisterForm = function() {
+            if (typeof $scope.formData.email == "undefined") return "Please fill all fields!"
+            if (typeof $scope.formData.username == "undefined") return "Please fill all fields!"
+            if (typeof $scope.formData.password == "undefined") return "Please fill all fields!"
+            if (typeof $scope.formData.passwordRepeat == "undefined") return "Please fill all fields!"
+            if ($scope.formData.password != $scope.formData.passwordRepeat) return "Passwords must match!"
+            if ($scope.formData.password.length < 5) return "Passwords too short!"
+        }
         $scope.loginEmail = function() {
-            $scope.auth.$signInWithEmailAndPassword(
-                    $scope.formData.email,
-                    $scope.formData.password)
-                .then(function(firebaseUser) {
-                    $mdToast.show(
-                        $mdToast.simple()
-                        .textContent('Signed in')
-                        .position('bottom left')
-                    );
-                    $mdDialog.hide();
-                }).catch(function(error) {
-                    $mdToast.show(
-                        $mdToast.simple()
-                        .textContent('Authentication failed: ' + error)
-                        .position('bottom left')
-                        .hideDelay(3000)
-                    );
-                });
+            try {
+                $scope.auth.$signInWithEmailAndPassword(
+                        $scope.formData.email,
+                        $scope.formData.password)
+                    .then(function(firebaseUser) {
+                        $mdToast.show(
+                            $mdToast.simple()
+                            .textContent('Signed in')
+                            .position('bottom left')
+                        );
+                        $mdDialog.hide();
+                    }).catch(function(error) {
+                        $mdToast.show(
+                            $mdToast.simple()
+                            .textContent('Authentication failed: ' + error)
+                            .position('bottom left')
+                            .hideDelay(3000)
+                        );
+                    });
+            } catch (e) {
+                $mdToast.show(
+                    $mdToast.simple()
+                    .textContent(e.message.replace('signInWithEmailAndPassword', 'Login'))
+                    .position('bottom left')
+                    .hideDelay(3000)
+                );
+            }
         }
         $scope.registerEmail = function() {
             $scope.auth.$createUserWithEmailAndPassword(
                     $scope.formData.email,
                     $scope.formData.password)
                 .then(function(firebaseUser) {
-
                     $scope.users.$add({
                         email: $scope.formData.email,
                         displayName: $scope.formData.username
                     });
+                    firebaseUser.updateProfile({
+                        displayName: $scope.formData.username,
+                    }).then(function() {
+                        $mdToast.show(
+                            $mdToast.simple()
+                            .textContent('Welcome ' + $scope.formData.username + ', you are signed in')
+                            .position('bottom left')
+                        );
+                    }, function(error) {
 
+                    });
+                    $mdDialog.hide();
                 }).catch(function(error) {
                     $mdToast.show(
                         $mdToast.simple()
