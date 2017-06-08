@@ -5,6 +5,7 @@ import logging
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from collections import namedtuple
+from google.appengine.api import search
 
 
 ACTIONS = namedtuple("ACTIONS", "UPLOAD DOWNLOAD USED_TAGS PATTERN PATTERN_BY_TAG PATTERN_BY_CRITERIA")
@@ -26,6 +27,7 @@ class Project(ndb.Model):
     garment_family = ndb.StringProperty(required=False)
     garment_type = ndb.StringProperty(required=False)
     owner = ndb.StringProperty(required=False)
+    searchable_doc_id = ndb.StringProperty(required=False)
     def update(self, newdata):
         "Update pattern"
         for key, value in newdata.items():
@@ -45,15 +47,23 @@ class Rest(webapp2.RequestHandler):
         tokens = self.request.path_info[1:].split('/')
         # Create
         if len(tokens) == 1:
+            searchable_doc = search.Document(
+                fields=[
+                   search.TextField(name='name', value=data_dict['name']),
+                   search.TextField(name='description', value=data_dict['description'])
+                ])
+            add_result = search.Index('patterns').put(searchable_doc)
             item = Project(
                 name=data_dict['name'],
                 description=data_dict['description'],
                 garment_family=data_dict['garment_family'],
                 garment_type=data_dict['garment_type'],
-                owner=data_dict['owner']
+                owner=data_dict['owner'],
+                searchable_doc_id=add_result[0].id
             )
             key = item.put()
             self.response.write(json.dumps({'id': key.id()}))
+
         # Update
         elif len(tokens) == 2:
             item = Project.get_by_id(int(tokens[1]))
@@ -63,6 +73,15 @@ class Rest(webapp2.RequestHandler):
             item.garment_type = data_dict['garment_type']
             item.owner = data_dict['owner']
             item.put()
+
+            searchable_doc = search.Document(
+                doc_id=item.searchable_doc_id,
+                fields=[
+                   search.TextField(name='name', value=data_dict['name']),
+                   search.TextField(name='description', value=data_dict['description'])
+                ])
+            index = search.Index('patterns')
+            index.put(searchable_doc)
 
     def get(self):
         #pop off the script name ('/api')
