@@ -52,14 +52,14 @@ class Rest(webapp2.RequestHandler):
                    search.TextField(name='name', value=data_dict['name']),
                    search.TextField(name='description', value=data_dict['description'])
                 ])
-            add_result = search.Index('patterns').put(searchable_doc)
+            index = search.Index('patterns').put(searchable_doc)
             item = Project(
                 name=data_dict['name'],
                 description=data_dict['description'],
                 garment_family=data_dict['garment_family'],
                 garment_type=data_dict['garment_type'],
                 owner=data_dict['owner'],
-                searchable_doc_id=add_result[0].id
+                searchable_doc_id=index[0].id
             )
             key = item.put()
             self.response.write(json.dumps({'id': key.id()}))
@@ -100,13 +100,7 @@ class Rest(webapp2.RequestHandler):
             # Get Download URL
             elif split[0] == URLS.DOWNLOAD:
                 for file in UserPhoto.query().fetch(20):
-                    logging.info('(1) -----------> {}'.format(file.key))
-                    logging.info('(1) -----------> {}'.format(file.blob_key))
-                    logging.info('(1) -----------> {}'.format(file.key.id()))
-
                     blob_info = blobstore.BlobInfo.get(file.blob_key)
-                    logging.info('(1) -----------> Filename: {}'.format(blob_info.filename))
-
                     response.append({
                         'id': file.key.id(),
                         'blob_key': str(file.blob_key),
@@ -146,7 +140,6 @@ class Rest(webapp2.RequestHandler):
                     })
             elif split[0] == URLS.PATTERN_BY_TAG:
                 tag_name = self.request.get('tag')
-                logging.info('(2) -----------> {} '.format('ProjectByTag'))
 
                 query = Project.query(Project.garment_type == tag_name)
                 for pattern in query.fetch(20):
@@ -161,10 +154,14 @@ class Rest(webapp2.RequestHandler):
                     })
             elif split[0] == URLS.PATTERN_BY_CRITERIA:
                 criteria = self.request.get('criteria')
-                logging.info('(2) -----------> {} '.format('ProjectByCriteria'))
-
-                query = Project.query(Project.name == criteria)
-                for pattern in query.fetch(20):
+                index = search.Index('patterns')
+                results = index.search(criteria)
+                search_results = []
+                for scored_document in results:
+                    print(scored_document)
+                    search_results.append(Project.query(Project.searchable_doc_id == scored_document.doc_id))
+                for item in search_results:
+                    pattern = item.fetch()[0]
                     response.append({
                         "description": pattern.description,
                         "site": pattern.site,
@@ -174,27 +171,13 @@ class Rest(webapp2.RequestHandler):
                         "garment_type": pattern.garment_type,
                         "owner": pattern.owner
                     })
-            else:
-                logging.info('(6) -----------')
         elif split[0] == URLS.DOWNLOAD:
             pattern_key_to_retrieve = split[1]
-            logging.info('(3) -----------> UPLOAD {} {}'.format(split[0], split[1]))
             response = []
-
             pattern = Project.get_by_id(int(pattern_key_to_retrieve))
-            logging.info('(3) -----------> pattern_key {} '.format(pattern.key))
-
-            #files = UserPhoto.query(UserPhoto.pattern_key == pattern_key)
             files = UserPhoto.query(UserPhoto.pattern_key == pattern.key).fetch()
             for file in files:
-                #for file in UserPhoto.query().fetch(20):
-                logging.info('(4) -----------> {}'.format(file.key))
-                logging.info('(4) -----------> {}'.format(file.blob_key))
-                logging.info('(4) -----------> {}'.format(file.key.id()))
-
                 blob_info = blobstore.BlobInfo.get(file.blob_key)
-                logging.info('(4) -----------> Filename: {}'.format(blob_info.filename))
-
                 response.append({
                     'id': file.key.id(),
                     'blob_key': str(file.blob_key),
@@ -202,8 +185,6 @@ class Rest(webapp2.RequestHandler):
                     'extension': blob_info.filename.split(".")[-1]
                 })
         else:
-            logging.info('(5) -----------')
-
             #Convert the ID to an int, create a key and retrieve the object
             item = globals()[split[0]].get_by_id(int(split[1]))
             response = item.to_dict()
@@ -220,11 +201,6 @@ class Rest(webapp2.RequestHandler):
 class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         upload = self.get_uploads()[0]
-
-        logging.info('#######################################    UPLOAD self.request.body -->     ####################################')
-        logging.info('[self.request.body]: {}'.format(self.request.body))
-        logging.info('################################################################################################################')
-
         pattern_id = None
         body = self.request.body.split()
         iterator = iter(body)
@@ -232,8 +208,6 @@ class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
             if word == 'name="id"':
                 pattern_id = next(iterator)
                 logging.info('[body.next()]: {}'.format(pattern_id))
-
-        logging.info('################################################################################################################')
 
         pattern = Project.get_by_id(int(pattern_id))
 
