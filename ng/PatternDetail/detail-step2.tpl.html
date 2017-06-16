@@ -16,8 +16,7 @@
         <div layout="column" layout-align="start end" flex>
             <div layout="row" layout-align="end center" layout-padding>
                 {{item.filename}}
-                <md-button class="md-primary" ng-href="view_photo/{{item.blob_key}}"
-                    download="{{item.filename}}">
+                <md-button class="md-primary" ng-click="removeFile(item.filename)">
                     <ng-md-icon icon="delete"></ng-md-icon>
                     Delete File
                 </md-button>
@@ -35,5 +34,9 @@
         <label for="input-file-id" class="md-button md-primary md-raised">
             <span>Add File</span>
         </label>
+    </div>
+
+    <div layout="row" ng-if="processing" layout-align="center center" class="spinner-overlay">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
 </div>

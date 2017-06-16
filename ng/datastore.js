@@ -66,6 +66,16 @@ angular.module('datastore', ['ngResource'])
         );
         return Download;
     })
+    .factory('RemoveFileResource', function($resource) {
+        var Removed = $resource(
+            '/api/RemoveFile/:id/:filename', { id: '@id', filename: '@filename' }, {
+                get: {
+                    method: 'GET'
+                }
+            }
+        );
+        return Removed;
+    })
     .factory('UsedTagsResource', function($resource) {
         var UsedTags = $resource(
             '/api/UsedTags', {}, {

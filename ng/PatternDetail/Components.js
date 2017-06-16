@@ -54,7 +54,7 @@ angular.module('project')
             $mdDialog.hide(answer);
         };
     })
-    .controller('EditCtrl', function($scope, $mdDialog, $timeout, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
+    .controller('EditCtrl', function($scope, $mdToast, $mdDialog, $timeout, $location, $stateParams, Project, UploadResource, DownloadResource, RemoveFileResource, $http) {
         $scope._DownloadResource = DownloadResource;
 
         $scope.upload_url = UploadResource.query();
@@ -128,6 +128,8 @@ angular.module('project')
             //$location.path('/');
         };
         $scope.uploadFile = function(event) {
+            $scope.processing = true;
+
             var files = event.target.files;
             var file = files[0];
             $scope.fileName = file.name;
@@ -150,12 +152,43 @@ angular.module('project')
                     config)
                 .success(function(data) {
                     $scope.link_url = data.url;
-                    $timeout(function() {
-                        $scope.download_files_urls = DownloadResource.query({ id: $scope.pattern.id }, function(promisedData) {});
-                        $scope.upload_url = UploadResource.query();
-                    }, 1000);
+                    $scope.refreshFileList();
                 })
-                .error(function(data, status) {});
+                .error(function(data, status) {
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .textContent('Network error, please try again')
+                        .position('bottom left')
+                        .hideDelay(3000)
+                    );
+                });
         }
+        $scope.removeFile = function(filename) {
+            $scope.processing = true;
+            RemoveFileResource.query({
+                id: $scope.pattern.id,
+                filename: filename
+            }, function(p) {
+                p.$promise.then(function(data) {
+                    $scope.refreshFileList();
+                }, function(reason) {
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .textContent('Network error, please try again')
+                        .position('bottom left')
+                        .hideDelay(3000)
+                    );
+                    $scope.refreshFileList();
+                });
+            });
+        }
+        $scope.refreshFileList = function() {
+            $timeout(function() {
+                $scope.download_files_urls = DownloadResource.query({ id: $scope.pattern.id }, function(promisedData) {});
+                $scope.upload_url = UploadResource.query();
+                $scope.processing = false;
+
+            }, 1000);
+        };
         $scope.init();
     });
