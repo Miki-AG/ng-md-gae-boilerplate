@@ -1,5 +1,5 @@
 angular.module('project')
-    .controller('ViewCtrl', function($scope, $location, $stateParams, Project, UploadResource, DownloadResource, $http, $mdDialog) {
+    .controller('ViewCtrl', function($scope, $rootScope, $location, $stateParams, Project, UploadResource, DownloadResource, $http, $mdDialog) {
 
         $scope.link_url = '';
         $scope.garmentsReady = false;
@@ -15,6 +15,7 @@ angular.module('project')
         }
         $scope.destroy = function() {
             $scope.pattern.destroy(function() {
+                $rootScope.$broadcast('get-patterns');
                 $location.path('/');
             });
         };
@@ -54,8 +55,9 @@ angular.module('project')
             $mdDialog.hide(answer);
         };
     })
-    .controller('EditCtrl', function($scope, $mdToast, $mdDialog, $timeout, $location, $stateParams, Project, UploadResource, DownloadResource, RemoveFileResource, $http) {
+    .controller('EditCtrl', function($scope, $rootScope, $mdToast, $mdDialog, $timeout, $location, $stateParams, Project, UploadResource, DownloadResource, RemoveFileResource, $http) {
         $scope._DownloadResource = DownloadResource;
+        $scope._$rootScope = $rootScope;
 
         $scope.upload_url = UploadResource.query();
 
@@ -103,8 +105,12 @@ angular.module('project')
             $scope.garmentsReady = true;
         }
         $scope.destroy = function() {
+            $scope.processing = true;
             $scope.pattern.destroy(function() {
-                $location.path('/');
+                $timeout(function() {
+                    $scope.processing = false;
+                    $location.path('/');
+                }, 1000);
             });
         };
         $scope.goToStep = function(nextStep) {
