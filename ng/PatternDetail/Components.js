@@ -130,8 +130,6 @@ angular.module('project')
                 clickOutsideToClose: true,
                 bindToController: true
             });
-
-            //$location.path('/');
         };
         $scope.uploadFile = function(event) {
             $scope.processing = true;
