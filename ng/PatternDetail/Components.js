@@ -54,7 +54,7 @@ angular.module('project')
             $mdDialog.hide(answer);
         };
     })
-    .controller('EditCtrl', function($scope, $timeout, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
+    .controller('EditCtrl', function($scope, $mdDialog, $timeout, $location, $stateParams, Project, UploadResource, DownloadResource, $http) {
         $scope._DownloadResource = DownloadResource;
 
         $scope.upload_url = UploadResource.query();
@@ -112,6 +112,20 @@ angular.module('project')
                 $scope.pattern = $scope.pattern.update(function() {});
             }
             $scope.step = nextStep;
+        };
+        $scope.finish = function() {
+            $mdDialog.show({
+                locals: {
+                    exp: $scope.pattern
+                },
+                controller: 'SocialSharingController',
+                templateUrl: 'ng/SocialSharing/edit-publish-dialog.tpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: true,
+                bindToController: true
+            });
+
+            //$location.path('/');
         };
         $scope.uploadFile = function(event) {
             var files = event.target.files;

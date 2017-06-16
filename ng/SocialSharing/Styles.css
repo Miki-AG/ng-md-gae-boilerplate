@@ -1,0 +1,55 @@
+.studio-publish-dialog {
+    min-width: 600px;
+    min-height: 300px;
+    /*background: url(https://s3.amazonaws.com/ugedev1static/img/md/wp6.png);*/
+    background-image: url('/static/img/bg1.jpg');
+    background-size: cover;
+    /* <------ */
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.studio-publish-dialog md-toolbar {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.studio-publish-dialog md-toolbar,
+.studio-publish-dialog h3,
+.studio-publish-dialog p {
+    color: black;
+}
+
+.shade-over {
+    background-color: rgba(245, 245, 220, 0.8);
+}
+
+
+
+.material-cust-large-button {
+    font-size: 24px;
+    width: 200px;
+    height: 64px;
+}
+
+.yellow-button {
+    /*background-color: #e6c236!important;
+    color: #02679b!important;*/
+}
+
+.yellow-button-translucid {
+    /*background-color: rgba(230, 194, 54, 0.85)!important;
+    color: rgba(2, 103, 155, 1)!important;*/
+}
+
+.yellow-button-translucid:disabled {
+    background-color: rgba(230, 194, 54, 0.2)!important;
+    color: rgba(2, 103, 155, 0.2)!important;
+}
+
+#dialogContent_2 > form > button.md-raised.md-primary.yellow-button-translucid.md-button.md-ink-ripple md-checkbox .md-icon {
+    color: #02679b!important;
+}
+
+.studio-publish-dialog ng-md-icon {
+    margin-right: 16px;
+}

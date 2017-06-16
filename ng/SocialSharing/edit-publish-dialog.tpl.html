@@ -1,0 +1,87 @@
+<md-dialog aria-label="publish" class="studio-publish-dialog">
+    <form ng-cloak class="shade-over">
+        <div ng-include="'ng/SocialSharing/edit-publish-dialog-toolbar.tpl.html'"></div>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <h3>Your pattern is now published!</h3>
+                <p>You can see and share your pattern using this <a class='light-link' target="_blank" href="{{socialshareUrl}}">link</a>!</p>
+                <br/>
+                <h3>Now it is time to share your creation!</h3>
+                <p>Use the buttons below to share your creation in social networks.</p>
+                <div layout="row">
+                    <md-button flex class="md-raised md-primary yellow-button-translucid"
+                        socialshare
+                        socialshare-provider="facebook"
+                        socialshare-type="sharer"
+                        socialshare-hashtags="{{socialshareHashtags}}"
+                        socialshare-popup-height="{{popupHeight}}"
+                        socialshare-popup-width="{{popupWidth}}"
+                        socialshare-text="{{socialshareText}}"
+                        socialshare-url="http://www.ugeapp.com/DavidShare/chinatown-little-italy/307/"
+                        socialshare-trigger="click">
+                        <ng-md-icon icon="facebook" style="fill:white"></ng-md-icon>
+                        Share in Facebook
+                    </md-button>
+                    <md-button flex class="md-raised md-primary yellow-button-translucid"
+                        socialshare
+                        socialshare-provider="twitter"
+                        socialshare-via="twitter"
+                        socialshare-hashtags="{{socialshareHashtags}}"
+                        socialshare-popup-height="{{popupHeight}}"
+                        socialshare-popup-width="{{popupWidth}}"
+                        socialshare-text="{{socialshareText}}"
+                        socialshare-url="{{socialshareUrl}}"
+                        socialshare-trigger="click">
+                        <ng-md-icon icon="twitter" style="fill:white"></ng-md-icon>
+                        Share in Twitter
+                    </md-button>
+                </div>
+                <div layout="row">
+                    <md-button flex class="md-raised md-primary yellow-button-translucid"
+                        socialshare
+                        socialshare-provider="tumblr"
+                        socialshare-type="link"
+                        socialshare-popup-height="{{popupHeight}}"
+                        socialshare-popup-width="{{popupWidth}}"
+                        socialshare-text="{{socialshareText}}"
+                        socialshare-url="{{socialshareUrl}}"
+                        socialshare-caption = 'zzz'
+                        socialshare-trigger="click">
+                        Tumblr
+                    </md-button>
+                    <md-button flex class="md-raised md-primary yellow-button-translucid"
+                        socialshare
+                        socialshare-provider="reddit"
+                        socialshare-popup-height="{{popupHeight}}"
+                        socialshare-popup-width="{{popupWidth}}"
+                        socialshare-text="{{socialshareText}}"
+                        socialshare-url="{{socialshareUrl}}"
+                        socialshare-trigger="click">
+                        Reddit
+                    </md-button>
+                    <md-button flex class="md-raised md-primary yellow-button-translucid"
+                        socialshare
+                        socialshare-provider="google"
+                        socialshare-popup-height="{{popupHeight}}"
+                        socialshare-popup-width="{{popupWidth}}"
+                        socialshare-url="{{socialshareUrl}}"
+                        socialshare-trigger="click">
+                        G+
+                    </md-button>
+                    <md-button flex class="md-raised md-primary yellow-button-translucid"
+                        socialshare
+                        socialshare-provider="linkedin"
+                        socialshare-source="{{linkedinSource}}"
+                        socialshare-description="{{expDescription | html_to_plain_text}}"
+                        socialshare-popup-height="{{popupHeight}}"
+                        socialshare-popup-width="{{popupWidth}}"
+                        socialshare-text="{{socialshareText}}"
+                        socialshare-url="{{socialshareUrl}}"
+                        socialshare-trigger="click">
+                        LinkedIn
+                    </md-button>
+                </div>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

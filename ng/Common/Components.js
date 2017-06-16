@@ -21,6 +21,11 @@ angular.module('project')
             };
         };
     })
+    .filter('html_to_plain_text', function() {
+        return function(text) {
+            return text ? String(text).replace(/<[^>]+>/gm, '') : '';
+        };
+    })
     .directive('customOnChange', function() {
         return {
             restrict: 'A',
