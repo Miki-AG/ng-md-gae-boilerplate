@@ -276,6 +276,9 @@ class Rest(webapp2.RequestHandler):
         #forget about the leading '/' and searate the Data type and the ID
         split = self.request.path_info[1:].split('/')
 
+        if self.request.path_info == '':
+            self.redirect("/index.html#/")
+
         if len(split) == 1:
             if split[0] == URLS.UPLOAD:
                 self.get_upload_url()
@@ -377,6 +380,7 @@ class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
             self.send_blob(blob_key)
 
 app = webapp2.WSGIApplication([
+    ('/', Rest),
     ('/api.*', Rest),
     ('/upload_photo', PhotoUploadHandler),
     ('/view_photo/([^/]+)?', ViewPhotoHandler),
