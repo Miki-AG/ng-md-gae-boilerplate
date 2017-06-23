@@ -1,11 +1,15 @@
 angular.module('datastore', ['ngResource'])
-    .factory('Project', function($resource, AuthFactory) {
+    .factory('Project', function($resource, AuthFactory, $http) {
         var auth = AuthFactory;
         var user = null;
         // any time auth state changes, add the user data to scope
         auth.$onAuthStateChanged(function(firebaseUser) {
             user = firebaseUser;
+            user.getToken().then(function(idToken) {
+                $http.defaults.headers.common['Authorization'] = 'Bearer ' + idToken
+            });
         });
+
         var Project = $resource(
             '/api/Project/:id', {}, {
                 update: {
@@ -14,6 +18,8 @@ angular.module('datastore', ['ngResource'])
             }
         );
         Project.prototype.update = function(cb) {
+
+
             this.owner = user.email;
             return Project.update({ id: this.id },
                 angular.extend({}, this, { _id: undefined }), cb);

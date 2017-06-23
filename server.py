@@ -7,8 +7,17 @@ from google.appengine.ext.webapp import blobstore_handlers
 from collections import namedtuple
 from google.appengine.api import search
 
+import google.oauth2.id_token
+import requests_toolbelt.adapters.appengine
+import google.auth.iam
+import google.auth.transport.requests
 
-ACTIONS = namedtuple("ACTIONS", "UPLOAD DOWNLOAD USED_TAGS PATTERN PATTERN_BY_TAG PATTERN_BY_CRITERIA REMOVE_FILE")
+requests_toolbelt.adapters.appengine.monkeypatch()
+HTTP_REQUEST = google.auth.transport.requests.Request()
+
+
+ACTIONS = namedtuple(
+    "ACTIONS", "UPLOAD DOWNLOAD USED_TAGS PATTERN PATTERN_BY_TAG PATTERN_BY_CRITERIA REMOVE_FILE")
 
 URLS = ACTIONS(
     UPLOAD="Upload",
@@ -20,6 +29,12 @@ URLS = ACTIONS(
     REMOVE_FILE="RemoveFile"
 )
 
+"""This is a javadoc style.
+
+Args:
+    webapp2.RequestHandler: This is the first param.
+
+"""
 class Project(ndb.Model):
     "Pattern definition model"
     name = ndb.StringProperty(required=True)
@@ -34,17 +49,43 @@ class Project(ndb.Model):
         for key, value in newdata.items():
             setattr(self, key, value)
 
+"""This is a javadoc style.
+
+Args:
+    webapp2.RequestHandler: This is the first param.
+
+"""
 class UserPhoto(ndb.Model):
     blob_key = ndb.BlobKeyProperty()
     pattern_key = ndb.KeyProperty(kind=Project)
 
+"""This is a javadoc style.
 
+Args:
+    webapp2.RequestHandler: This is the first param.
+
+"""
 class Rest(webapp2.RequestHandler):
+
+    """ Get owner """
+    def get_owner_from_token(self):
+        # Returns the owner extracting it from the token
+        id_token = self.request.headers['Authorization'].split(' ').pop()
+        claims = google.oauth2.id_token.verify_firebase_token(
+            id_token, HTTP_REQUEST)
+        if not claims:
+            return 'Unauthorized', 401
+        return claims.get('email')
+
+    """ Create a new pattern """
     def create_pattern(self, data_dict, tokens):
+        # Obtain user from token
+        owner_from_token = self.get_owner_from_token()
+
         searchable_doc = search.Document(
             fields=[
-               search.TextField(name='name', value=data_dict['name']),
-               search.TextField(name='description', value=data_dict['description'])
+                search.TextField(name='name', value=data_dict['name']),
+                search.TextField(name='description', value=data_dict['description'])
             ])
         index = search.Index('patterns').put(searchable_doc)
         item = Project(
@@ -52,19 +93,23 @@ class Rest(webapp2.RequestHandler):
             description=data_dict['description'],
             garment_family=data_dict['garment_family'],
             garment_type=data_dict['garment_type'],
-            owner=data_dict['owner'],
+            owner=owner_from_token,
             searchable_doc_id=index[0].id
         )
         key = item.put()
         self.response.write(json.dumps({'id': key.id()}))
 
+    """ Get owner """
     def update_pattern(self, data_dict, tokens):
+        # Obtain user from token
+        owner_from_token = self.get_owner_from_token()
+
         item = Project.get_by_id(int(tokens[1]))
         item.name = data_dict['name']
         item.description = data_dict['description']
         item.garment_family = data_dict['garment_family']
         item.garment_type = data_dict['garment_type']
-        item.owner = data_dict['owner']
+        item.owner = owner_from_token
         item.put()
 
         searchable_doc = search.Document(
@@ -109,12 +154,14 @@ class Rest(webapp2.RequestHandler):
                 # Create new family
                 familyToCreateOrAppend = {
                     "familyName": pattern.garment_family,
-                    "garments": [{ "fields": {"name": pattern.garment_type }}]
+                    "garments":[{"fields":{"name": pattern.garment_type}}]
                 }
                 response.append(familyToCreateOrAppend)
             else:
                 if not any(t['fields']['name'] == pattern.garment_type for t in familyToCreateOrAppend['garments']):
-                    familyToCreateOrAppend['garments'].append({ "fields": {"name": pattern.garment_type }})
+                    familyToCreateOrAppend['garments'].append(
+                        {"fields":{"name": pattern.garment_type}}
+                    )
         self.response.write(json.dumps(response))
 
     def get_pattern(self, split):
