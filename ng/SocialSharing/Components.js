@@ -14,16 +14,16 @@ angular.module('project')
         // Common attributes
         $scope.popupHeight = 300;
         $scope.popupWidth = 400;
-        $scope.socialshareText = 'New Uge Guide: ' ;//+ exp.fields.name;
+        $scope.socialshareText = 'New: ' ;//+ exp.fields.name;
         //$scope.socialshareUrl = 'https://localhost:8080/ng#/preview/' + exp.fields.id;
-        $scope.socialshareUrl = 'http://www.ugeapp.com/DavidShare/chinatown-little-italy/307/';
+        $scope.socialshareUrl = 'http://www.ssssssss.com//';
         $scope.socialshareHashtags = 'tags';
 
         $scope.expTitle = 'tt'//exp.fields.name;
         $scope.expDescription = 'dd';//exp.fields.description;
 
         // Linkedin specific
-        $scope.linkedinSource = 'UGE App'
+        $scope.linkedinSource = 'I sew what you did'
 
         $scope.init = function() {
             //console.log(exp.fields.id)

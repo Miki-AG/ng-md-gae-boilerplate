@@ -1,7 +1,6 @@
 .studio-publish-dialog {
     min-width: 600px;
     min-height: 300px;
-    /*background: url(https://s3.amazonaws.com/ugedev1static/img/md/wp6.png);*/
     background-image: url('/static/img/bg1.jpg');
     background-size: cover;
     /* <------ */
