@@ -5,9 +5,11 @@ angular.module('datastore', ['ngResource'])
         // any time auth state changes, add the user data to scope
         auth.$onAuthStateChanged(function(firebaseUser) {
             user = firebaseUser;
-            user.getToken().then(function(idToken) {
-                $http.defaults.headers.common['Authorization'] = 'Bearer ' + idToken
-            });
+            if (user) {
+                user.getToken().then(function(idToken) {
+                    $http.defaults.headers.common['Authorization'] = 'Bearer ' + idToken
+                });
+            };
         });
 
         var Project = $resource(
