@@ -5,7 +5,7 @@
         md-rowspan="1" md-colspan="1" md-colspan-sm="1" md-colspan-xs="1"
         ng-class="getClass('{{pattern.garment_family}}')" class="family-img">
         <div layout="row" class="tile-footer" style=";" layout-align="center center">
-            <h3 flex ui-sref="view({projectId:pattern.id})">{{pattern.name}}</h3>
+            <h3 flex ui-sref="view({projectId:pattern.id, name: pattern.slug })">{{pattern.name}}</h3>
             <md-button ng-if="pattern.owner == user.email && user.email" aria-label="call"
                 ui-sref="detail({projectId:pattern.id})" class="md-secondary md-icon-button">
                 <ng-md-icon icon="edit" style="fill:white;"></ng-md-icon>

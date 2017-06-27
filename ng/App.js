@@ -17,7 +17,7 @@ angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 
                 controller: 'CreatorsCtrl'
             })
             .state('view', {
-                url: '/view/{projectId:int}',
+                url: '/view/{projectId:int}/{name}',
                 templateUrl: 'ng/PatternDetail/view.tpl.html',
                 controller: 'ViewCtrl'
             })

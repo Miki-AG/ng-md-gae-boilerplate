@@ -6,6 +6,7 @@ from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from collections import namedtuple
 from google.appengine.api import search
+from slugify import slugify
 
 import google.oauth2.id_token
 import requests_toolbelt.adapters.appengine
@@ -44,6 +45,8 @@ class Project(ndb.Model):
     garment_type = ndb.StringProperty(required=False)
     owner = ndb.StringProperty(required=False)
     searchable_doc_id = ndb.StringProperty(required=False)
+    video_url = ndb.StringProperty(required=False)
+    slug = ndb.StringProperty(required=False)
     def update(self, newdata):
         "Update pattern"
         for key, value in newdata.items():
@@ -94,7 +97,9 @@ class Rest(webapp2.RequestHandler):
             garment_family=data_dict['garment_family'],
             garment_type=data_dict['garment_type'],
             owner=owner_from_token,
-            searchable_doc_id=index[0].id
+            searchable_doc_id=index[0].id,
+            video_url=data_dict['video_url'],
+            slug=slugify(data_dict['name'])
         )
         key = item.put()
         self.response.write(json.dumps({'id': key.id()}))
@@ -188,7 +193,9 @@ class Rest(webapp2.RequestHandler):
                 "name": pattern.name,
                 "garment_family": pattern.garment_family,
                 "garment_type": pattern.garment_type,
-                "owner": pattern.owner
+                "owner": pattern.owner,
+                "video_url": pattern.video_url,
+                "slug": pattern.slug
             })
         self.response.write(json.dumps(response))
 
@@ -206,7 +213,9 @@ class Rest(webapp2.RequestHandler):
                 "name": pattern.name,
                 "garment_family": pattern.garment_family,
                 "garment_type": pattern.garment_type,
-                "owner": pattern.owner
+                "owner": pattern.owner,
+                "video_url": pattern.video_url,
+                "slug": pattern.slug
             })
         self.response.write(json.dumps(response))
 
@@ -229,7 +238,9 @@ class Rest(webapp2.RequestHandler):
                 "name": pattern.name,
                 "garment_family": pattern.garment_family,
                 "garment_type": pattern.garment_type,
-                "owner": pattern.owner
+                "owner": pattern.owner,
+                "video_url": pattern.video_url,
+                "slug": pattern.slug
             })
         self.response.write(json.dumps(response))
 
