@@ -55,7 +55,7 @@ angular.module('project')
             $mdDialog.hide(answer);
         };
     })
-    .controller('EditCtrl', function($scope, $rootScope, $mdToast, $mdDialog, $timeout, $location, $stateParams, Project, UploadResource, DownloadResource, RemoveFileResource, $http) {
+    .controller('EditCtrl', function($scope, $state, $rootScope, $mdToast, $mdDialog, $timeout, $location, $stateParams, Project, UploadResource, DownloadResource, RemoveFileResource, $http) {
         $scope._DownloadResource = DownloadResource;
         $scope._$rootScope = $rootScope;
 
@@ -73,6 +73,7 @@ angular.module('project')
         $scope.garmentSelected;
 
         $scope.pattern = null;
+        $scope.neverSaved = true;
 
         $scope.init = function() {
             $http.get('ng/Tags/data.json').success(function(data) {
@@ -84,6 +85,7 @@ angular.module('project')
             if (!$stateParams.projectId) {
                 $scope.pattern = new Project();
             } else {
+                $scope.neverSaved = false;
                 Project.get({ id: $stateParams.projectId }, function(pattern) {
                     $scope.download_files_urls = DownloadResource.query({ id: pattern.id }, function(promisedData) {});
                     $scope.pattern = pattern;
@@ -111,6 +113,14 @@ angular.module('project')
                     $scope.processing = false;
                     $location.path('/');
                 }, 1000);
+            });
+        };
+        $scope.saveStep0 = function() {
+            $scope.pattern = $scope.pattern.update(function(item) {
+                if ($state.current.name == 'detail'){
+                    $scope.myForm.$setPristine();
+                }
+                $state.go('detail', { projectId: item.id });
             });
         };
         $scope.goToStep = function(nextStep) {

@@ -1,10 +1,13 @@
 <h3 class="md-title">{{pattern.garment_family}}/{{pattern.garment_type}}</h3>
 <h3 class="md-display-1">{{pattern.name}}</h3>
 <p class="md-body-1">{{pattern.description}}</p>
-Youtube Video Tutorial:
-<md-button ng-if="pattern.video_url" ng-href="{{pattern.video_url}}"
-    class="md-primary" target="_blank"> {{pattern.video_url}} »
-</md-button>
+
+<div layout="row" ng-if="pattern.video_url" layout-align="start center">
+    Youtube Video Tutorial:
+    <md-button ng-href="{{pattern.video_url}}" class="md-primary"
+        target="_blank"> {{pattern.video_url}}
+    </md-button>
+</div>
 
 <div layout="column">
     <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"

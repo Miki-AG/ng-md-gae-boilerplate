@@ -98,7 +98,7 @@ class Rest(webapp2.RequestHandler):
             garment_type=data_dict['garment_type'],
             owner=owner_from_token,
             searchable_doc_id=index[0].id,
-            video_url=data_dict['video_url'],
+            video_url=data_dict.get('video_url', ''),
             slug=slugify(data_dict['name'])
         )
         key = item.put()
@@ -115,6 +115,8 @@ class Rest(webapp2.RequestHandler):
         item.garment_family = data_dict['garment_family']
         item.garment_type = data_dict['garment_type']
         item.owner = owner_from_token
+        item.video_url = data_dict.get('video_url', '')
+        item.slug = slugify(data_dict['name'])
         item.put()
 
         searchable_doc = search.Document(

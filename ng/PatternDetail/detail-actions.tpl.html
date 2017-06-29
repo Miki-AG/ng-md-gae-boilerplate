@@ -3,7 +3,11 @@
         Delete Pattern
     </md-button>
     <span flex></span>
-    <md-button ng-if="step==0" ng-disabled="!myForm.$valid" class="md-raised md-primary"
+    <md-button ng-if="step==0" ng-disabled="!myForm.$valid || !myForm.$dirty" class="md-raised md-primary"
+        ng-click="saveStep0()">
+        Save
+    </md-button>
+    <md-button ng-if="step==0" ng-disabled="myForm.$dirty || neverSaved" class="md-raised md-primary"
         ng-click="goToStep(1)">
         Upload Files
         <ng-md-icon icon="chevron_right" style="fill:white"></ng-md-icon>

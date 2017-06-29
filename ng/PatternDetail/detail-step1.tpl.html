@@ -37,7 +37,7 @@
     <label>Youtube Video Tutorial</label>
     <input type="url" name="video_url" ng-model="pattern.video_url">
     <ng-messages for="myForm.video_url.$error" role="alert">
-        <ng-message when="url">Not a URL</ng-message>
+        <ng-message when="url">Not a URL (must be http://... or https://...)</ng-message>
     </ng-messages>
 </md-input-container>
 <div layout="row" ng-if="processing" layout-align="center center"
