@@ -1,4 +1,4 @@
-angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 'firebase'])
+angular.module('project', ['datastore', 'ngMaterial', 'ngMdIcons', 'ui.router', 'firebase', '720kb.socialshare'])
     .config(function($stateProvider) {
         $stateProvider
             .state('home', {

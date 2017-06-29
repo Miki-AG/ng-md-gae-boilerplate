@@ -132,7 +132,7 @@ angular.module('project')
         $scope.finish = function() {
             $mdDialog.show({
                 locals: {
-                    exp: $scope.pattern
+                    pattern: $scope.pattern
                 },
                 controller: 'SocialSharingController',
                 templateUrl: 'ng/SocialSharing/edit-publish-dialog.tpl.html',

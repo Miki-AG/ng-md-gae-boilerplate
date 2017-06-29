@@ -6,24 +6,24 @@ angular.module('project')
         $scope,
         $timeout,
         CONFIG,
-        exp
+        pattern
     ) {
         $scope.CONFIG = CONFIG;
-        $scope.exp = exp;
+        $scope.pattern = pattern;
+        $scope.url = '/index.html#/view/' + pattern.id + '/' + pattern.slug;
 
         // Common attributes
         $scope.popupHeight = 300;
         $scope.popupWidth = 400;
-        $scope.socialshareText = 'New: ' ;//+ exp.fields.name;
-        //$scope.socialshareUrl = 'https://localhost:8080/ng#/preview/' + exp.fields.id;
-        $scope.socialshareUrl = 'http://www.ssssssss.com//';
+        $scope.socialshareText = pattern.description;
+        $scope.socialshareUrl = $scope.url;
         $scope.socialshareHashtags = 'tags';
 
-        $scope.expTitle = 'tt'//exp.fields.name;
-        $scope.expDescription = 'dd';//exp.fields.description;
+        $scope.expTitle = pattern.name;
+        $scope.expDescription = pattern.description;
 
         // Linkedin specific
-        $scope.linkedinSource = 'I sew what you did'
+        $scope.linkedinSource = pattern.name;
 
         $scope.init = function() {
             //console.log(exp.fields.id)
