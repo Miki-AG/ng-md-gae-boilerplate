@@ -1,31 +1,32 @@
 <!-- Update your html tag to include the itemscope and itemtype attributes. -->
 <html itemscope itemtype="http://schema.org/Article">
+<meta charset="utf-8">
 <!-- Place this data between the <head> tags of your website -->
 <title>{{pattern.name}}</title>
+
+<!-- Search Engine -->
 <meta name="description" content="{{pattern.name}}" />
+<meta name="image" content="{{image}}">
 
 <!-- Schema.org markup for Google+ -->
 <meta itemprop="name" content="{{pattern.description}}">
 <meta itemprop="description" content="{{pattern.description}}">
-<meta itemprop="image" content="/static/img/family_pants.jpg">
+<meta itemprop="image" content="{{image}}">
 
 <!-- Twitter Card data -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:card" content="{{pattern.name}}">
+<meta name="twitter:site" content="{{share_url}}">
 <meta name="twitter:title" content="{{pattern.name}}">
 <meta name="twitter:description" content="{{pattern.description}}">
-<meta name="twitter:creator" content="@author_handle">
+<meta name="twitter:image" content="{{image}}">
 
 <!-- Open Graph data -->
 <meta property="og:title" content="{{pattern.name}}" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="{{'/share/' + id + '/testtest'}}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{share_url}}" />
 <!-- Facebook image must be at least 600x315px -->
-<meta property="og:image" content="/static/img/family_pants.jpg" />
+<meta property="og:image" content="{{image}}" />
 <meta property="og:description" content="{{pattern.description}}" />
 <meta property="og:site_name" content="I sew what you did" />
-<!--meta property="article:published_time" content="2013-09-17T05:59:00+01:00" />
-<meta property="article:modified_time" content="2013-09-16T19:08:47+01:00" />
-<meta property="article:section" content="Article Section" /-->
-<meta property="article:tag" content="{{tags}}" />
-<!--meta property="fb:admins" content="Facebook numberic ID" /-->
+
+ <meta name="og:image" content="{{image}}" />

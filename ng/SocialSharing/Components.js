@@ -11,16 +11,14 @@ angular.module('project')
         $scope.CONFIG = CONFIG;
         $scope.pattern = pattern;
         $scope.LinkShareUrl = '/#/view/' + pattern.id + '/' + pattern.slug;
-        $scope.socialshareUrl = '/share/' + pattern.id + '/' + pattern.slug;
+        $scope.socialshareUrl = 'http://www.isewwhatyoudid.com/share/' + pattern.id + '/' + pattern.slug;
 
         // Common attributes
         $scope.popupHeight = 300;
         $scope.popupWidth = 400;
         $scope.socialshareText = pattern.description;
         $scope.socialshareHashtags = 'tags';
-
-        $scope.expTitle = pattern.name;
-        $scope.expDescription = pattern.description;
+        $scope.name = pattern.name;
 
         // Linkedin specific
         $scope.linkedinSource = pattern.name;

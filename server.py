@@ -113,11 +113,10 @@ class TemplateService(TemplateHandler):
                     pattern.garment_family.replace(" ", "").lower(),
                     pattern.garment_type.replace(" ", "").lower())
                 context = {
-                    'test': 'test',
                     'pattern': pattern,
-                    'id': split[1],
-                    'slug': split[2],
-                    'tags': tags
+                    'tags': tags,
+                    'image': '/static/img/family_pants.jpg',
+                    'share_url': '/share/{}/{}'.format(split[1], split[2])
                 }
                 self.render_response('share_template.html', **context)
             else:
