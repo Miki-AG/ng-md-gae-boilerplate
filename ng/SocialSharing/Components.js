@@ -10,13 +10,13 @@ angular.module('project')
     ) {
         $scope.CONFIG = CONFIG;
         $scope.pattern = pattern;
-        $scope.url = '/index.html#/view/' + pattern.id + '/' + pattern.slug;
+        $scope.LinkShareUrl = '/#/view/' + pattern.id + '/' + pattern.slug;
+        $scope.socialshareUrl = '/share/' + pattern.id + '/' + pattern.slug;
 
         // Common attributes
         $scope.popupHeight = 300;
         $scope.popupWidth = 400;
         $scope.socialshareText = pattern.description;
-        $scope.socialshareUrl = $scope.url;
         $scope.socialshareHashtags = 'tags';
 
         $scope.expTitle = pattern.name;
@@ -26,7 +26,7 @@ angular.module('project')
         $scope.linkedinSource = pattern.name;
 
         $scope.init = function() {
-            //console.log(exp.fields.id)
+            console.log(pattern)
         };
         $scope.hide = function() {
             $mdDialog.hide();

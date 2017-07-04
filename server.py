@@ -7,6 +7,9 @@ from google.appengine.ext.webapp import blobstore_handlers
 from collections import namedtuple
 from google.appengine.api import search
 from slugify import slugify
+import webapp2
+
+from webapp2_extras import jinja2
 
 import google.oauth2.id_token
 import requests_toolbelt.adapters.appengine
@@ -62,13 +65,74 @@ class UserPhoto(ndb.Model):
     blob_key = ndb.BlobKeyProperty()
     pattern_key = ndb.KeyProperty(kind=Project)
 
-"""This is a javadoc style.
 
-Args:
-    webapp2.RequestHandler: This is the first param.
+class TemplateHandler(webapp2.RequestHandler):
 
-"""
-class Rest(webapp2.RequestHandler):
+    @webapp2.cached_property
+    def jinja2(self):
+        # Returns a Jinja2 renderer cached in the app registry.
+        return jinja2.get_jinja2(app=self.app)
+
+    def render_response(self, _template, **context):
+        # Renders a template and writes the result to the response.
+        rv = self.jinja2.render_template(_template, **context)
+        #logging.info('-------------------------------> Rendered template: {}'.format(rv))
+        self.response.write(rv)
+
+
+class TemplateService(TemplateHandler):
+    """This is a javadoc style.
+
+    Args:
+        webapp2.RequestHandler: This is the first param.
+
+    """
+    def get(self):
+        logging.info("############### In Template Service")
+
+        split = self.request.path_info[1:].split('/')
+        logging.info("------------> url: {}".format(self.request.url))
+        logging.info("------------> path_info: {}".format(self.request.path_info))
+        logging.info("------------> split: {}".format(split))
+
+
+        response = []
+        user_agent = self.request.headers['user-agent']
+
+        # Bot
+        if  ('google' in user_agent or
+             'facebookexternalhit' in user_agent or
+             'Facebot' in user_agent):
+            if split[0] == 'share':
+                logging.info("------------> id: {}".format(split[1]))
+
+                pattern = Project.get_by_id(int(split[1]))
+                logging.info("------------> pattern: {}".format(pattern))
+
+                tags = '#{}, #{}, #isewwhatyoudid'.format(
+                    pattern.garment_family.replace(" ", "").lower(),
+                    pattern.garment_type.replace(" ", "").lower())
+                context = {
+                    'test': 'test',
+                    'pattern': pattern,
+                    'id': split[1],
+                    'slug': split[2],
+                    'tags': tags
+                }
+                self.render_response('share_template.html', **context)
+            else:
+                return 'Unauthorized', 401
+
+        # Person
+        else:
+            if split[0] == 'share':
+                self.redirect('/#/view/{}/{}'.format(split[1], split[2]))
+            else:
+                context = {}
+                self.render_response('index.html', **context)
+
+
+class Rest(TemplateHandler):
 
     """ Get owner """
     def get_owner_from_token(self):
@@ -180,6 +244,7 @@ class Rest(webapp2.RequestHandler):
         response['id'] = item.key.id()
         self.response.write(json.dumps(response))
 
+
     def get_my_patterns(self):
         response = []
 
@@ -282,12 +347,16 @@ class Rest(webapp2.RequestHandler):
         self.response.write(json.dumps(response))
 
     def get(self):
+        logging.info("############### In API Service")
+
         response = []
 
         #pop off the script name ('/api')
         self.request.path_info_pop()
         #forget about the leading '/' and searate the Data type and the ID
         split = self.request.path_info[1:].split('/')
+
+        logging.info('In GET: {}'.format(split))
 
         if self.request.path_info == '':
             self.redirect("/index.html#/")
@@ -393,9 +462,10 @@ class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
             self.send_blob(blob_key)
 
 app = webapp2.WSGIApplication([
-    ('/', Rest),
+    #('/', Rest),
     ('/api.*', Rest),
     ('/upload_photo', PhotoUploadHandler),
     ('/view_photo/([^/]+)?', ViewPhotoHandler),
+    ('/.*', TemplateService),
 ], debug=True)
 

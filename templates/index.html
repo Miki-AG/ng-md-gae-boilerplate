@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Project</title>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
+    <link rel="stylesheet" href="/ng/main.css">
+    <link rel="stylesheet" href="/ng/SocialSharing/Styles.css">
+    <link rel="stylesheet" href="/ng/Tags/Styles.css">
+</head>
+
+<body ng-app="project" class="main-frame">
+    <div layout="column" flex="80" flex-offset="10">
+        <div ng-include="'ng/Header/header.tpl.html'"></div>
+        <ui-view></ui-view>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.5.0/angular-material-icons.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <script src="ng/App.js"></script>
+    <script src="ng/Common/Components.js"></script>
+    <script src="ng/datastore.js"></script>
+    <script src="ng/Header/Components.js"></script>
+    <script src="ng/Home/Components.js"></script>
+    <script src="ng/MyPatterns/Components.js"></script>
+    <script src="ng/LoginButton/Components.js"></script>
+    <script src="ng/PatternDetail/Components.js"></script>
+    <script src="ng/PatternGrid/Components.js"></script>
+    <script src="ng/SocialSharing/Components.js"></script>
+    <script src="ng/StaticPages/Components.js"></script>
+    <script src="ng/Tags/Component.js"></script>
+
+    <script src="ng/lib/angular-socialshare-2.3.7/angular-socialshare-2.3.7.js"></script>
+
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAtVt6_MHItINtcfefiZRr2H2dQwxbzP9Y",
+        authDomain: "ng-md-gae-boilerplate.firebaseapp.com",
+        databaseURL: "https://ng-md-gae-boilerplate.firebaseio.com",
+        projectId: "ng-md-gae-boilerplate",
+        storageBucket: "ng-md-gae-boilerplate.appspot.com",
+        messagingSenderId: "148398318393"
+    };
+    firebase.initializeApp(config);
+    </script>
+    <script>
+    window.onload = function() {
+        console.log('window.location.hash: ' + window.location
+            .hash);
+        if ((window.location.hash == '')||(window.location.hash == '/')) {
+            window.location.hash = "/#";
+        }
+    }
+    </script>
+</body>
+
+</html>

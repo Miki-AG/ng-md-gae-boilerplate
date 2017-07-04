@@ -9,9 +9,9 @@ handlers:
 - url: /ng
   static_dir: ng
 
-- url: /(index\.html)
-  static_files: static/\1
-  upload: static/(.*)
+#- url: /(index\.html)
+#  static_files: static/\1
+#  upload: static/(.*)
 
 - url: /(robots\.txt|favicon\.ico|sitemap\.txt)
   static_files: static/\1
